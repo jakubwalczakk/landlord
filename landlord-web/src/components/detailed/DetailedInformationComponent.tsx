@@ -1,16 +1,16 @@
 import React from 'react';
-import {Checkbox, FormControl, FormControlLabel, Grid, TextField, Typography} from '@material-ui/core';
+import {Divider, FormControl, FormControlLabel, Grid, Paper, Typography} from '@material-ui/core';
 
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import {OrangeCheckbox, OrangeSelect, OrangeTextField} from "../../ui/OrangeComponents";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         formControl: {
             margin: theme.spacing(3),
-            minWidth: 120,
+            paddingLeft: 20
         },
         selectEmpty: {
             marginTop: theme.spacing(3),
@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         textField: {
             width: '25ch',
+        },
+        typography: {
+            padding: theme.spacing(1)
         },
     }),
 );
@@ -48,10 +51,11 @@ export default function DetailedInformationComponent() {
     };
 
     return (
-        <div>
-            <Typography variant={'h6'}>
+        <Paper>
+            <Typography variant={'h6'} className={classes.typography}>
                 Informacje szczegółowe
             </Typography>
+            <Divider/>
             <FormControl fullWidth component="fieldset" className={classes.formControl}>
                 <Grid container xs={12} spacing={4}>
 
@@ -61,7 +65,7 @@ export default function DetailedInformationComponent() {
                     <Grid xs={4}>
                         <FormControl fullWidth className={classes.margin} variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">Rodzaj zabudowy</InputLabel>
-                            <Select
+                            <OrangeSelect
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
                                 value={age}
@@ -74,14 +78,14 @@ export default function DetailedInformationComponent() {
                                 <MenuItem value={10}>Ten</MenuItem>
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
+                            </OrangeSelect>
                         </FormControl>
                     </Grid>
 
                     <Grid xs={4}>
                         <FormControl fullWidth className={classes.margin} variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">Piętro</InputLabel>
-                            <Select
+                            <OrangeSelect
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
                                 value={age}
@@ -94,13 +98,13 @@ export default function DetailedInformationComponent() {
                                 <MenuItem value={10}>Ten</MenuItem>
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
+                            </OrangeSelect>
                         </FormControl>
                     </Grid>
 
                     <Grid xs={4}>
                         <FormControl fullWidth className={classes.margin} variant="outlined">
-                            <TextField
+                            <OrangeTextField
                                 label={'Liczba pięter'}
                                 variant={'outlined'}
                             />
@@ -110,7 +114,7 @@ export default function DetailedInformationComponent() {
                     <Grid xs={4}>
                         <FormControl fullWidth className={classes.margin} variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">Materiał budynku</InputLabel>
-                            <Select
+                            <OrangeSelect
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
                                 value={age}
@@ -123,14 +127,14 @@ export default function DetailedInformationComponent() {
                                 <MenuItem value={10}>Ten</MenuItem>
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
+                            </OrangeSelect>
                         </FormControl>
                     </Grid>
 
                     <Grid xs={4}>
                         <FormControl fullWidth className={classes.margin} variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">Okna</InputLabel>
-                            <Select
+                            <OrangeSelect
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
                                 value={age}
@@ -143,14 +147,14 @@ export default function DetailedInformationComponent() {
                                 <MenuItem value={10}>Ten</MenuItem>
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
+                            </OrangeSelect>
                         </FormControl>
                     </Grid>
 
                     <Grid xs={4}>
                         <FormControl fullWidth className={classes.margin} variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">Ogrzewanie</InputLabel>
-                            <Select
+                            <OrangeSelect
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
                                 value={age}
@@ -163,13 +167,13 @@ export default function DetailedInformationComponent() {
                                 <MenuItem value={10}>Ten</MenuItem>
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
+                            </OrangeSelect>
                         </FormControl>
                     </Grid>
 
                     <Grid xs={4}>
                         <FormControl fullWidth className={classes.margin} variant="outlined">
-                            <TextField
+                            <OrangeTextField
                                 label={'Rok budowy'}
                                 variant={'outlined'}
                             />
@@ -179,7 +183,7 @@ export default function DetailedInformationComponent() {
                     <Grid xs={4}>
                         <FormControl fullWidth className={classes.margin} variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">Stan wykończenia</InputLabel>
-                            <Select
+                            <OrangeSelect
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
                                 value={age}
@@ -192,7 +196,7 @@ export default function DetailedInformationComponent() {
                                 <MenuItem value={10}>Ten</MenuItem>
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
+                            </OrangeSelect>
                         </FormControl>
                     </Grid>
 
@@ -211,13 +215,13 @@ export default function DetailedInformationComponent() {
                     </Grid>
                     <Grid xs={4}>
                         <FormControlLabel
-                            control={<Checkbox checked={false} onChange={handleChange}
-                                               name="Dostępne również dla studentów"/>}
+                            control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                     name="Dostępne również dla studentów"/>}
                             label="Oferta dostępna dla studentów"
                         />
                     </Grid>
                 </Grid>
             </FormControl>
-        </div>
+        </Paper>
     );
 }

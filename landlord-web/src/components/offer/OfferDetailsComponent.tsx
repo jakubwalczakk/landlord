@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {Container, FormControl, Grid, TextField, Typography} from '@material-ui/core'
+import {Container, Grid, Typography} from '@material-ui/core'
 import MediaInfoContainer from '../mediainfo/MediaInfoContainer';
 import AdditionalInfoContainer from '../additionalinfo/AdditionalInfoContainer';
 import SecurityInfoContainer from '../securityinfo/SecurityInfoContainer';
@@ -11,6 +11,7 @@ import DetailedInformationContainer from '../detailed/DetailedInformationContain
 import BasicInfoContainer from '../basic/BasicInfoContainer';
 import Spinner from '../../ui/Spinner';
 import ContactContainer from '../contact/ContactContainer';
+import MultimediaContainer from "../multimedia/MultimediaContainer";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,6 +35,7 @@ export default function OfferDetailsComponent() {
     const isLoading = false;
     const classes = useStyles();
     return (
+        // <Container component="main" >
         <div className='single-page'>
             {isLoading && <Spinner/>}
             <Typography variant='h5' align='center'>
@@ -47,14 +49,7 @@ export default function OfferDetailsComponent() {
                         </Grid>
 
                         <Grid item xs={9}>
-                            <Typography variant='h6'>
-                                Multimedia
-                            </Typography>
-                            <FormControl fullWidth>
-                                <TextField>
-
-                                </TextField>
-                            </FormControl>
+                            <MultimediaContainer/>
                         </Grid>
 
                         <Grid item xs={9}>
@@ -88,5 +83,6 @@ export default function OfferDetailsComponent() {
                 </Container>
             </form>
         </div>
+        // </Container>
     );
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
-import {Checkbox, FormControl, FormControlLabel, FormGroup, Grid, Typography} from '@material-ui/core'
+import {Divider, FormControl, FormControlLabel, FormGroup, Grid, Paper, Typography} from '@material-ui/core'
+import {OrangeCheckbox} from "../../ui/OrangeComponents";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -10,6 +11,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         formControl: {
             margin: theme.spacing(3),
+            paddingLeft: 20
+        },
+        typography: {
+            padding: theme.spacing(1)
         },
     }),
 );
@@ -31,66 +36,65 @@ export default function EquipmentInfoComponent() {
 
 
     return (
-        <div>
-            <Typography variant={'h6'}>
+        <Paper>
+            <Typography variant={'h6'} className={classes.typography}>
                 Wyposażenie
             </Typography>
+            <Divider/>
             <FormControl fullWidth component="fieldset" className={classes.formControl}>
                 <FormGroup>
-
                     <Grid container xs={12} spacing={4}>
-
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="pralka"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="pralka"/>}
                                 label="pralka"
                             />
                         </Grid>
 
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={true} onChange={handleChange} name="meble"/>}
+                                control={<OrangeCheckbox checked={true} onChange={handleChange} name="meble"/>}
                                 label="meble"
                             />
                         </Grid>
 
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="zmywarka"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="zmywarka"/>}
                                 label="zmywarka"
                             />
                         </Grid>
 
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="lodówka"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="lodówka"/>}
                                 label="lodówka"
                             />
                         </Grid>
 
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="kuchenka"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="kuchenka"/>}
                                 label="kuchenka"
                             />
                         </Grid>
 
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="piekarnik"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="piekarnik"/>}
                                 label="piekarnik"
                             />
                         </Grid>
 
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="tewizor"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="tewizor"/>}
                                 label="tewizor"
                             />
                         </Grid>
                     </Grid>
                 </FormGroup>
             </FormControl>
-        </div>
+        </Paper>
     );
 }

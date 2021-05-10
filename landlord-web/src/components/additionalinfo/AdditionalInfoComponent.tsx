@@ -1,7 +1,8 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
-import {Checkbox, FormControl, FormControlLabel, FormGroup, Grid, Typography} from '@material-ui/core'
+import {Divider, FormControl, FormControlLabel, FormGroup, Grid, Paper, Typography} from '@material-ui/core'
+import {OrangeCheckbox} from "../../ui/OrangeComponents";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -10,6 +11,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         formControl: {
             margin: theme.spacing(3),
+            paddingLeft: 20
+        },
+        typography: {
+            padding: theme.spacing(1)
         },
     }),
 );
@@ -31,85 +36,87 @@ export default function AdditionalInfoComponent() {
 
 
     return (
-        <div>
-            <Typography variant={'h6'}>
+        <Paper>
+            <Typography variant={'h6'} className={classes.typography}>
                 Informacje dodatkowe
             </Typography>
+            <Divider/>
             <FormControl fullWidth component="fieldset" className={classes.formControl}>
                 <FormGroup>
                     <Grid container xs={12} spacing={4}>
 
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="balkon"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="balkon"/>}
                                 label="balkon"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={true} onChange={handleChange} name="pom. użytkowe"/>}
+                                control={<OrangeCheckbox checked={true} onChange={handleChange} name="pom. użytkowe"/>}
                                 label="pom. użytkowe"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange}
-                                                   name="garaż/miejsce parkingowe"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                         name="garaż/miejsce parkingowe"/>}
                                 label="garaż/miejsce parkingowe"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="piwnica"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="piwnica"/>}
                                 label="piwnica"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="ogródek"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="ogródek"/>}
                                 label="ogródek"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="taras"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="taras"/>}
                                 label="taras"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="winda"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="winda"/>}
                                 label="winda"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="dwupoziomowe"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="dwupoziomowe"/>}
                                 label="dwupoziomowe"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="oddzielna kuchnia"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                         name="oddzielna kuchnia"/>}
                                 label="oddzielna kuchnia"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="klimatyzacja"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="klimatyzacja"/>}
                                 label="klimatyzacja"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange}
-                                                   name="tylko dla niepalących"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                         name="tylko dla niepalących"/>}
                                 label="tylko dla niepalacych"
                             />
                         </Grid>
                     </Grid>
                 </FormGroup>
             </FormControl>
-        </div>
+        </Paper>
     );
 }

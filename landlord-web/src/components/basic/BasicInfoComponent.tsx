@@ -1,25 +1,28 @@
 import React from 'react';
 
 import clsx from 'clsx';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {createStyles, makeStyles, Theme, withStyles} from '@material-ui/core/styles';
 import {
+    Divider,
     FormControl,
     FormControlLabel,
-    FormHelperText,
     FormLabel,
     Grid,
     InputAdornment,
-    OutlinedInput,
+    Paper,
     Radio,
     RadioGroup,
-    TextField,
+    RadioProps,
     Typography
 } from '@material-ui/core';
+import {ORANGE_COLOR} from "../../COLOR_CONSTANTS";
+import {OrangeTextField} from "../../ui/OrangeComponents";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         formControl: {
-            margin: theme.spacing(3),
+            margin: theme.spacing(1),
+            paddingLeft: 20
         },
         root: {
             display: 'flex',
@@ -29,14 +32,26 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(1),
         },
         withoutLabel: {
-            marginTop: theme.spacing(3),
+            marginTop: theme.spacing(1),
         },
         textField: {
             width: '25ch',
         },
+        typography: {
+            padding: theme.spacing(1)
+        }
     }),
 );
 
+const OrangeRadio = withStyles({
+    root: {
+        color: ORANGE_COLOR,
+        '&$checked': {
+            color: ORANGE_COLOR,
+        },
+    },
+    checked: {},
+})((props: RadioProps) => <Radio color="default" {...props} />);
 
 interface State {
     amount: string;
@@ -73,111 +88,105 @@ export default function BasicInfoComponent() {
     //     setValue((event.target as HTMLInputElement).value);
     // };
     return (
-        <div>
-            <Typography variant={'h6'}>
+        <Paper>
+            <Typography variant={'h6'} className={classes.typography}>
                 Informacje podstawowe
             </Typography>
+            <Divider/>
             <FormControl fullWidth component="fieldset" className={classes.formControl}>
                 <Grid container xs={12} spacing={4}>
                     <Grid xs={12}>
-                        <TextField fullWidth
-                                   label={'Tytuł ogłoszenia'}/>
-                    </Grid>
-
-                    <Grid xs={4}>
-                        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OutlinedInput
-                                id="outlined-adornment-weight"
-                                value={values.weight}
-                                onChange={handleChange('weight')}
-                                endAdornment={<InputAdornment position="end">zł</InputAdornment>}
-                                aria-describedby="outlined-weight-helper-text"
-                                inputProps={{
-                                    'aria-label': 'Cena',
-                                }}
-                                labelWidth={0}
+                        <FormControl
+                            fullWidth={true} className={clsx(classes.margin, classes.textField)} variant="outlined">
+                            <OrangeTextField
+                                fullWidth={true}
+                                label="Tytuł ogłoszenia"
+                                id="outlined-start-adornment"
+                                className={clsx(classes.margin, classes.textField)}
+                                variant="outlined"
                             />
-                            <FormHelperText id="outlined-weight-helper-text">Cena</FormHelperText>
                         </FormControl>
                     </Grid>
 
                     <Grid xs={4}>
                         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OutlinedInput
-                                id="outlined-adornment-weight"
-                                value={values.weight}
-                                onChange={handleChange('weight')}
-                                endAdornment={<InputAdornment position="end">zł</InputAdornment>}
-                                aria-describedby="outlined-weight-helper-text"
-                                inputProps={{
-                                    'aria-label': 'Czynsz - dodatkowo',
+                            <OrangeTextField
+                                label="Cena"
+                                id="outlined-start-adornment"
+                                className={clsx(classes.margin, classes.textField)}
+                                variant="outlined"
+                                InputProps={{
+                                    endAdornment: <InputAdornment position="end">zł</InputAdornment>,
                                 }}
-                                labelWidth={0}
                             />
-                            <FormHelperText id="outlined-weight-helper-text">Czynsz - dodatkowo</FormHelperText>
                         </FormControl>
                     </Grid>
 
                     <Grid xs={4}>
                         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OutlinedInput
-                                id="outlined-adornment-weight"
-                                value={values.weight}
-                                onChange={handleChange('weight')}
-                                endAdornment={<InputAdornment position="end">zł</InputAdornment>}
-                                aria-describedby="outlined-weight-helper-text"
-                                inputProps={{
-                                    'aria-label': 'Kaucja',
+                            <OrangeTextField
+                                label="Czynsz - dodatkowo"
+                                id="outlined-start-adornment"
+                                className={clsx(classes.margin, classes.textField)}
+                                variant="outlined"
+                                InputProps={{
+                                    endAdornment: <InputAdornment position="end">zł</InputAdornment>,
                                 }}
-                                labelWidth={0}
                             />
-                            <FormHelperText id="outlined-weight-helper-text">Kaucja</FormHelperText>
                         </FormControl>
                     </Grid>
 
                     <Grid xs={4}>
                         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OutlinedInput
-                                id="outlined-adornment-weight"
-                                value={values.weight}
-                                onChange={handleChange('weight')}
-                                endAdornment={<InputAdornment position="end">m^2</InputAdornment>}
-                                aria-describedby="outlined-weight-helper-text"
-                                inputProps={{
-                                    'aria-label': 'Powierzchnia',
+                            <OrangeTextField
+                                label="Kaucja"
+                                id="outlined-start-adornment"
+                                className={clsx(classes.margin, classes.textField)}
+                                variant="outlined"
+                                InputProps={{
+                                    endAdornment: <InputAdornment position="end">zł</InputAdornment>,
                                 }}
-                                labelWidth={0}
                             />
-                            <FormHelperText id="outlined-weight-helper-text">Powierzchnia</FormHelperText>
                         </FormControl>
                     </Grid>
 
                     <Grid xs={4}>
                         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OutlinedInput
-                                id="outlined-adornment-weight"
-                                value={values.weight}
-                                onChange={handleChange('weight')}
-                                aria-describedby="outlined-weight-helper-text"
-                                inputProps={{
-                                    'aria-label': 'Liczba pokoi',
+                            <OrangeTextField
+                                label="Powierzchnia"
+                                id="outlined-start-adornment"
+                                className={clsx(classes.margin, classes.textField)}
+                                variant="outlined"
+                                InputProps={{
+                                    endAdornment: <InputAdornment position="end">zł</InputAdornment>,
                                 }}
-                                labelWidth={0}
                             />
-                            <FormHelperText id="outlined-weight-helper-text">Liczba pokoi</FormHelperText>
                         </FormControl>
                     </Grid>
 
                     <Grid xs={4}>
-                        <FormLabel component="legend">Typ ogłoszeniodawcy</FormLabel>
-                        <RadioGroup aria-label="gender" name="gender1" value={value}
-                                    onChange={() => console.log("Handle change")}>
-                            <FormControlLabel value="owner" control={<Radio/>} label="Właściciel"/>
-                            <FormControlLabel value="broker" control={<Radio/>} label="Pośrednik"/>
-                        </RadioGroup>
+                        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                            <OrangeTextField
+                                label="Liczba pokoi"
+                                id="outlined-start-adornment"
+                                className={clsx(classes.margin, classes.textField)}
+                                variant="outlined"
+                            />
+                        </FormControl>
+                    </Grid>
+
+                    <Grid xs={4}>
+                        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                            <FormLabel component="legend">Typ ogłoszeniodawcy</FormLabel>
+                            <RadioGroup aria-label="gender" name="gender1" value={value}
+                                        onChange={() => console.log("Handle change")}>
+                                <FormControlLabel value="owner" control={<OrangeRadio/>} label="Właściciel"/>
+                                <FormControlLabel value="broker" control={<OrangeRadio/>} label="Pośrednik"/>
+                            </RadioGroup>
+                        </FormControl>
                     </Grid>
                 </Grid>
             </FormControl>
-        </div>
+        </Paper>
     );
 }

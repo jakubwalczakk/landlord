@@ -1,7 +1,8 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
-import {Checkbox, FormControl, FormControlLabel, FormGroup, Grid, Typography} from '@material-ui/core'
+import {Divider, FormControl, FormControlLabel, FormGroup, Grid, Paper, Typography} from '@material-ui/core'
+import {OrangeCheckbox} from "../../ui/OrangeComponents";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -11,10 +12,13 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         formControl: {
             margin: theme.spacing(3),
+            paddingLeft: 20
+        },
+        typography: {
+            padding: theme.spacing(1)
         },
     }),
 );
-
 
 export default function SecurityInfoComponent() {
     const classes = useStyles();
@@ -33,56 +37,59 @@ export default function SecurityInfoComponent() {
 
 
     return (
-        <div>
-            <Typography variant={'h6'}>
+        <Paper>
+            <Typography variant={'h6'} className={classes.typography}>
                 Zabezpieczenia
             </Typography>
-
+            <Divider/>
             <FormControl fullWidth component="fieldset" className={classes.formControl}>
                 <FormGroup>
                     <Grid container xs={12} spacing={4}>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange}
-                                                   name="rolety antywłamaniowe"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                         name="rolety antywłamaniowe"/>}
                                 label="rolety antywlamaniowe"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={true} onChange={handleChange}
-                                                   name="drzwi / okna antywłamaniowe"/>}
-                                label="drzwi / okna antywlamaniowe"
+                                control={<OrangeCheckbox checked={true} onChange={handleChange}
+                                                         name="drzwi/okna antywłamaniowe"/>}
+                                label="drzwi/okna antywlamaniowe"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="domofon / wideofon"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                         name="domofon/wideofon"/>}
                                 label="domofon/wideofon"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange}
-                                                   name="monitoring / ochrona"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                         name="monitoring/ochrona"/>}
                                 label="monitoring/ochrona"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="system alarmowy"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                         name="system alarmowy"/>}
                                 label="system alarmowy"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="teren zamknięty"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                         name="teren zamknięty"/>}
                                 label="teren zamknięty"
                             />
                         </Grid>
                     </Grid>
                 </FormGroup>
             </FormControl>
-        </div>
+        </Paper>
     );
 }

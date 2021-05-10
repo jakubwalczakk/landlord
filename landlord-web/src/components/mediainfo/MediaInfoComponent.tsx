@@ -1,7 +1,8 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
-import {Checkbox, FormControl, FormControlLabel, FormGroup, Grid, Typography} from '@material-ui/core'
+import {Divider, FormControl, FormControlLabel, FormGroup, Grid, Paper, Typography} from '@material-ui/core'
+import {OrangeCheckbox} from "../../ui/OrangeComponents";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -10,6 +11,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         formControl: {
             margin: theme.spacing(3),
+            paddingLeft: 20
+        },
+        typography: {
+            padding: theme.spacing(1),
         },
     }),
 );
@@ -31,35 +36,36 @@ export default function MediaInfoComponent() {
 
 
     return (
-        <div>
-            <Typography variant={'h6'}>
+        <Paper>
+            <Typography variant={'h6'} className={classes.typography}>
                 Media
             </Typography>
+            <Divider/>
             <FormControl fullWidth component="fieldset" className={classes.formControl}>
                 <FormGroup>
-
                     <Grid container xs={12} spacing={4}>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="internet"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="internet"/>}
                                 label="internet"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={true} onChange={handleChange} name="telewizja kablowa"/>}
+                                control={<OrangeCheckbox checked={true} onChange={handleChange}
+                                                         name="telewizja kablowa"/>}
                                 label="telewizja kablowa"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<Checkbox checked={false} onChange={handleChange} name="telefon"/>}
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="telefon"/>}
                                 label="telefon"
                             />
                         </Grid>
                     </Grid>
                 </FormGroup>
             </FormControl>
-        </div>
+        </Paper>
     );
 }
