@@ -2,30 +2,25 @@ import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {Divider, FormControl, Grid, Paper, Typography} from '@material-ui/core'
 import {OrangeTextField} from "../../ui/OrangeComponents";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            display: 'flex',
-            flexWrap: 'wrap',
-        },
         margin: {
-            margin: theme.spacing(1),
-        },
-        withoutLabel: {
-            marginTop: theme.spacing(3),
-        },
-        textField: {
-            marginLeft: theme.spacing(1),
-            marginRight: theme.spacing(1),
-            width: '25ch',
+            margin: theme.spacing(2, 1, 3),
         },
         formControl: {
-            margin: theme.spacing(3),
-            paddingLeft: 20
+            margin: theme.spacing(2),
+            paddingLeft: 20,
+        },
+        textField: {
+            margin: theme.spacing(1),
         },
         typography: {
             padding: theme.spacing(1)
+        },
+        dispInlineBlock: {
+            display: 'inline-block',
         }
     }),
 );
@@ -38,26 +33,34 @@ export default function ContactComponent() {
                 Dane kontaktowe
             </Typography>
             <Divider/>
-            <FormControl fullWidth component="fieldset" className={classes.formControl}>
-                <Grid container xs={8} spacing={4}>
-                    <Grid xs={6}>
-                        <OrangeTextField
-                            label="Imię i nazwisko"
-                            id="outlined-start-adornment"
-                            // className={clsx(classes.margin, classes.textField)}
-                            variant="outlined"
-                        />
+
+            <div className={classes.formControl}>
+                <FormControl fullWidth className={clsx(classes.margin, classes.dispInlineBlock)}>
+                    <Grid container xs={12} spacing={4}>
+                        <Grid xs={4}>
+                            <OrangeTextField
+                                label="Imię i nazwisko"
+                                className={clsx(classes.margin, classes.textField)}
+                                variant={'outlined'}
+                            />
+                        </Grid>
+                        <Grid xs={4}>
+                            <OrangeTextField
+                                label="E-mail"
+                                className={clsx(classes.margin, classes.textField)}
+                                variant={'outlined'}
+                            />
+                        </Grid>
+                        <Grid xs={4}>
+                            <OrangeTextField
+                                label="Numer telefonu"
+                                className={clsx(classes.margin, classes.textField)}
+                                variant={'outlined'}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid xs={4}>
-                        <OrangeTextField
-                            label="Numer telefonu"
-                            id="outlined-start-adornment"
-                            // className={clsx(classes.margin, classes.textField)}
-                            variant="outlined"
-                        />
-                    </Grid>
-                </Grid>
-            </FormControl>
+                </FormControl>
+            </div>
         </Paper>
     );
 }
