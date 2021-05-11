@@ -8,14 +8,14 @@ import AddIcon from '@material-ui/icons/Add';
 import PersonIcon from '@material-ui/icons/Person';
 import {GreenButton} from "../../ui/GreenComponents";
 import {GRAY_COLOR} from "../../COLOR_CONSTANTS";
-import {Typography} from "@material-ui/core";
+import {ButtonBase, CardContent, CardMedia} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
     container: {
-        display: 'inline'
+        paddingLeft: 100
     },
     menuButton: {
         margin: theme.spacing(2),
@@ -31,7 +31,13 @@ const useStyles = makeStyles((theme) => ({
     },
     logo: {
         maxWidth: 50,
-    }
+    },
+    buttonBase: {
+        borderRadius: 4,
+    },
+    cardContent: {
+        fontSize: '26px',
+    },
 }));
 
 export default function TopBarComponent() {
@@ -41,23 +47,23 @@ export default function TopBarComponent() {
         <AppBar position={"static"} className={classes.navBar}>
             <Toolbar>
                 <Container className={classes.container}>
-                    <img src="logo.png" alt="logo" className={classes.logo}/>
-                    <Typography variant="h6" className={classes.title}>
-                        Wynajmowaczka
-                    </Typography>
+                    <ButtonBase className={classes.buttonBase}>
+                        <CardMedia>
+                            <img src="logo.png" alt="logo" className={classes.logo}/>
+                        </CardMedia>
+                        <CardContent className={classes.cardContent}>
+                            Wynajmowaczka
+                        </CardContent>
+                    </ButtonBase>
                 </Container>
-                <Button
-                    className={classes.menuButton}
-                    startIcon={<PersonIcon/>}
-                >
+                <Button className={classes.menuButton}
+                        startIcon={<PersonIcon/>}>
                     Moje konto
                 </Button>
-                <GreenButton
-                    variant="contained"
-                    className={classes.menuButton}
-
-                    startIcon={<AddIcon/>}
-                >Dodaj ogłoszenie
+                <GreenButton variant="contained"
+                             className={classes.menuButton}
+                             startIcon={<AddIcon/>}>
+                    Dodaj ogłoszenie
                 </GreenButton>
             </Toolbar>
         </AppBar>
