@@ -1,7 +1,8 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {Divider, FormControl, Grid, InputLabel, MenuItem, Paper, Typography} from '@material-ui/core';
+import {Divider, Grid, InputLabel, MenuItem, Paper, Typography} from '@material-ui/core';
 import {OrangeSelect} from "../../ui/OrangeComponents";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -12,18 +13,30 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: {
             margin: theme.spacing(1),
         },
+        formControl: {
+            margin: theme.spacing(2),
+        },
         withoutLabel: {
-            marginTop: theme.spacing(3),
+            marginTop: theme.spacing(1),
         },
         textField: {
-            width: '25ch',
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
         },
-        formControl: {
-            margin: theme.spacing(3),
-            paddingLeft: 20
+        paper: {
+            padding: theme.spacing(1),
+            marginBottom: theme.spacing(3)
         },
         typography: {
             padding: theme.spacing(1)
+        },
+        dispInlineBlock: {
+            display: 'inline-block',
+        },
+        selectField: {
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
+            minWidth: 280,
         },
     }),
 );
@@ -36,6 +49,24 @@ interface State {
     showPassword: boolean;
 }
 
+const currencies = [
+    {
+        value: 'USD',
+        label: '$',
+    },
+    {
+        value: 'EUR',
+        label: '€',
+    },
+    {
+        value: 'BTC',
+        label: '฿',
+    },
+    {
+        value: 'JPY',
+        label: '¥',
+    },
+];
 export default function LocalizationComponent() {
     const classes = useStyles();
     const [values, setValues] = React.useState<State>({
@@ -64,75 +95,80 @@ export default function LocalizationComponent() {
         setAge(event.target.value as string);
     };
 
+    const [currency, setCurrency] = React.useState('EUR');
 
     return (
-        <Paper>
+        <Paper className={classes.paper}>
             <Typography variant={'h6'} className={classes.typography}>
                 Lokalizacja
             </Typography>
             <Divider/>
-            <FormControl fullWidth component="fieldset" className={classes.formControl}>
-                <Grid container xs={12} spacing={4}>
-                    <Grid xs={4}>
-                        <FormControl fullWidth className={classes.margin} variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">Województwo</InputLabel>
-                            <OrangeSelect
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={age}
-                                onChange={() => console.log("Województwo changed")}
-                                label="Województwo"
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </OrangeSelect>
-                        </FormControl>
+
+            <div className={classes.formControl}>
+                <Grid container
+                      spacing={2}
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="baseline"
+                >
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor="voivodeship">Województwo</InputLabel>
+                        <OrangeSelect
+                            id="voivodeship"
+                            value={age}
+                            variant={'outlined'}
+                            onChange={() => console.log("Województwo changed")}
+                            className={clsx(classes.margin, classes.selectField)}
+                            label="Województwo"
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </OrangeSelect>
                     </Grid>
-                    <Grid xs={4}>
-                        <FormControl fullWidth className={classes.margin} variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">Powiat</InputLabel>
-                            <OrangeSelect
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={age}
-                                onChange={() => console.log("Powiat changed")}
-                                label="Powiat"
-                                native
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </OrangeSelect>
-                        </FormControl>
+
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor="district">Powiat</InputLabel>
+                        <OrangeSelect
+                            id="district"
+                            value={age}
+                            variant={'outlined'}
+                            onChange={() => console.log("Województwo changed")}
+                            className={clsx(classes.margin, classes.selectField)}
+                            label="Powiat"
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </OrangeSelect>
                     </Grid>
-                    <Grid xs={4}>
-                        <FormControl fullWidth className={classes.margin} variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">Gmina</InputLabel>
-                            <OrangeSelect
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={age}
-                                onChange={() => console.log("Gmina changed")}
-                                label="Gmina"
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </OrangeSelect>
-                        </FormControl>
+
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor="city">Gmina</InputLabel>
+                        <OrangeSelect
+                            id="city"
+                            value={age}
+                            variant={'outlined'}
+                            onChange={() => console.log("Województwo changed")}
+                            className={clsx(classes.margin, classes.selectField)}
+                            label="Gmina"
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </OrangeSelect>
                     </Grid>
                 </Grid>
-            </FormControl>
+            </div>
         </Paper>
     );
 }

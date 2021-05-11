@@ -1,18 +1,21 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
-import {Divider, FormControl, FormControlLabel, FormGroup, Grid, Paper, Typography} from '@material-ui/core'
+import {Divider, FormControl, FormControlLabel, Grid, Paper, Typography} from '@material-ui/core'
 import {OrangeCheckbox} from "../../ui/OrangeComponents";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         margin: {
-            margin: theme.spacing(1, 2, 3),
+            margin: theme.spacing(1, 2, 1),
         },
         formControl: {
-            margin: theme.spacing(2),
-            paddingLeft: 20,
+            margin: theme.spacing(1),
+        },
+        paper: {
+            padding: theme.spacing(1),
+            marginBottom: theme.spacing(3)
         },
         typography: {
             padding: theme.spacing(1)
@@ -40,36 +43,38 @@ export default function MediaInfoComponent() {
 
 
     return (
-        <Paper>
+        <Paper className={classes.paper}>
             <Typography variant={'h6'} className={classes.typography}>
                 Media
             </Typography>
             <Divider/>
             <div className={classes.formControl}>
                 <FormControl fullWidth className={clsx(classes.margin, classes.dispInlineBlock)}>
-                    <FormGroup>
-                        <Grid container xs={12} spacing={4}>
-                            <Grid xs={4}>
-                                <FormControlLabel
-                                    control={<OrangeCheckbox checked={false} onChange={handleChange} name="internet"/>}
-                                    label="internet"
-                                />
-                            </Grid>
-                            <Grid xs={4}>
-                                <FormControlLabel
-                                    control={<OrangeCheckbox checked={true} onChange={handleChange}
-                                                             name="telewizja kablowa"/>}
-                                    label="telewizja kablowa"
-                                />
-                            </Grid>
-                            <Grid xs={4}>
-                                <FormControlLabel
-                                    control={<OrangeCheckbox checked={false} onChange={handleChange} name="telefon"/>}
-                                    label="telefon"
-                                />
-                            </Grid>
+                    <Grid container
+                          direction="row"
+                          justify="flex-start"
+                          alignItems="baseline"
+                    >
+                        <Grid xs={4}>
+                            <FormControlLabel
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="internet"/>}
+                                label="internet"
+                            />
                         </Grid>
-                    </FormGroup>
+                        <Grid xs={4}>
+                            <FormControlLabel
+                                control={<OrangeCheckbox checked={true} onChange={handleChange}
+                                                         name="telewizja kablowa"/>}
+                                label="telewizja kablowa"
+                            />
+                        </Grid>
+                        <Grid xs={4}>
+                            <FormControlLabel
+                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="telefon"/>}
+                                label="telefon"
+                            />
+                        </Grid>
+                    </Grid>
                 </FormControl>
             </div>
         </Paper>

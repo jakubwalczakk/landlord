@@ -22,11 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(3),
         },
         container: {
-            // position: 'relative',  
             display: 'flex',
             justifyContent: 'center',
-            // marginLeft: 'auto',
-            // marginRight: 'auto',
         }
     }),
 );
@@ -35,54 +32,28 @@ export default function OfferDetailsComponent() {
     const isLoading = false;
     const classes = useStyles();
     return (
-        // <Container component="main" >
         <div className='single-page'>
             {isLoading && <Spinner/>}
             <Typography variant='h5' align='center'>
                 Wynajem mieszkania
             </Typography>
-            <form>
-                <Container maxWidth={false} className={classes.container}>
-                    <Grid container xs={9} spacing={3} className={classes.container}>
-                        <Grid item xs={9}>
+            <Container maxWidth={false} className={classes.container}>
+                <Grid container xs={7}>
+                    <div className={classes.formControl}>
+                        <form>
                             <BasicInfoContainer/>
-                        </Grid>
-
-                        <Grid item xs={9}>
                             <MultimediaContainer/>
-                        </Grid>
-
-                        <Grid item xs={9}>
                             <LocalizationContainer/>
-                        </Grid>
-
-                        <Grid item xs={9}>
                             <DetailedInformationContainer/>
-                        </Grid>
-
-                        <Grid item xs={9}>
                             <EquipmentInfoContainer/>
-                        </Grid>
-
-                        <Grid item xs={9}>
                             <SecurityInfoContainer/>
-                        </Grid>
-
-                        <Grid item xs={9}>
                             <MediaInfoContainer/>
-                        </Grid>
-
-                        <Grid item xs={9}>
                             <AdditionalInfoContainer/>
-                        </Grid>
-
-                        <Grid item xs={9}>
                             <ContactContainer/>
-                        </Grid>
-                    </Grid>
-                </Container>
-            </form>
+                        </form>
+                    </div>
+                </Grid>
+            </Container>
         </div>
-        // </Container>
     );
 }

@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {MuiPickersUtilsProvider} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import {pl} from "date-fns/locale";
 
 ReactDOM.render(
     <React.StrictMode>
-        <App/>
+        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pl}>
+            <App/>
+        </MuiPickersUtilsProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );

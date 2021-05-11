@@ -4,11 +4,11 @@ import clsx from 'clsx';
 import {createStyles, makeStyles, Theme, withStyles} from '@material-ui/core/styles';
 import {
     Divider,
-    FormControl,
     FormControlLabel,
     FormLabel,
     Grid,
     InputAdornment,
+    InputLabel,
     Paper,
     Radio,
     RadioGroup,
@@ -20,10 +20,6 @@ import {OrangeTextField} from "../../ui/OrangeComponents";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        formControl: {
-            margin: theme.spacing(1),
-            paddingLeft: 20
-        },
         root: {
             display: 'flex',
             flexWrap: 'wrap',
@@ -31,15 +27,34 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: {
             margin: theme.spacing(1),
         },
+        formControl: {
+            margin: theme.spacing(2),
+        },
         withoutLabel: {
             marginTop: theme.spacing(1),
         },
         textField: {
-            width: '25ch',
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
+        },
+        paper: {
+            padding: theme.spacing(1),
+            marginBottom: theme.spacing(3)
         },
         typography: {
             padding: theme.spacing(1)
-        }
+        },
+        dispInlineBlock: {
+            display: 'inline-block',
+        },
+        displayFlex: {
+            display: 'flex',
+            justifyContent: 'space-around'
+        },
+        rightElement: {
+            display: 'flex',
+            justifyContent: 'space-around'
+        },
     }),
 );
 
@@ -84,109 +99,95 @@ export default function BasicInfoComponent() {
     };
     const [value, setValue] = React.useState('owner');
 
-    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setValue((event.target as HTMLInputElement).value);
-    // };
     return (
-        <Paper>
+        <Paper className={classes.paper}>
             <Typography variant={'h6'} className={classes.typography}>
                 Informacje podstawowe
             </Typography>
             <Divider/>
-            <FormControl fullWidth component="fieldset" className={classes.formControl}>
-                <Grid container xs={12} spacing={4}>
-                    <Grid xs={12}>
-                        <FormControl
-                            fullWidth={true} className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OrangeTextField
-                                fullWidth={true}
-                                label="Tytuł ogłoszenia"
-                                id="outlined-start-adornment"
-                                className={clsx(classes.margin, classes.textField)}
-                                variant="outlined"
-                            />
-                        </FormControl>
+
+            <div className={classes.formControl}>
+                <Grid container spacing={2}
+                      direction="row"
+                      justify="space-around"
+                      alignItems="baseline"
+                >
+                    <Grid item xs={12}>
+                        <InputLabel htmlFor={'title'}>Tytuł ogłoszenia</InputLabel>
+                        <OrangeTextField
+                            id={'title'}
+                            fullWidth
+                            className={clsx(classes.margin, classes.textField)}
+                            variant="outlined"
+                        />
                     </Grid>
 
-                    <Grid xs={4}>
-                        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OrangeTextField
-                                label="Cena"
-                                id="outlined-start-adornment"
-                                className={clsx(classes.margin, classes.textField)}
-                                variant="outlined"
-                                InputProps={{
-                                    endAdornment: <InputAdornment position="end">zł</InputAdornment>,
-                                }}
-                            />
-                        </FormControl>
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor={'price'}>Cena</InputLabel>
+                        <OrangeTextField
+                            id={'price'}
+                            className={clsx(classes.margin, classes.textField)}
+                            variant="outlined"
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">zł</InputAdornment>,
+                            }}
+                        />
                     </Grid>
 
-                    <Grid xs={4}>
-                        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OrangeTextField
-                                label="Czynsz - dodatkowo"
-                                id="outlined-start-adornment"
-                                className={clsx(classes.margin, classes.textField)}
-                                variant="outlined"
-                                InputProps={{
-                                    endAdornment: <InputAdornment position="end">zł</InputAdornment>,
-                                }}
-                            />
-                        </FormControl>
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor={'rentPrice'}>Czynsz - dodatkowo</InputLabel>
+                        <OrangeTextField
+                            id={'rentPrice'}
+                            className={clsx(classes.margin, classes.textField)}
+                            variant="outlined"
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">zł</InputAdornment>,
+                            }}
+                        />
                     </Grid>
 
-                    <Grid xs={4}>
-                        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OrangeTextField
-                                label="Kaucja"
-                                id="outlined-start-adornment"
-                                className={clsx(classes.margin, classes.textField)}
-                                variant="outlined"
-                                InputProps={{
-                                    endAdornment: <InputAdornment position="end">zł</InputAdornment>,
-                                }}
-                            />
-                        </FormControl>
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor={'bail'}>Kaucja</InputLabel>
+                        <OrangeTextField
+                            id={'bail'}
+                            className={clsx(classes.margin, classes.textField)}
+                            variant="outlined"
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">zł</InputAdornment>,
+                            }}
+                        />
                     </Grid>
 
-                    <Grid xs={4}>
-                        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OrangeTextField
-                                label="Powierzchnia"
-                                id="outlined-start-adornment"
-                                className={clsx(classes.margin, classes.textField)}
-                                variant="outlined"
-                                InputProps={{
-                                    endAdornment: <InputAdornment position="end">zł</InputAdornment>,
-                                }}
-                            />
-                        </FormControl>
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor={'surfaceArea'}>Powierzchnia</InputLabel>
+                        <OrangeTextField
+                            id={'surfaceArea'}
+                            className={clsx(classes.margin, classes.textField)}
+                            variant="outlined"
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end"><i>m<sup>2</sup></i></InputAdornment>,
+                            }}
+                        />
                     </Grid>
-
-                    <Grid xs={4}>
-                        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <OrangeTextField
-                                label="Liczba pokoi"
-                                id="outlined-start-adornment"
-                                className={clsx(classes.margin, classes.textField)}
-                                variant="outlined"
-                            />
-                        </FormControl>
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor={'roomsNumber'}>Liczba pokoi</InputLabel>
+                        <OrangeTextField
+                            id={'roomsNumber'}
+                            className={clsx(classes.margin, classes.textField)}
+                            variant="outlined"
+                        />
                     </Grid>
-
-                    <Grid xs={4}>
-                        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                            <FormLabel component="legend">Typ ogłoszeniodawcy</FormLabel>
-                            <RadioGroup aria-label="gender" name="gender1" value={value}
-                                        onChange={() => console.log("Handle change")}>
-                                <FormControlLabel value="owner" control={<OrangeRadio/>} label="Właściciel"/>
-                                <FormControlLabel value="broker" control={<OrangeRadio/>} label="Pośrednik"/>
-                            </RadioGroup>
-                        </FormControl>
+                    <Grid item xs={4}>
+                        <FormLabel component="legend">Typ ogłoszeniodawcy</FormLabel>
+                        <RadioGroup aria-label="gender" name="gender1" value={value}
+                                    onChange={() => console.log("Handle change")}
+                                    className={classes.dispInlineBlock}>
+                            <FormControlLabel value="owner" control={<OrangeRadio/>} label="Właściciel"/>
+                            <FormControlLabel value="broker" control={<OrangeRadio/>} label="Pośrednik"/>
+                        </RadioGroup>
                     </Grid>
                 </Grid>
-            </FormControl>
+            </div>
         </Paper>
     );
 }
