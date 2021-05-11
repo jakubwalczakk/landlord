@@ -3,20 +3,24 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
 import {Divider, FormControl, FormControlLabel, FormGroup, Grid, Paper, Typography} from '@material-ui/core'
 import {OrangeCheckbox} from "../../ui/OrangeComponents";
+import clsx from "clsx";
 
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            display: 'flex',
+        margin: {
+            margin: theme.spacing(1, 2, 3),
         },
         formControl: {
-            margin: theme.spacing(3),
-            paddingLeft: 20
+            margin: theme.spacing(2),
+            paddingLeft: 20,
         },
         typography: {
             padding: theme.spacing(1)
         },
+        dispInlineBlock: {
+            display: 'inline-block',
+        }
     }),
 );
 
@@ -42,54 +46,56 @@ export default function SecurityInfoComponent() {
                 Zabezpieczenia
             </Typography>
             <Divider/>
-            <FormControl fullWidth component="fieldset" className={classes.formControl}>
-                <FormGroup>
-                    <Grid container xs={12} spacing={4}>
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange}
-                                                         name="rolety antywłamaniowe"/>}
-                                label="rolety antywlamaniowe"
-                            />
+            <div className={classes.formControl}>
+                <FormControl fullWidth className={clsx(classes.margin, classes.dispInlineBlock)}>
+                    <FormGroup>
+                        <Grid container xs={12} spacing={4}>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                             name="rolety antywłamaniowe"/>}
+                                    label="rolety antywlamaniowe"
+                                />
+                            </Grid>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={true} onChange={handleChange}
+                                                             name="drzwi/okna antywłamaniowe"/>}
+                                    label="drzwi/okna antywlamaniowe"
+                                />
+                            </Grid>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                             name="domofon/wideofon"/>}
+                                    label="domofon/wideofon"
+                                />
+                            </Grid>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                             name="monitoring/ochrona"/>}
+                                    label="monitoring/ochrona"
+                                />
+                            </Grid>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                             name="system alarmowy"/>}
+                                    label="system alarmowy"
+                                />
+                            </Grid>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange}
+                                                             name="teren zamknięty"/>}
+                                    label="teren zamknięty"
+                                />
+                            </Grid>
                         </Grid>
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={true} onChange={handleChange}
-                                                         name="drzwi/okna antywłamaniowe"/>}
-                                label="drzwi/okna antywlamaniowe"
-                            />
-                        </Grid>
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange}
-                                                         name="domofon/wideofon"/>}
-                                label="domofon/wideofon"
-                            />
-                        </Grid>
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange}
-                                                         name="monitoring/ochrona"/>}
-                                label="monitoring/ochrona"
-                            />
-                        </Grid>
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange}
-                                                         name="system alarmowy"/>}
-                                label="system alarmowy"
-                            />
-                        </Grid>
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange}
-                                                         name="teren zamknięty"/>}
-                                label="teren zamknięty"
-                            />
-                        </Grid>
-                    </Grid>
-                </FormGroup>
-            </FormControl>
+                    </FormGroup>
+                </FormControl>
+            </div>
         </Paper>
     );
 }

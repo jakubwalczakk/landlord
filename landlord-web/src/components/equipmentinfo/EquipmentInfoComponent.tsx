@@ -3,19 +3,23 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
 import {Divider, FormControl, FormControlLabel, FormGroup, Grid, Paper, Typography} from '@material-ui/core'
 import {OrangeCheckbox} from "../../ui/OrangeComponents";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            display: 'flex',
+        margin: {
+            margin: theme.spacing(1, 2, 3),
         },
         formControl: {
-            margin: theme.spacing(3),
-            paddingLeft: 20
+            margin: theme.spacing(2),
+            paddingLeft: 20,
         },
         typography: {
             padding: theme.spacing(1)
         },
+        dispInlineBlock: {
+            display: 'inline-block',
+        }
     }),
 );
 
@@ -41,60 +45,62 @@ export default function EquipmentInfoComponent() {
                 Wyposażenie
             </Typography>
             <Divider/>
-            <FormControl fullWidth component="fieldset" className={classes.formControl}>
-                <FormGroup>
-                    <Grid container xs={12} spacing={4}>
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="pralka"/>}
-                                label="pralka"
-                            />
-                        </Grid>
+            <div className={classes.formControl}>
+                <FormControl fullWidth className={clsx(classes.margin, classes.dispInlineBlock)}>
+                    <FormGroup>
+                        <Grid container xs={12} spacing={4}>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange} name="pralka"/>}
+                                    label="pralka"
+                                />
+                            </Grid>
 
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={true} onChange={handleChange} name="meble"/>}
-                                label="meble"
-                            />
-                        </Grid>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={true} onChange={handleChange} name="meble"/>}
+                                    label="meble"
+                                />
+                            </Grid>
 
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="zmywarka"/>}
-                                label="zmywarka"
-                            />
-                        </Grid>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange} name="zmywarka"/>}
+                                    label="zmywarka"
+                                />
+                            </Grid>
 
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="lodówka"/>}
-                                label="lodówka"
-                            />
-                        </Grid>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange} name="lodówka"/>}
+                                    label="lodówka"
+                                />
+                            </Grid>
 
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="kuchenka"/>}
-                                label="kuchenka"
-                            />
-                        </Grid>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange} name="kuchenka"/>}
+                                    label="kuchenka"
+                                />
+                            </Grid>
 
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="piekarnik"/>}
-                                label="piekarnik"
-                            />
-                        </Grid>
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange} name="piekarnik"/>}
+                                    label="piekarnik"
+                                />
+                            </Grid>
 
-                        <Grid xs={4}>
-                            <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="tewizor"/>}
-                                label="tewizor"
-                            />
+                            <Grid xs={4}>
+                                <FormControlLabel
+                                    control={<OrangeCheckbox checked={false} onChange={handleChange} name="tewizor"/>}
+                                    label="tewizor"
+                                />
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </FormGroup>
-            </FormControl>
+                    </FormGroup>
+                </FormControl>
+            </div>
         </Paper>
     );
 }
