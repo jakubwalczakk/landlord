@@ -1,5 +1,5 @@
 package pl.jakub.walczak.offerservice.model;
 
-public enum AdvertisterType {
+public enum AdvertiserType {
     OWNER, BROKER
 }

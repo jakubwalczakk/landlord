@@ -28,6 +28,10 @@ public class Offer {
     @JoinColumn(name = "MAIN_ATTACHMENT_ID")
     private OfferAttachment mainPhoto;
 
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "FLAT_ID")
+    private Flat flat;
+
     private BigDecimal price;
     private BigDecimal rentPrice;
     private BigDecimal bail;
@@ -35,10 +39,10 @@ public class Offer {
     private Instant createDate;
     private Instant expirationDate;
     private boolean premiumOffer;
-    private String shortDescription;
+    private String title;
     private String description;
     @Enumerated(EnumType.STRING)
-    private AdvertisterType advertisterType;
+    private AdvertiserType advertiserType;
     private LocalDate availableFrom;
     @Column(name = "STUDENTS_ALLOWED")
     private boolean availableForStudents;

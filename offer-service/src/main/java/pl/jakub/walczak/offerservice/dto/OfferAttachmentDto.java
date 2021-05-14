@@ -1,28 +1,17 @@
-package pl.jakub.walczak.offerservice.model;
+package pl.jakub.walczak.offerservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.Instant;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@AllArgsConstructor
 @Builder
-public class OfferAttachment {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "OFFER_ID", nullable = false)
-    private Offer offer;
-
+public class OfferAttachmentDto {
     private String filename;
     private byte[] content;
     private Instant insertDate;

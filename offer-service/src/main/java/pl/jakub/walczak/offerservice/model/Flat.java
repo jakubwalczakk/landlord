@@ -19,8 +19,8 @@ public class Flat {
 
     @Column(name = "ROOMS_NUMBER")
     private int roomsNumber;
-    @Column(name = "FLAT_SURFACE")
-    private double surface;
+    @Column(name = "FLAT_SURFACE_AREA")
+    private double surfaceArea;
 
     private int level;
     private int buildingLevels;
