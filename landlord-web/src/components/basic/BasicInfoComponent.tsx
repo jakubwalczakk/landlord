@@ -30,9 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
         formControl: {
             margin: theme.spacing(2),
         },
-        withoutLabel: {
-            marginTop: theme.spacing(1),
-        },
         textField: {
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
@@ -46,14 +43,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         dispInlineBlock: {
             display: 'inline-block',
-        },
-        displayFlex: {
-            display: 'flex',
-            justifyContent: 'space-around'
-        },
-        rightElement: {
-            display: 'flex',
-            justifyContent: 'space-around'
         },
     }),
 );
