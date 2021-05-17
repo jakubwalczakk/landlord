@@ -17,4 +17,8 @@ public enum BuildingMaterial {
     }
 
     private String material;
+
+    public String getValue() {
+        return material;
+    }
 }

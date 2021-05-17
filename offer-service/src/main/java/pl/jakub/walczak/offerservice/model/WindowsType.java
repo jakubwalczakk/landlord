@@ -2,7 +2,7 @@ package pl.jakub.walczak.offerservice.model;
 
 public enum WindowsType {
     PLASTIC("Plastikowe"),
-    WOODEN("Drewnianie"),
+    WOODEN("Drewniane"),
     ALUMINUM("Aluminiowe");
 
     WindowsType(String type) {
@@ -11,9 +11,7 @@ public enum WindowsType {
 
     private final String type;
 
-
-    @Override
-    public String toString() {
-        return this.type;
+    public String getValue() {
+        return type;
     }
 }

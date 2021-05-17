@@ -9,10 +9,13 @@ public enum HeatingType {
     BOILER("Kotłownia"),
     OTHER("Inne");
 
-
     HeatingType(String heatingType) {
         this.heatingType = heatingType;
     }
 
     private String heatingType;
+
+    public String getValue() {
+        return heatingType;
+    }
 }
