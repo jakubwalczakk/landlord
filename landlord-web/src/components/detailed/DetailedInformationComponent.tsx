@@ -68,21 +68,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const DetailedInformationComponent = (props: Props & FormikProps<DetailedInformationValues>) => {
     const classes = useStyles();
-    const [age, setAge] = React.useState('');
 
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setAge(event.target.value as string);
-    };
+    const {
+        values,
+        setFieldValue,
+        handleSubmit,
+        buildingMaterials,
+        buildingTypes,
+        flatStatuses,
+        heatingTypes,
+        windowsTypes,
+    } = props;
 
-    const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-        new Date()
-    );
-
-    const handleDateChange = (date: Date | null) => {
-        setSelectedDate(date);
-    };
-
-    const [currency, setCurrency] = React.useState('EUR');
     return (
         <Paper className={classes.paper}>
             <form onSubmit={handleSubmit}>
