@@ -4,7 +4,24 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {Divider, FormControl, FormControlLabel, Grid, Paper, Typography} from '@material-ui/core'
 import {OrangeCheckbox} from "../../ui/OrangeComponents";
 import clsx from "clsx";
+import {FormikBag, FormikProps, withFormik} from "formik";
 
+const withFormikValidation = withFormik<Props, SecurityInfoValues>({
+    mapPropsToValues: (props): SecurityInfoValues => {
+        return {
+            antiBurglaryBlinds: props.securityInfoValues !== undefined ? props.securityInfoValues.antiBurglaryBlinds : false,
+            securityDoor: props.securityInfoValues !== undefined ? props.securityInfoValues.securityDoor : false,
+            antiBurglaryWindows: props.securityInfoValues !== undefined ? props.securityInfoValues.antiBurglaryWindows : false,
+            intercom: props.securityInfoValues !== undefined ? props.securityInfoValues.intercom : false,
+            monitoring: props.securityInfoValues !== undefined ? props.securityInfoValues.monitoring : false,
+            alarmSystem: props.securityInfoValues !== undefined ? props.securityInfoValues.alarmSystem : false,
+            closedArea: props.securityInfoValues !== undefined ? props.securityInfoValues.closedArea : false,
+        };
+    },
+    handleSubmit: (values: SecurityInfoValues, formikBag: FormikBag<Props, SecurityInfoValues>): void => {
+        formikBag.props.onSubmit(values);
+    },
+});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,21 +44,15 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function SecurityInfoComponent() {
+const SecurityInfoComponent = (props: Props & FormikProps<SecurityInfoValues>) => {
     const classes = useStyles();
-    const [state, setState] = React.useState({
-        gilad: true,
-        jason: false,
-        antoine: false,
-    });
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setState({...state, [event.target.name]: event.target.checked});
-    };
-
-    const {gilad, jason, antoine} = state;
-    const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
-
+    const {
+        values,
+        setFieldValue,
+        handleChange,
+        handleSubmit,
+    } = props;
 
     return (
         <Paper className={classes.paper}>
@@ -58,43 +69,71 @@ export default function SecurityInfoComponent() {
                     >
                         <Grid item xs={4}>
                             <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange}
-                                                         name="rolety antywłamaniowe"/>}
+                                control={<OrangeCheckbox
+                                    id={'antiBurglaryBlinds'}
+                                    name={'antiBurglaryBlinds'}
+                                    checked={values.antiBurglaryBlinds}
+                                    onChange={handleChange}/>}
                                 label="rolety antywlamaniowe"
                             />
                         </Grid>
                         <Grid item xs={4}>
                             <FormControlLabel
-                                control={<OrangeCheckbox checked={true} onChange={handleChange}
-                                                         name="drzwi/okna antywłamaniowe"/>}
-                                label="drzwi/okna antywlamaniowe"
+                                control={<OrangeCheckbox
+                                    id={'antiBurglaryWindows'}
+                                    name={'antiBurglaryWindows'}
+                                    checked={values.antiBurglaryWindows}
+                                    onChange={handleChange}/>}
+                                label="okna antywlamaniowe"
                             />
                         </Grid>
                         <Grid item xs={4}>
                             <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange}
-                                                         name="domofon/wideofon"/>}
+                                control={<OrangeCheckbox
+                                    id={'securityDoor'}
+                                    name={'securityDoor'}
+                                    checked={values.securityDoor}
+                                    onChange={handleChange}/>}
+                                label="drzwi antywlamaniowe"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <FormControlLabel
+                                control={<OrangeCheckbox
+                                    id={'intercom'}
+                                    name={'intercom'}
+                                    checked={values.intercom}
+                                    onChange={handleChange}/>}
                                 label="domofon/wideofon"
                             />
                         </Grid>
                         <Grid item xs={4}>
                             <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange}
-                                                         name="monitoring/ochrona"/>}
+                                control={<OrangeCheckbox
+                                    id={'monitoring'}
+                                    name={'monitoring'}
+                                    checked={values.monitoring}
+                                    onChange={handleChange}/>}
                                 label="monitoring/ochrona"
                             />
                         </Grid>
                         <Grid item xs={4}>
                             <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange}
-                                                         name="system alarmowy"/>}
+                                control={<OrangeCheckbox
+                                    id={'alarmSystem'}
+                                    name={'alarmSystem'}
+                                    checked={values.alarmSystem}
+                                    onChange={handleChange}/>}
                                 label="system alarmowy"
                             />
                         </Grid>
                         <Grid item xs={4}>
                             <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange}
-                                                         name="teren zamknięty"/>}
+                                control={<OrangeCheckbox
+                                    id={'closedArea'}
+                                    name={'closedArea'}
+                                    checked={values.closedArea}
+                                    onChange={handleChange}/>}
                                 label="teren zamknięty"
                             />
                         </Grid>
@@ -104,3 +143,20 @@ export default function SecurityInfoComponent() {
         </Paper>
     );
 }
+
+export interface SecurityInfoValues {
+    antiBurglaryBlinds: boolean,
+    securityDoor: boolean,
+    antiBurglaryWindows: boolean,
+    intercom: boolean,
+    monitoring: boolean,
+    alarmSystem: boolean,
+    closedArea: boolean,
+}
+
+interface Props {
+    securityInfoValues: SecurityInfoValues | undefined,
+    onSubmit: (values: SecurityInfoValues) => void,
+}
+
+export default withFormikValidation(SecurityInfoComponent)

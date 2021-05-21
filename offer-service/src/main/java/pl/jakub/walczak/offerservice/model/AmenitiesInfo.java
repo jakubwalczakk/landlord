@@ -30,5 +30,6 @@ public class AmenitiesInfo {
     private boolean twoLevelsFlat;
     private boolean separateKitchen;
     private boolean airConditioning;
+    private boolean onlyForNonSmokers;
 
 }

@@ -4,6 +4,20 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {Divider, FormControl, FormControlLabel, Grid, Paper, Typography} from '@material-ui/core'
 import {OrangeCheckbox} from "../../ui/OrangeComponents";
 import clsx from "clsx";
+import {FormikBag, FormikProps, withFormik} from "formik";
+
+const withFormikValidation = withFormik<Props, MediaInfoValues>({
+    mapPropsToValues: (props): MediaInfoValues => {
+        return {
+            internet: props.mediaInfoValues !== undefined ? props.mediaInfoValues.internet : false,
+            tv: props.mediaInfoValues !== undefined ? props.mediaInfoValues.tv : false,
+            phone: props.mediaInfoValues !== undefined ? props.mediaInfoValues.phone : false,
+        };
+    },
+    handleSubmit: (values: MediaInfoValues, formikBag: FormikBag<Props, MediaInfoValues>): void => {
+        formikBag.props.onSubmit(values);
+    },
+});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -26,21 +40,15 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function MediaInfoComponent() {
+const MediaInfoComponent = (props: Props & FormikProps<MediaInfoValues>) => {
     const classes = useStyles();
-    const [state, setState] = React.useState({
-        gilad: true,
-        jason: false,
-        antoine: false,
-    });
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setState({...state, [event.target.name]: event.target.checked});
-    };
-
-    const {gilad, jason, antoine} = state;
-    const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
-
+    const {
+        values,
+        setFieldValue,
+        handleChange,
+        handleSubmit,
+    } = props;
 
     return (
         <Paper className={classes.paper}>
@@ -57,20 +65,31 @@ export default function MediaInfoComponent() {
                     >
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="internet"/>}
+                                control={<OrangeCheckbox
+                                    id={'internet'}
+                                    name={'internet'}
+                                    checked={values.internet}
+                                    onChange={handleChange}/>}
                                 label="internet"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<OrangeCheckbox checked={true} onChange={handleChange}
-                                                         name="telewizja kablowa"/>}
+                                control={<OrangeCheckbox
+                                    id={'tv'}
+                                    name={'tv'}
+                                    checked={values.tv}
+                                    onChange={handleChange}/>}
                                 label="telewizja kablowa"
                             />
                         </Grid>
                         <Grid xs={4}>
                             <FormControlLabel
-                                control={<OrangeCheckbox checked={false} onChange={handleChange} name="telefon"/>}
+                                control={<OrangeCheckbox
+                                    id={'phone'}
+                                    name={'phone'}
+                                    checked={values.phone}
+                                    onChange={handleChange}/>}
                                 label="telefon"
                             />
                         </Grid>
@@ -80,3 +99,16 @@ export default function MediaInfoComponent() {
         </Paper>
     );
 }
+
+export interface MediaInfoValues {
+    internet: boolean,
+    tv: boolean,
+    phone: boolean,
+}
+
+interface Props {
+    mediaInfoValues: MediaInfoValues | undefined,
+    onSubmit: (values: MediaInfoValues) => void,
+}
+
+export default withFormikValidation(MediaInfoComponent);

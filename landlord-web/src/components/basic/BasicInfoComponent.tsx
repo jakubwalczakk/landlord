@@ -17,6 +17,25 @@ import {
 } from '@material-ui/core';
 import {ORANGE_COLOR} from "../../COLOR_CONSTANTS";
 import {OrangeTextField} from "../../ui/OrangeComponents";
+import {FormikBag, FormikProps, withFormik} from "formik";
+
+const withFormikValidation = withFormik<Props, BasicInfoValues>({
+    mapPropsToValues: (props): BasicInfoValues => {
+        return {
+            title: props.basicInfoValues !== undefined ? props.basicInfoValues.title : '',
+            price: props.basicInfoValues !== undefined ? props.basicInfoValues.price : undefined,
+            rentPrice: props.basicInfoValues !== undefined ? props.basicInfoValues.rentPrice : undefined,
+            bail: props.basicInfoValues !== undefined ? props.basicInfoValues.bail : undefined,
+            surfaceArea: props.basicInfoValues !== undefined ? props.basicInfoValues.surfaceArea : undefined,
+            roomsNumber: props.basicInfoValues !== undefined ? props.basicInfoValues.roomsNumber : undefined,
+            advertiserType: props.basicInfoValues !== undefined ? props.basicInfoValues.advertiserType : '',
+        };
+    },
+    handleSubmit: (values: BasicInfoValues, formikBag: FormikBag<Props, BasicInfoValues>): void => {
+        formikBag.props.onSubmit(values);
+    },
+});
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -57,36 +76,16 @@ const OrangeRadio = withStyles({
     checked: {},
 })((props: RadioProps) => <Radio color="default" {...props} />);
 
-interface State {
-    amount: string;
-    password: string;
-    weight: string;
-    weightRange: string;
-    showPassword: boolean;
-}
-
-export default function BasicInfoComponent() {
+const BasicInfoComponent = (props: Props & FormikProps<BasicInfoValues>) => {
     const classes = useStyles();
-    const [values, setValues] = React.useState<State>({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
 
-    const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({...values, [prop]: event.target.value});
-    };
-
-    const handleClickShowPassword = () => {
-        setValues({...values, showPassword: !values.showPassword});
-    };
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-    const [value, setValue] = React.useState('owner');
+    const {
+        values,
+        setFieldValue,
+        handleChange,
+        handleSubmit,
+        advertiserTypes
+    } = props;
 
     return (
         <Paper className={classes.paper}>
@@ -108,6 +107,8 @@ export default function BasicInfoComponent() {
                             fullWidth
                             className={clsx(classes.margin, classes.textField)}
                             variant="outlined"
+                            value={values.title}
+                            onChange={(e) => setFieldValue('title', e.target.value)}
                         />
                     </Grid>
 
@@ -120,6 +121,8 @@ export default function BasicInfoComponent() {
                             InputProps={{
                                 endAdornment: <InputAdornment position="end">zł</InputAdornment>,
                             }}
+                            value={values.price}
+                            onChange={(e) => setFieldValue('price', e.target.value)}
                         />
                     </Grid>
 
@@ -132,6 +135,8 @@ export default function BasicInfoComponent() {
                             InputProps={{
                                 endAdornment: <InputAdornment position="end">zł</InputAdornment>,
                             }}
+                            value={values.rentPrice}
+                            onChange={(e) => setFieldValue('rentPrice', e.target.value)}
                         />
                     </Grid>
 
@@ -144,6 +149,8 @@ export default function BasicInfoComponent() {
                             InputProps={{
                                 endAdornment: <InputAdornment position="end">zł</InputAdornment>,
                             }}
+                            value={values.bail}
+                            onChange={(e) => setFieldValue('bail', e.target.value)}
                         />
                     </Grid>
 
@@ -156,6 +163,8 @@ export default function BasicInfoComponent() {
                             InputProps={{
                                 endAdornment: <InputAdornment position="end"><i>m<sup>2</sup></i></InputAdornment>,
                             }}
+                            value={values.surfaceArea}
+                            onChange={(e) => setFieldValue('surfaceArea', e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={4}>
@@ -164,15 +173,22 @@ export default function BasicInfoComponent() {
                             id={'roomsNumber'}
                             className={clsx(classes.margin, classes.textField)}
                             variant="outlined"
+                            value={values.roomsNumber}
+                            onChange={(e) => setFieldValue('roomsNumber', e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <FormLabel component="legend">Typ ogłoszeniodawcy</FormLabel>
-                        <RadioGroup aria-label="gender" name="gender1" value={value}
-                                    onChange={() => console.log("Handle change")}
+                        <RadioGroup value={values.advertiserType}
+                                    id={'advertiserType'}
+                                    name={'advertiserType'}
+                                    onChange={handleChange}
                                     className={classes.dispInlineBlock}>
-                            <FormControlLabel value="owner" control={<OrangeRadio/>} label="Właściciel"/>
-                            <FormControlLabel value="broker" control={<OrangeRadio/>} label="Pośrednik"/>
+                            {
+                                advertiserTypes.map(([k, v]) => {
+                                    return (<FormControlLabel value={k} control={<OrangeRadio/>} label={v}/>);
+                                })
+                            }
                         </RadioGroup>
                     </Grid>
                 </Grid>
@@ -180,3 +196,22 @@ export default function BasicInfoComponent() {
         </Paper>
     );
 }
+
+export interface BasicInfoValues {
+    title: string,
+    price: number | undefined,
+    rentPrice: number | undefined,
+    bail: number | undefined,
+    surfaceArea: number | undefined,
+    roomsNumber: number | undefined,
+    advertiserType: string,
+}
+
+interface Props {
+    advertiserTypes: [key: string, value: string][],
+    basicInfoValues: BasicInfoValues | undefined,
+    onSubmit: (values: BasicInfoValues) => void,
+
+}
+
+export default withFormikValidation(BasicInfoComponent);
