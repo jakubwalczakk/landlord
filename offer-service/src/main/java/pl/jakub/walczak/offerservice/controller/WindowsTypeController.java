@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.jakub.walczak.offerservice.service.WindowsTypeService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/windows-type")
 public class WindowsTypeController {
@@ -19,7 +21,7 @@ public class WindowsTypeController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getWindowsTypes() {
+    public ResponseEntity<Map<String, String>> getWindowsTypes() {
         return ResponseEntity.ok(windowsTypeService.getWindowsTypes());
     }
 }

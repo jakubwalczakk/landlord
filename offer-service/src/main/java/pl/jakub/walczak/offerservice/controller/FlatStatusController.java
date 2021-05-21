@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.jakub.walczak.offerservice.service.FlatStatusService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/flat-status")
 public class FlatStatusController {
@@ -19,7 +21,7 @@ public class FlatStatusController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getFlatStatuses() {
+    public ResponseEntity<Map<String, String>> getFlatStatuses() {
         return ResponseEntity.ok(flatStatusService.getFlatStatuses());
     }
 }

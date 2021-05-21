@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.jakub.walczak.offerservice.service.BuildingMaterialService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/building-material")
 public class BuildingMaterialController {
@@ -19,7 +21,7 @@ public class BuildingMaterialController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getBuildingMaterials() {
+    public ResponseEntity<Map<String, String>> getBuildingMaterials() {
         return ResponseEntity.ok(buildingMaterialService.getBuildingMaterials());
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.jakub.walczak.offerservice.service.BuildingTypeService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/building-type")
 public class BuildingTypeController {
@@ -19,7 +21,7 @@ public class BuildingTypeController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getBuildingTypes() {
+    public ResponseEntity<Map<String, String>> getBuildingTypes() {
         return ResponseEntity.ok(buildingTypeService.getBuildingTypes());
     }
 }

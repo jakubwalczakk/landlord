@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.jakub.walczak.offerservice.service.AdvertiserTypeService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/advertiser-type")
 public class AdvertiserTypeController {
@@ -19,7 +21,7 @@ public class AdvertiserTypeController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAdvertiserTypes() {
+    public ResponseEntity<Map<String, String>> getAdvertiserTypes() {
         return ResponseEntity.ok(advertiserTypeService.getAdvertiserTypes());
     }
 }

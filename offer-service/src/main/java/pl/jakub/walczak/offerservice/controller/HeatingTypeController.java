@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.jakub.walczak.offerservice.service.HeatingTypeService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/heating-type")
 public class HeatingTypeController {
@@ -19,7 +21,7 @@ public class HeatingTypeController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getHeatingTypes() {
+    public ResponseEntity<Map<String, String>> getHeatingTypes() {
         return ResponseEntity.ok(heatingTypeService.getHeatingTypes());
     }
 }
