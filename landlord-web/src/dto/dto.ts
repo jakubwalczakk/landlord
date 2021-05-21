@@ -1,5 +1,4 @@
 /* tslint:disable */
-
 /* eslint-disable */
 
 export interface AddressDto {
@@ -25,6 +24,7 @@ export interface AmenitiesInfoDto {
     twoLevelsFlat: boolean;
     separateKitchen: boolean;
     airConditioning: boolean;
+    onlyForNonSmokers: boolean;
 }
 
 export interface AmenitiesInfoDtoBuilder {
