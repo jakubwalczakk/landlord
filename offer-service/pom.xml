@@ -74,7 +74,82 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>generate-dtos</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>cz.habarta.typescript-generator</groupId>
+                        <artifactId>typescript-generator-maven-plugin</artifactId>
+                        <version>2.31.861</version>
+                        <executions>
+                            <execution>
+                                <id>generate</id>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <phase>process-classes</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <jsonLibrary>jackson2</jsonLibrary>
+                            <classPatterns>
+                                <class>pl.jakub.walczak.offerservice.dto.**</class>
+                            </classPatterns>
+                            <outputFileType>implementationFile</outputFileType>
+                            <outputKind>module</outputKind>
+                            <outputFile>../landlord-web/src/dto/dto.ts</outputFile>
+                            <mapClasses>asInterfaces</mapClasses>
+                            <!--                            <customTypeMappings>-->
+                            <!--                                <mapping>java.util.Date:string</mapping>-->
+                            <!--                                <mapping>java.sql.Date:string</mapping>-->
+                            <!--                                <mapping>java.sql.Timestampstring</mapping>-->
+                            <!--                                <mapping>java.util.LocalDate:string</mapping>-->
+                            <!--                                <mapping>java.util.LocalDateTime:string</mapping>-->
+                            <!--                            </customTypeMappings>-->
+                            <optionalPropertiesDeclaration>nullableType</optionalPropertiesDeclaration>
+                            <!--                            <requiredAnnotations>-->
+                            <!--                                <annotaton>javax.validation.constraints.NotNull</annotaton>-->
+                            <!--                                <annotaton>javax.validation.constraints.NotEmpty</annotaton>-->
+                            <!--                                <annotaton>javax.validation.constraints.NotBlank</annotaton>-->
+                            <!--                            </requiredAnnotations>-->
+                            <noFileComment>true</noFileComment>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
+        <!--        <pluginManagement>-->
+        <!--            <plugins>-->
+        <!--                <plugin>-->
+        <!--                    <groupId>org.apache.maven.plugins</groupId>-->
+        <!--                    <artifactId>maven-resources-plugin</artifactId>-->
+        <!--                    <version>3.2.0</version>-->
+        <!--                    <executions>-->
+        <!--                        <execution>-->
+        <!--                            <id>copy-resources-js</id>-->
+        <!--                            <phase>generate-resources</phase>-->
+        <!--                            <goals>-->
+        <!--                                <goal>copy-resources</goal>-->
+        <!--                            </goals>-->
+        <!--                            <configuration>-->
+        <!--                                <outputDirectory>${basedir}/target/classes/static</outputDirectory>-->
+        <!--                                <resources>-->
+        <!--                                    <resource>-->
+        <!--                                        <directory>${basedir}/../landlord-web/build</directory>-->
+        <!--                                        <filtering>false</filtering>-->
+        <!--                                    </resource>-->
+        <!--                                </resources>-->
+        <!--                            </configuration>-->
+        <!--                        </execution>-->
+        <!--                    </executions>-->
+        <!--                </plugin>-->
+        <!--            </plugins>-->
+        <!--        </pluginManagement>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
