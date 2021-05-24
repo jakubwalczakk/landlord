@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {Divider, Grid, InputLabel, MenuItem, Paper, Typography} from '@material-ui/core';
-import {OrangeSelect} from "../../ui/OrangeComponents";
+import {OrangeSelect} from "../../../../ui/OrangeComponents";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>

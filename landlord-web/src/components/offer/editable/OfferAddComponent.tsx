@@ -2,16 +2,16 @@ import React from 'react';
 
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {Container, Grid, Typography} from '@material-ui/core'
-import MediaInfoContainer from '../mediainfo/MediaInfoContainer';
-import AdditionalInfoContainer from '../additionalinfo/AdditionalInfoContainer';
-import SecurityInfoContainer from '../securityinfo/SecurityInfoContainer';
-import EquipmentInfoContainer from '../equipmentinfo/EquipmentInfoContainer';
-import LocalizationContainer from '../localization/LocalizationContainer';
-import DetailedInformationContainer from '../detailed/DetailedInformationContainer';
-import BasicInfoContainer from '../basic/BasicInfoContainer';
-import Spinner from '../../ui/Spinner';
-import ContactContainer from '../contact/ContactContainer';
-import MultimediaContainer from "../multimedia/MultimediaContainer";
+import MediaInfoContainer from './mediainfo/MediaInfoContainer';
+import AdditionalInfoContainer from './additionalinfo/AdditionalInfoContainer';
+import SecurityInfoContainer from './securityinfo/SecurityInfoContainer';
+import EquipmentInfoContainer from './equipmentinfo/EquipmentInfoContainer';
+import LocalizationContainer from './localization/LocalizationContainer';
+import DetailedInformationContainer from './detailed/DetailedInformationContainer';
+import BasicInfoContainer from './basic/BasicInfoContainer';
+import Spinner from '../../../ui/Spinner';
+import ContactContainer from './contact/ContactContainer';
+import MultimediaContainer from "./multimedia/MultimediaContainer";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function OfferComponent() {
+export default function OfferAddComponent() {
     const isLoading = false;
     const classes = useStyles();
     return (

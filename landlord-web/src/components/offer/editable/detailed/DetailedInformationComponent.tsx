@@ -1,10 +1,10 @@
 import React from 'react';
-import {Button, Divider, Grid, InputLabel, Paper, Typography} from '@material-ui/core';
+import {Divider, Grid, InputLabel, Paper, Typography} from '@material-ui/core';
 
 import {FormikBag, FormikProps, withFormik} from "formik";
 
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {OrangeSelect, OrangeTextField} from "../../ui/OrangeComponents";
+import {OrangeSelect, OrangeTextField} from "../../../../ui/OrangeComponents";
 import clsx from "clsx";
 import {KeyboardDatePicker,} from "@material-ui/pickers";
 
@@ -24,7 +24,8 @@ const withFormikValidation = withFormik<Props, DetailedInformationValues>({
         };
     },
     handleSubmit: (values: DetailedInformationValues, formikBag: FormikBag<Props, DetailedInformationValues>): void => {
-        formikBag.props.onSubmit(values);
+        // formikBag.props.onSubmit(values);
+        alert(JSON.stringify(values));
     },
 });
 
@@ -267,9 +268,6 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                         </Grid>
                     </Grid>
                 </div>
-                <Button type={'submit'} variant={'contained'} color={'primary'}>
-                    XDDD
-                </Button>
             </form>
         </Paper>
     );

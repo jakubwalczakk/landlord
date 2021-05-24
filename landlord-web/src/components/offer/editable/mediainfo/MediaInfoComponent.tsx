@@ -2,7 +2,7 @@ import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
 import {Divider, FormControl, FormControlLabel, Grid, Paper, Typography} from '@material-ui/core'
-import {OrangeCheckbox} from "../../ui/OrangeComponents";
+import {OrangeCheckbox} from "../../../../ui/OrangeComponents";
 import clsx from "clsx";
 import {FormikBag, FormikProps, withFormik} from "formik";
 

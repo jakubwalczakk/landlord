@@ -2,23 +2,24 @@ import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
 import {Divider, FormControl, FormControlLabel, Grid, Paper, Typography} from '@material-ui/core'
-import {OrangeCheckbox} from "../../ui/OrangeComponents";
+import {OrangeCheckbox} from "../../../../ui/OrangeComponents";
 import clsx from "clsx";
 import {FormikBag, FormikProps, withFormik} from "formik";
 
-const withFormikValidation = withFormik<Props, SecurityInfoValues>({
-    mapPropsToValues: (props): SecurityInfoValues => {
+
+const withFormikValidation = withFormik<Props, EquipmentInfoValues>({
+    mapPropsToValues: (props): EquipmentInfoValues => {
         return {
-            antiBurglaryBlinds: props.securityInfoValues !== undefined ? props.securityInfoValues.antiBurglaryBlinds : false,
-            securityDoor: props.securityInfoValues !== undefined ? props.securityInfoValues.securityDoor : false,
-            antiBurglaryWindows: props.securityInfoValues !== undefined ? props.securityInfoValues.antiBurglaryWindows : false,
-            intercom: props.securityInfoValues !== undefined ? props.securityInfoValues.intercom : false,
-            monitoring: props.securityInfoValues !== undefined ? props.securityInfoValues.monitoring : false,
-            alarmSystem: props.securityInfoValues !== undefined ? props.securityInfoValues.alarmSystem : false,
-            closedArea: props.securityInfoValues !== undefined ? props.securityInfoValues.closedArea : false,
+            washingMachine: props.equipmentInfoValues !== undefined ? props.equipmentInfoValues.washingMachine : false,
+            furniture: props.equipmentInfoValues !== undefined ? props.equipmentInfoValues.furniture : false,
+            dishwasher: props.equipmentInfoValues !== undefined ? props.equipmentInfoValues.dishwasher : false,
+            fridge: props.equipmentInfoValues !== undefined ? props.equipmentInfoValues.fridge : false,
+            cooker: props.equipmentInfoValues !== undefined ? props.equipmentInfoValues.cooker : false,
+            oven: props.equipmentInfoValues !== undefined ? props.equipmentInfoValues.oven : false,
+            tv: props.equipmentInfoValues !== undefined ? props.equipmentInfoValues.tv : false,
         };
     },
-    handleSubmit: (values: SecurityInfoValues, formikBag: FormikBag<Props, SecurityInfoValues>): void => {
+    handleSubmit: (values: EquipmentInfoValues, formikBag: FormikBag<Props, EquipmentInfoValues>): void => {
         formikBag.props.onSubmit(values);
     },
 });
@@ -44,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const SecurityInfoComponent = (props: Props & FormikProps<SecurityInfoValues>) => {
+const EquipmentInfoComponent = (props: Props & FormikProps<EquipmentInfoValues>) => {
     const classes = useStyles();
 
     const {
@@ -54,10 +55,11 @@ const SecurityInfoComponent = (props: Props & FormikProps<SecurityInfoValues>) =
         handleSubmit,
     } = props;
 
+
     return (
         <Paper className={classes.paper}>
             <Typography variant={'h6'} className={classes.typography}>
-                Zabezpieczenia
+                Wyposażenie
             </Typography>
             <Divider/>
             <div className={classes.formControl}>
@@ -70,71 +72,77 @@ const SecurityInfoComponent = (props: Props & FormikProps<SecurityInfoValues>) =
                         <Grid item xs={4}>
                             <FormControlLabel
                                 control={<OrangeCheckbox
-                                    id={'antiBurglaryBlinds'}
-                                    name={'antiBurglaryBlinds'}
-                                    checked={values.antiBurglaryBlinds}
+                                    id={'washingMachine'}
+                                    name={'washingMachine'}
+                                    checked={values.washingMachine}
                                     onChange={handleChange}/>}
-                                label="rolety antywlamaniowe"
+                                label="pralka"
                             />
                         </Grid>
+
                         <Grid item xs={4}>
                             <FormControlLabel
                                 control={<OrangeCheckbox
-                                    id={'antiBurglaryWindows'}
-                                    name={'antiBurglaryWindows'}
-                                    checked={values.antiBurglaryWindows}
+                                    id={'furniture'}
+                                    name={'furniture'}
+                                    checked={values.furniture}
                                     onChange={handleChange}/>}
-                                label="okna antywlamaniowe"
+                                label="meble"
                             />
                         </Grid>
+
                         <Grid item xs={4}>
                             <FormControlLabel
                                 control={<OrangeCheckbox
-                                    id={'securityDoor'}
-                                    name={'securityDoor'}
-                                    checked={values.securityDoor}
+                                    id={'dishwasher'}
+                                    name={'dishwasher'}
+                                    checked={values.dishwasher}
                                     onChange={handleChange}/>}
-                                label="drzwi antywlamaniowe"
+                                label="zmywarka"
                             />
                         </Grid>
+
                         <Grid item xs={4}>
                             <FormControlLabel
                                 control={<OrangeCheckbox
-                                    id={'intercom'}
-                                    name={'intercom'}
-                                    checked={values.intercom}
+                                    id={'fridge'}
+                                    name={'fridge'}
+                                    checked={values.fridge}
                                     onChange={handleChange}/>}
-                                label="domofon/wideofon"
+                                label="lodówka"
                             />
                         </Grid>
+
                         <Grid item xs={4}>
                             <FormControlLabel
                                 control={<OrangeCheckbox
-                                    id={'monitoring'}
-                                    name={'monitoring'}
-                                    checked={values.monitoring}
+                                    id={'cooker'}
+                                    name={'cooker'}
+                                    checked={values.cooker}
                                     onChange={handleChange}/>}
-                                label="monitoring/ochrona"
+                                label="kuchenka"
                             />
                         </Grid>
+
                         <Grid item xs={4}>
                             <FormControlLabel
                                 control={<OrangeCheckbox
-                                    id={'alarmSystem'}
-                                    name={'alarmSystem'}
-                                    checked={values.alarmSystem}
+                                    id={'oven'}
+                                    name={'oven'}
+                                    checked={values.oven}
                                     onChange={handleChange}/>}
-                                label="system alarmowy"
+                                label="piekarnik"
                             />
                         </Grid>
+
                         <Grid item xs={4}>
                             <FormControlLabel
                                 control={<OrangeCheckbox
-                                    id={'closedArea'}
-                                    name={'closedArea'}
-                                    checked={values.closedArea}
+                                    id={'tv'}
+                                    name={'tv'}
+                                    checked={values.tv}
                                     onChange={handleChange}/>}
-                                label="teren zamknięty"
+                                label="telewizor"
                             />
                         </Grid>
                     </Grid>
@@ -144,19 +152,19 @@ const SecurityInfoComponent = (props: Props & FormikProps<SecurityInfoValues>) =
     );
 }
 
-export interface SecurityInfoValues {
-    antiBurglaryBlinds: boolean,
-    securityDoor: boolean,
-    antiBurglaryWindows: boolean,
-    intercom: boolean,
-    monitoring: boolean,
-    alarmSystem: boolean,
-    closedArea: boolean,
+export interface EquipmentInfoValues {
+    washingMachine: boolean,
+    furniture: boolean,
+    dishwasher: boolean,
+    fridge: boolean,
+    cooker: boolean,
+    oven: boolean,
+    tv: boolean,
 }
 
 interface Props {
-    securityInfoValues: SecurityInfoValues | undefined,
-    onSubmit: (values: SecurityInfoValues) => void,
+    equipmentInfoValues: EquipmentInfoValues | undefined,
+    onSubmit: (values: EquipmentInfoValues) => void,
 }
 
-export default withFormikValidation(SecurityInfoComponent)
+export default withFormikValidation(EquipmentInfoComponent)

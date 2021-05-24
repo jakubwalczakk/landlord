@@ -15,8 +15,8 @@ import {
     RadioProps,
     Typography
 } from '@material-ui/core';
-import {ORANGE_COLOR} from "../../COLOR_CONSTANTS";
-import {OrangeTextField} from "../../ui/OrangeComponents";
+import {ORANGE_COLOR} from "../../../../COLOR_CONSTANTS";
+import {OrangeTextField} from "../../../../ui/OrangeComponents";
 import {FormikBag, FormikProps, withFormik} from "formik";
 
 const withFormikValidation = withFormik<Props, BasicInfoValues>({

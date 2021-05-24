@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import DetailedInformationComponent, {DetailedInformationValues} from './DetailedInformationComponent';
-import {getBuildingTypes} from "../../api/buildingType";
-import {getBuildingMaterials} from "../../api/buildingMaterial";
-import {getFlatStatuses} from "../../api/flatStatus";
-import {getHeatingTypes} from "../../api/heatingType";
-import {getWindowsTypes} from "../../api/windowsType";
+import {getBuildingTypes} from "../../../../api/buildingType";
+import {getBuildingMaterials} from "../../../../api/buildingMaterial";
+import {getFlatStatuses} from "../../../../api/flatStatus";
+import {getHeatingTypes} from "../../../../api/heatingType";
+import {getWindowsTypes} from "../../../../api/windowsType";
 
 export default function DetailedInformationContainer() {
 

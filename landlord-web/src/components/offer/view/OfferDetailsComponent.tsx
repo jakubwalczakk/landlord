@@ -2,15 +2,15 @@ import React from 'react';
 
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {Container, Grid, Typography} from '@material-ui/core'
-import Spinner from '../../ui/Spinner';
-import DetailsContainer from "./DetailsContainer";
-import MultimediaCarouselContainer from "./MultimediaCarouselContainer";
-import ShortContactContainer from "./ShortContactContainer";
-import AdditionalViewContainer from "./AdditionalViewContainer";
-import MediaViewContainer from "./MediaViewContainer";
-import SecurityViewContainer from "./SecurityViewContainer";
-import EquipmentViewContainer from "./EquipmentViewContainer";
-import DescriptionContainer from "./DescriptionContainer";
+import Spinner from '../../../ui/Spinner';
+import DetailsContainer from "./detailsView/DetailsContainer";
+import MultimediaCarouselContainer from "./multimediaView/MultimediaCarouselContainer";
+import ShortContactContainer from "./contactView/ShortContactContainer";
+import AdditionalViewContainer from "./additionalView/AdditionalViewContainer";
+import MediaViewContainer from "./mediaView/MediaViewContainer";
+import SecurityViewContainer from "./securityView/SecurityViewContainer";
+import EquipmentViewContainer from "./equipmentView/EquipmentViewContainer";
+import DescriptionContainer from "./descriptionView/DescriptionContainer";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

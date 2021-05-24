@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import BasicInfoComponent, {BasicInfoValues} from './BasicInfoComponent';
-import {getAdvertiserTypes} from "../../api/advertiserType";
+import {getAdvertiserTypes} from "../../../../api/advertiserType";
 
 export default function BasicInfoContainer() {
 
