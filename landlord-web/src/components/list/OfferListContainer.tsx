@@ -1,8 +1,8 @@
 import React from 'react';
-import ListComponent from './OfferListComponent';
+import OfferListComponent from './OfferListComponent';
 
-export default function ListContainer() {
+export default function OfferListContainer() {
     return (
-        <ListComponent/>
+        <OfferListComponent/>
     );
 }

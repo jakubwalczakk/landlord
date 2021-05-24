@@ -1,8 +1,27 @@
-import React from 'react';
-import UserProfileComponent from './UserProfileComponent';
+import React, {useState} from 'react';
+import UserProfileComponent, {UserProfileValues} from './UserProfileComponent';
+import {Mode} from "../../util/customTypes";
 
-export default function UserProfileContainer() {
+const UserProfileContainer = () => {
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [mode, setMode] = useState<Mode>('BROWSE');
+    const [userProfileValues, setUserProfileValues] = useState<UserProfileValues | undefined>(undefined);
+
+    const onSubmit = (values: UserProfileValues) => {
+        console.log(values)
+    }
+
     return (
-        <UserProfileComponent/>
+        <UserProfileComponent
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            mode={mode}
+            setMode={setMode}
+            userProfileValues={userProfileValues}
+            onSubmit={onSubmit}
+        />
     );
 }
+
+export default UserProfileContainer;

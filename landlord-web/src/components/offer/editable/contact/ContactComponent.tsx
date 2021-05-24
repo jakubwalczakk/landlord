@@ -4,6 +4,8 @@ import {Divider, Grid, InputLabel, Paper, Typography} from '@material-ui/core'
 import {OrangeTextField} from "../../../../ui/OrangeComponents";
 import clsx from "clsx";
 import {FormikBag, FormikProps, withFormik} from "formik";
+import * as Yup from "yup";
+
 
 const withFormikValidation = withFormik<Props, ContactValues>({
     mapPropsToValues: (props): ContactValues => {
@@ -13,6 +15,13 @@ const withFormikValidation = withFormik<Props, ContactValues>({
             phoneNumber: props.contactValues !== undefined ? props.contactValues.phoneNumber : '',
         };
     },
+    validationSchema: Yup.object().shape({
+        // name: Yup.string()
+        //     .min(2, 'Too Short!')
+        //     .max(50, 'Too Long!')
+        //     .required('Required'),
+        // email: Yup.string().email('Invalid email').required('Required'),
+    }),
     handleSubmit: (values: ContactValues, formikBag: FormikBag<Props, ContactValues>): void => {
         formikBag.props.onSubmit(values);
     },
@@ -75,7 +84,7 @@ const ContactComponent = (props: Props & FormikProps<ContactValues>) => {
                             className={clsx(classes.margin, classes.textField)}
                             variant={'outlined'}
                             value={values.name}
-                            onChange={(e) => setFieldValue('name', e.target.value)}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={4}>
@@ -85,7 +94,7 @@ const ContactComponent = (props: Props & FormikProps<ContactValues>) => {
                             className={clsx(classes.margin, classes.textField)}
                             variant={'outlined'}
                             value={values.email}
-                            onChange={(e) => setFieldValue('email', e.target.value)}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={4}>
@@ -95,7 +104,7 @@ const ContactComponent = (props: Props & FormikProps<ContactValues>) => {
                             className={clsx(classes.margin, classes.textField)}
                             variant={'outlined'}
                             value={values.phoneNumber}
-                            onChange={(e) => setFieldValue('phoneNumber', e.target.value)}
+                            onChange={handleChange}
                         />
                     </Grid>
                 </Grid>

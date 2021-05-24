@@ -1,24 +1,50 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {FormControl, Grid, InputLabel, MenuItem, Paper, Select} from '@material-ui/core';
+import {Button, Container, Grid, InputLabel, MenuItem, Paper, Select} from '@material-ui/core';
+import clsx from "clsx";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',
             flexWrap: 'wrap',
+            justifyContent: 'center',
+        },
+        container: {
+            display: 'inline-block',
         },
         margin: {
             margin: theme.spacing(1),
         },
-        withoutLabel: {
-            marginTop: theme.spacing(3),
+        formControl: {
+            margin: theme.spacing(2),
         },
         textField: {
-            width: '25ch',
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
         },
-        formControl: {
-            margin: theme.spacing(3),
+        paper: {
+            padding: theme.spacing(1),
+            marginBottom: theme.spacing(3)
+        },
+        typography: {
+            padding: theme.spacing(1)
+        },
+        dispInlineBlock: {
+            display: 'inline-block',
+        },
+        deleteButton: {
+            backgroundColor: '#d41c0f',
+            color: 'white',
+        },
+        selectField: {
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
+            minWidth: 200,
+        },
+        button: {
+            margin: theme.spacing(1),
         },
     }),
 );
@@ -60,18 +86,20 @@ export default function SearchComponent() {
     };
 
     return (
-        <Paper>
-            <FormControl fullWidth component="fieldset" className={classes.formControl}>
-                <Grid container xs={12} spacing={4}>
-                    <Grid xs={4}>
-                        <FormControl fullWidth className={classes.margin} variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">Województwo</InputLabel>
+        <Container className={classes.root}>
+            <Grid container xs={8}>
+                <Paper className={classes.paper}>
+                    <div className={classes.formControl}>
+                        {/*<Grid container spacing={2} direction={'row'} className={classes.container}>*/}
+                        {/*    <Grid item>*/}
+                        <div className={classes.container}>
+                            <InputLabel>Województwo</InputLabel>
                             <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
                                 value={age}
                                 onChange={() => console.log("Województwo changed")}
                                 label="Województwo"
+                                variant={'outlined'}
+                                className={clsx(classes.margin, classes.selectField)}
                             >
                                 <MenuItem value="">
                                     <em>None</em>
@@ -80,17 +108,13 @@ export default function SearchComponent() {
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
                             </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid xs={4}>
-                        <FormControl fullWidth className={classes.margin} variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">Powiat</InputLabel>
+                            <InputLabel>Powiat</InputLabel>
                             <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
                                 value={age}
                                 onChange={() => console.log("Powiat changed")}
                                 label="Powiat"
+                                variant={'outlined'}
+                                className={clsx(classes.margin, classes.selectField)}
                             >
                                 <MenuItem value="">
                                     <em>None</em>
@@ -99,17 +123,14 @@ export default function SearchComponent() {
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
                             </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid xs={4}>
-                        <FormControl fullWidth className={classes.margin} variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">Gmina</InputLabel>
+                            <InputLabel htmlFor="my-input">Gmina</InputLabel>
                             <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
+                                id="my-input"
                                 value={age}
                                 onChange={() => console.log("Gmina changed")}
                                 label="Gmina"
+                                variant={'outlined'}
+                                className={clsx(classes.margin, classes.selectField)}
                             >
                                 <MenuItem value="">
                                     <em>None</em>
@@ -118,10 +139,71 @@ export default function SearchComponent() {
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
                             </Select>
-                        </FormControl>
-                    </Grid>
-                </Grid>
-            </FormControl>
-        </Paper>
+                            <Button
+                                size={'small'}
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
+                                endIcon={<ExpandMoreIcon/>}
+                            >
+                                Szukaj
+                            </Button>
+
+                        </div>
+                        <div className={classes.container}>
+                            {/*</Grid>*/}
+                            {/*<Grid item>*/}
+                            <Button
+                                size={'small'}
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
+                                endIcon={<ExpandMoreIcon/>}
+                            >
+                                Cena
+                            </Button>
+                            <Button
+                                size={'small'}
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
+                                endIcon={<ExpandMoreIcon/>}
+                            >
+                                Powierzchnia
+                            </Button>
+                            <Button
+                                size={'small'}
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
+                                endIcon={<ExpandMoreIcon/>}
+                            >
+                                Liczba pokoi
+                            </Button>
+                            <Button
+                                size={'small'}
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
+                                endIcon={<ExpandMoreIcon/>}
+                            >
+                                Więcej filtrów
+                            </Button>
+                            <Button
+                                size={'small'}
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
+                                endIcon={<ExpandMoreIcon/>}
+                            >
+                                Wyczyść wszystkie filtry
+                            </Button>
+                        </div>
+                        {/*</Grid>*/}
+                        {/*</Grid>*/}
+                    </div>
+                </Paper>
+            </Grid>
+        </Container>
     );
 }

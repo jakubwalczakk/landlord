@@ -16,7 +16,34 @@ import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import clsx from "clsx";
 import {OrangeTextField} from "../../ui/OrangeComponents";
 import {GreenButton} from "../../ui/GreenComponents";
+import {Mode} from "../../util/customTypes";
+import {FormikBag, FormikProps, withFormik} from "formik";
 
+const withFormikValidation = withFormik<Props, UserProfileValues>({
+    mapPropsToValues: (props): UserProfileValues => {
+        return props.userProfileValues !== undefined ? {
+                firstName: props.userProfileValues.firstName,
+                lastName: props.userProfileValues.lastName,
+                accountCreateDate: props.userProfileValues.accountCreateDate,
+                phoneNumber: props.userProfileValues.phoneNumber,
+                email: props.userProfileValues.email,
+                password: props.userProfileValues.password,
+                confirmedPassword: props.userProfileValues.confirmedPassword,
+            } :
+            {
+                firstName: '',
+                lastName: '',
+                accountCreateDate: undefined,
+                phoneNumber: '',
+                email: '',
+                password: '',
+                confirmedPassword: '',
+            };
+    },
+    handleSubmit: (values: UserProfileValues, formikBag: FormikBag<Props, UserProfileValues>): void => {
+        formikBag.props.onSubmit(values);
+    }
+});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -69,10 +96,22 @@ const theme = createMuiTheme({
     }
 });
 
-export default function UserProfileComponent() {
-    const isLoading = false;
-    const isEditMode = false;
+const UserProfileComponent = (props: Props & FormikProps<UserProfileValues>) => {
     const classes = useStyles();
+
+    const {
+        isLoading,
+        setIsLoading,
+        mode,
+        setMode,
+        values,
+        handleChange,
+        handleSubmit
+    } = props;
+
+    const isEditMode = mode === 'EDIT';
+    const isBrowseMode = mode === 'BROWSE';
+
     return (
         <div className='single-page'>
             {isLoading && <Spinner/>}
@@ -90,6 +129,9 @@ export default function UserProfileComponent() {
                                     <OrangeTextField
                                         className={clsx(classes.margin, classes.textField)}
                                         variant="outlined"
+                                        value={values.firstName}
+                                        onChange={handleChange}
+                                        disabled={isBrowseMode}
                                     />
                                 </Grid>
 
@@ -98,6 +140,9 @@ export default function UserProfileComponent() {
                                     <OrangeTextField
                                         className={clsx(classes.margin, classes.textField)}
                                         variant="outlined"
+                                        value={values.lastName}
+                                        onChange={handleChange}
+                                        disabled={isBrowseMode}
                                     />
                                 </Grid>
 
@@ -107,6 +152,7 @@ export default function UserProfileComponent() {
                                         disabled
                                         className={clsx(classes.margin, classes.textField)}
                                         variant="outlined"
+                                        value={values.accountCreateDate}
                                     />
                                 </Grid>
 
@@ -115,6 +161,9 @@ export default function UserProfileComponent() {
                                     <OrangeTextField
                                         className={clsx(classes.margin, classes.textField)}
                                         variant="outlined"
+                                        value={values.phoneNumber}
+                                        onChange={handleChange}
+                                        disabled={isBrowseMode}
                                     />
                                 </Grid>
 
@@ -123,6 +172,9 @@ export default function UserProfileComponent() {
                                     <OrangeTextField
                                         className={clsx(classes.margin, classes.textField)}
                                         variant="outlined"
+                                        value={values.email}
+                                        onChange={handleChange}
+                                        disabled={isBrowseMode}
                                     />
                                 </Grid>
 
@@ -133,6 +185,9 @@ export default function UserProfileComponent() {
                                     <OrangeTextField
                                         className={clsx(classes.margin, classes.textField)}
                                         variant="outlined"
+                                        value={values.password}
+                                        onChange={handleChange}
+                                        disabled={isBrowseMode}
                                     />
                                 </Grid>
 
@@ -141,21 +196,45 @@ export default function UserProfileComponent() {
                                     <OrangeTextField
                                         className={clsx(classes.margin, classes.textField)}
                                         variant="outlined"
+                                        value={values.confirmedPassword}
+                                        onChange={handleChange}
+                                        disabled={isBrowseMode}
                                     />
                                 </Grid>}
 
                                 <Grid item xs={12}>
                                     <Box display="flex" justifyContent={'flex-start'} className={classes.buttonsBox}>
                                         <MuiThemeProvider theme={theme}>
-                                            <GreenButton type={"button"} variant={'contained'}>Edytuj</GreenButton>
+                                            {isBrowseMode && <GreenButton
+                                                type={"button"}
+                                                variant={'contained'}
+                                                onClick={() => setMode('EDIT')}
+                                            >
+                                                Edytuj
+                                            </GreenButton>}
                                             {isEditMode &&
-                                            <GreenButton type={"submit"} variant={'contained'}>Zapisz</GreenButton>}
-                                            {isEditMode &&
-                                            <GreenButton type={"button"} variant={'contained'}>Anuluj</GreenButton>}
-                                            <GreenButton type={"button"} variant={'contained'}>Oferty</GreenButton>
-                                            <Button className={classes.deleteButton} type={"button"}
-                                                    variant={'contained'}>Zamknij
-                                                konto</Button>
+                                            <GreenButton
+                                                type={"submit"}
+                                                variant={'contained'}>
+                                                Zapisz
+                                            </GreenButton>}
+                                            {!isBrowseMode &&
+                                            <GreenButton
+                                                type={"button"}
+                                                variant={'contained'}>
+                                                Anuluj
+                                            </GreenButton>}
+                                            <GreenButton
+                                                type={"button"}
+                                                variant={'contained'}>
+                                                Oferty
+                                            </GreenButton>
+                                            {isEditMode && <Button
+                                                className={classes.deleteButton}
+                                                type={"button"}
+                                                variant={'contained'}>
+                                                Zamknij konto
+                                            </Button>}
                                         </MuiThemeProvider>
                                     </Box>
                                 </Grid>
@@ -167,3 +246,24 @@ export default function UserProfileComponent() {
         </div>
     );
 }
+
+export interface UserProfileValues {
+    firstName: string,
+    lastName: string,
+    accountCreateDate: Date | undefined,
+    phoneNumber: string,
+    email: string,
+    password: string,
+    confirmedPassword: string,
+}
+
+interface Props {
+    isLoading: boolean,
+    setIsLoading: (isLoading: boolean) => void,
+    mode: Mode,
+    setMode: (mode: Mode) => void,
+    userProfileValues: UserProfileValues | undefined,
+    onSubmit: (values: UserProfileValues) => void,
+}
+
+export default withFormikValidation(UserProfileComponent);
