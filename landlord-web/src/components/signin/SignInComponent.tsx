@@ -1,21 +1,23 @@
 import React from 'react';
-import {
-    Avatar,
-    Box,
-    Container,
-    CssBaseline,
-    FormControlLabel,
-    Grid,
-    Link,
-    TextField,
-    Typography
-} from '@material-ui/core';
+import {Avatar, Box, Container, CssBaseline, Grid, Link, TextField, Typography} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Copyright from "../../ui/Copyright";
 import {GREEN_COLOR, ORANGE_COLOR} from "../../COLOR_CONSTANTS";
 import {GreenButton} from "../../ui/GreenComponents";
-import {OrangeCheckbox} from "../../ui/OrangeComponents";
+import {FormikBag, FormikProps, withFormik} from "formik";
+
+const withFormikValidation = withFormik<Props, SignInValues>({
+    mapPropsToValues: (props): SignInValues => {
+        return {
+            email: props.signInValues !== undefined ? props.signInValues.email : '',
+            password: props.signInValues !== undefined ? props.signInValues.password : '',
+        };
+    },
+    handleSubmit: (values: SignInValues, formikBag: FormikBag<Props, SignInValues>): void => {
+        formikBag.props.onSubmit(values);
+    }
+});
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -57,8 +59,12 @@ const CustomTextField = withStyles({
     },
 })(TextField);
 
-export default function SignInComponent() {
+const SignInComponent = (props: Props & FormikProps<SignInValues>) => {
     const classes = useStyles();
+
+    const {
+        values, handleChange, handleSubmit
+    } = props;
 
     return (
         <Container component="main" maxWidth="xs">
@@ -70,7 +76,7 @@ export default function SignInComponent() {
                 <Typography component="h1" variant="h4">
                     Logowanie
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} onSubmit={handleSubmit}>
                     <CustomTextField
                         variant="outlined"
                         margin="normal"
@@ -81,6 +87,8 @@ export default function SignInComponent() {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        value={values.email}
+                        onChange={handleChange}
                     />
                     <CustomTextField
                         variant="outlined"
@@ -92,11 +100,13 @@ export default function SignInComponent() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        value={values.password}
+                        onChange={handleChange}
                     />
-                    <FormControlLabel
-                        control={<OrangeCheckbox value="remember" color="primary"/>}
-                        label="Zapamiętaj mnie"
-                    />
+                    {/*<FormControlLabel*/}
+                    {/*    control={<OrangeCheckbox value="remember" color="primary"/>}*/}
+                    {/*    label="Zapamiętaj mnie"*/}
+                    {/*/>*/}
                     <GreenButton
                         type="submit"
                         fullWidth
@@ -126,3 +136,15 @@ export default function SignInComponent() {
         </Container>
     );
 }
+
+export interface SignInValues {
+    email: string,
+    password: string
+}
+
+interface Props {
+    signInValues: SignInValues | undefined,
+    onSubmit: (values: SignInValues) => void,
+}
+
+export default withFormikValidation(SignInComponent);

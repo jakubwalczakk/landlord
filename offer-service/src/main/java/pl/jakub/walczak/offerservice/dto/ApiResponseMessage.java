@@ -11,4 +11,9 @@ public class ApiResponseMessage {
     final Boolean success;
     final String message;
     String data;
+
+    public ApiResponseMessage(Boolean success, String message) {
+        this.success = success;
+        this.message = message;
+    }
 }

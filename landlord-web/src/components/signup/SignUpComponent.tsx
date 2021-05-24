@@ -5,6 +5,27 @@ import {makeStyles, withStyles} from '@material-ui/core/styles';
 import {GreenButton} from "../../ui/GreenComponents";
 import {GREEN_COLOR, ORANGE_COLOR} from "../../COLOR_CONSTANTS";
 import Copyright from "../../ui/Copyright";
+import {FormikBag, FormikProps, withFormik} from "formik";
+
+const withFormikValidation = withFormik<Props, SignUpValues>({
+    mapPropsToValues: (props): SignUpValues => {
+        return props.signUpValues !== undefined ? {
+                firstName: props.signUpValues.firstName,
+                lastName: props.signUpValues.lastName,
+                email: props.signUpValues.email,
+                password: props.signUpValues.password,
+            } :
+            {
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+            };
+    },
+    handleSubmit: (values: SignUpValues, formikBag: FormikBag<Props, SignUpValues>): void => {
+        formikBag.props.onSubmit(values);
+    }
+});
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -45,8 +66,13 @@ const CustomTextField = withStyles({
     },
 })(TextField);
 
-export default function SignUp() {
+
+const SignUpComponent = (props: Props & FormikProps<SignUpValues>) => {
     const classes = useStyles();
+
+    const {
+        values, handleChange, handleSubmit
+    } = props;
 
     return (
         <Container component="main" maxWidth="xs">
@@ -58,7 +84,7 @@ export default function SignUp() {
                 <Typography component="h1" variant="h4">
                     Rejestracja
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <CustomTextField
@@ -70,6 +96,8 @@ export default function SignUp() {
                                 id="firstName"
                                 label="Imię"
                                 autoFocus
+                                value={values.firstName}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -81,6 +109,8 @@ export default function SignUp() {
                                 label="Nazwisko"
                                 name="lastName"
                                 autoComplete="lname"
+                                value={values.lastName}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -92,6 +122,8 @@ export default function SignUp() {
                                 label="E-mail"
                                 name="email"
                                 autoComplete="email"
+                                value={values.email}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -104,6 +136,8 @@ export default function SignUp() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                value={values.password}
+                                onChange={handleChange}
                             />
                         </Grid>
                     </Grid>
@@ -131,3 +165,17 @@ export default function SignUp() {
         </Container>
     );
 }
+
+export interface SignUpValues {
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+}
+
+interface Props {
+    signUpValues: SignUpValues | undefined,
+    onSubmit: (values: SignUpValues) => void,
+}
+
+export default withFormikValidation(SignUpComponent);
