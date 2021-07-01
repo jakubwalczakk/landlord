@@ -1,6 +1,6 @@
 import {withStyles} from "@material-ui/core/styles";
 import {ORANGE_COLOR} from "../COLOR_CONSTANTS";
-import {Checkbox, CheckboxProps, Select, TextField} from "@material-ui/core";
+import {Button, Checkbox, CheckboxProps, Select, TextField} from "@material-ui/core";
 
 export const OrangeCheckbox = withStyles({
     root: {
@@ -14,7 +14,24 @@ export const OrangeCheckbox = withStyles({
 
 export const OrangeSelect = withStyles({
     root: {
-        backgroundColor: "white"
+        backgroundColor: "white",
+        '& label.Mui-focused': {
+            color: ORANGE_COLOR,
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: ORANGE_COLOR,
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: ORANGE_COLOR,
+            },
+            '&:hover fieldset': {
+                borderColor: ORANGE_COLOR,
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: ORANGE_COLOR,
+            },
+        },
     },
 })(Select);
 
@@ -39,3 +56,13 @@ export const OrangeTextField = withStyles({
         },
     },
 })(TextField);
+
+export const OrangeButton = withStyles({
+    root: {
+        color: '#ffffff',
+        backgroundColor: ORANGE_COLOR,
+        '&:hover': {
+            backgroundColor: ORANGE_COLOR,
+        },
+    },
+})(Button);

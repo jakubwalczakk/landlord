@@ -1,9 +1,26 @@
 import React from 'react';
-import EquipmentViewComponent from './EquipmentViewComponent';
+import EquipmentViewComponent, {EquipmentProps} from './EquipmentViewComponent';
 
 
-export default function EquipmentViewContainer() {
+const EquipmentViewContainer = (props: EquipmentProps) => {
     return (
-        <EquipmentViewComponent/>
+        // <EquipmentViewComponent
+        // equipmentValues={props.equipmentValues}
+        // />
+
+        <EquipmentViewComponent
+            equipmentValues={{
+                tv: true,
+                oven: true,
+                cooker: true,
+                fridge: true,
+                dishwasher: true,
+                furniture: true,
+                washingMachine: true
+            }}
+        />
     );
 }
+
+
+export default EquipmentViewContainer;

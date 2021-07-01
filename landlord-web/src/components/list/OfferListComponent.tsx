@@ -16,6 +16,7 @@ import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {GreenButton} from "../../ui/GreenComponents";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {useHistory} from "react-router-dom";
+import SearchContainer from "./search/SearchContainer";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -143,13 +144,13 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 
 const rows = [
     createData(1, "Największa Oferta #1 - dwa pokoje", "https://picsum.photos/360/240", 1900.00, 1, 48.5),
-    createData(2, "Super Oferta #2 - dwa pokoje", "https://picsum.photos/360/240", 1600.00, 2, 42.0),
-    createData(3, "Najtańsza Oferta #3 - dwa pokoje", "https://picsum.photos/360/240", 1500.00, 2, 36.0),
-    createData(4, "Najlepsza Oferta #4 - trzy pokoje", "https://picsum.photos/360/240", 1800.00, 3, 40.5),
-    createData(5, "Przystępna Oferta #5 - dwa pokoje", "https://picsum.photos/360/240", 1750.00, 2, 40.0),
-    createData(6, "Droga Oferta #6 - trzy pokoje", "https://picsum.photos/360/240", 2000.00, 3, 44.0),
-    createData(7, "Całkiem droga Oferta #7 - dwa pokoje", "https://picsum.photos/360/240", 1800.00, 5, 38.0),
-    createData(8, "Fajna Oferta #8 - dwa pokoje", "https://picsum.photos/360/240", 1600.00, 2, 32.0),
+    // createData(2, "Super Oferta #2 - dwa pokoje", "https://picsum.photos/360/240", 1600.00, 2, 42.0),
+    // createData(3, "Najtańsza Oferta #3 - dwa pokoje", "https://picsum.photos/360/240", 1500.00, 2, 36.0),
+    // createData(4, "Najlepsza Oferta #4 - trzy pokoje", "https://picsum.photos/360/240", 1800.00, 3, 40.5),
+    // createData(5, "Przystępna Oferta #5 - dwa pokoje", "https://picsum.photos/360/240", 1750.00, 2, 40.0),
+    // createData(6, "Droga Oferta #6 - trzy pokoje", "https://picsum.photos/360/240", 2000.00, 3, 44.0),
+    // createData(7, "Całkiem droga Oferta #7 - dwa pokoje", "https://picsum.photos/360/240", 1800.00, 5, 38.0),
+    // createData(8, "Fajna Oferta #8 - dwa pokoje", "https://picsum.photos/360/240", 1600.00, 2, 32.0),
 ];
 
 export default function OfferListComponent() {
@@ -160,9 +161,9 @@ export default function OfferListComponent() {
         <div className='single-page'>
             {isLoading && <Spinner/>}
             <Container maxWidth={false} className={classes.container}>
-                {/*<SearchContainer/>*/}
                 <Grid container xs={7}>
-                    <TableContainer component={Paper}>
+                    <TableContainer>
+                        <SearchContainer/>
                         <Table aria-label="collapsible table">
                             <TableBody>
                                 {rows.map((row) => (

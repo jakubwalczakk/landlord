@@ -1,100 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import DetailedInformationComponent, {DetailedInformationValues} from './DetailedInformationComponent';
-import {getBuildingTypes} from "../../../../api/buildingType";
-import {getBuildingMaterials} from "../../../../api/buildingMaterial";
-import {getFlatStatuses} from "../../../../api/flatStatus";
-import {getHeatingTypes} from "../../../../api/heatingType";
-import {getWindowsTypes} from "../../../../api/windowsType";
+import {BUILDING_TYPES} from "../../../../api/buildingType";
+import {BUILDING_MATERIALS} from "../../../../api/buildingMaterial";
+import {FLAT_STATUSES} from "../../../../api/flatStatus";
+import {HEATING_TYPES} from "../../../../api/heatingType";
+import {WINDOWS_TYPES} from "../../../../api/windowsType";
 
 export default function DetailedInformationContainer() {
 
-    const [buildingMaterials, setBuildingMaterials] = useState<[key: string, value: string][]>([]);
-    const [buildingTypes, setBuildingTypes] = useState<[key: string, value: string][]>([]);
-    const [flatStatuses, setFlatStatuses] = useState<[key: string, value: string][]>([]);
-    const [heatingTypes, setHeatingTypes] = useState<[key: string, value: string][]>([]);
-    const [windowsTypes, setWindowsTypes] = useState<[key: string, value: string][]>([]);
+    const [buildingMaterials, setBuildingMaterials] = useState<{ key: string, value: string }[]>(BUILDING_MATERIALS);
+    const [buildingTypes, setBuildingTypes] = useState<{ key: string, value: string }[]>(BUILDING_TYPES);
+    const [flatStatuses, setFlatStatuses] = useState<{ key: string, value: string }[]>(FLAT_STATUSES);
+    const [heatingTypes, setHeatingTypes] = useState<{ key: string, value: string }[]>(HEATING_TYPES);
+    const [windowsTypes, setWindowsTypes] = useState<{ key: string, value: string }[]>(WINDOWS_TYPES);
 
     const [detailedInformationValues, setDetailedInformationValues] = useState<DetailedInformationValues | undefined>();
-
-    useEffect(() => {
-        getBuildingMaterials().then(response => {
-                // if ((response as ApiResponseMessage).success === false) {
-                //     const res = (response as ApiResponseMessage);
-                //     enqueueSnackbar(response.message, {
-                //         variant: 'error',
-                //         persist: true,
-                //     });
-                // } else {
-                //     setBuildingTypes(Object.entries(response));
-                // }
-                setBuildingMaterials(Object.entries(response));
-            }
-        )
-    }, [buildingMaterials]);
-
-    useEffect(() => {
-        getBuildingTypes().then(response => {
-                // if ((response as ApiResponseMessage).success === false) {
-                //     const res = (response as ApiResponseMessage);
-                //     enqueueSnackbar(response.message, {
-                //         variant: 'error',
-                //         persist: true,
-                //     });
-                // } else {
-                //     setBuildingTypes(Object.entries(response));
-                // }
-                setBuildingTypes(Object.entries(response));
-            }
-        )
-    }, [buildingTypes]);
-
-    useEffect(() => {
-        getFlatStatuses().then(response => {
-                // if ((response as ApiResponseMessage).success === false) {
-                //     const res = (response as ApiResponseMessage);
-                //     enqueueSnackbar(response.message, {
-                //         variant: 'error',
-                //         persist: true,
-                //     });
-                // } else {
-                //     setBuildingTypes(Object.entries(response));
-                // }
-                setFlatStatuses(Object.entries(response));
-            }
-        )
-    }, [flatStatuses]);
-
-    useEffect(() => {
-        getHeatingTypes().then(response => {
-                // if ((response as ApiResponseMessage).success === false) {
-                //     const res = (response as ApiResponseMessage);
-                //     enqueueSnackbar(response.message, {
-                //         variant: 'error',
-                //         persist: true,
-                //     });
-                // } else {
-                //     setBuildingTypes(Object.entries(response));
-                // }
-                setHeatingTypes(Object.entries(response));
-            }
-        )
-    }, [heatingTypes]);
-
-    useEffect(() => {
-        getWindowsTypes().then(response => {
-                // if ((response as ApiResponseMessage).success === false) {
-                //     const res = (response as ApiResponseMessage);
-                //     enqueueSnackbar(response.message, {
-                //         variant: 'error',
-                //         persist: true,
-                //     });
-                // } else {
-                //     setBuildingTypes(Object.entries(response));
-                // }
-                setWindowsTypes(Object.entries(response));
-            }
-        )
-    }, [windowsTypes]);
 
     return (
         <DetailedInformationComponent
@@ -103,7 +23,6 @@ export default function DetailedInformationContainer() {
             flatStatuses={flatStatuses}
             heatingTypes={heatingTypes}
             windowsTypes={windowsTypes}
-
             onSubmit={(values: DetailedInformationValues) => console.log(values)}
             detailedInformationValues={detailedInformationValues}
         />

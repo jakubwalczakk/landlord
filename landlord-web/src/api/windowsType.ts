@@ -1,6 +1,5 @@
-import {redirectFetch} from "./redirectFetch";
-import {ApiResponseMessage} from "../dto/dto";
-
-export function getWindowsTypes(): Promise<Record<string, string> | ApiResponseMessage> {
-    return redirectFetch('/windows-type').then(response => response.json());
-}
+export const WINDOWS_TYPES: { key: string, value: string }[] = [
+    {key: 'Plastikowe', value: 'PLASTIC'},
+    {key: 'Drewniane', value: 'WOODEN'},
+    {key: 'Aluminiowe', value: 'ALUMINUM'},
+];

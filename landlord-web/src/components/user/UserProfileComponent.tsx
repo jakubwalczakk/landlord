@@ -18,6 +18,7 @@ import {OrangeTextField} from "../../ui/OrangeComponents";
 import {GreenButton} from "../../ui/GreenComponents";
 import {Mode} from "../../util/customTypes";
 import {FormikBag, FormikProps, withFormik} from "formik";
+import {UserDto} from "../../dto/dto";
 
 const withFormikValidation = withFormik<Props, UserProfileValues>({
     mapPropsToValues: (props): UserProfileValues => {
@@ -28,7 +29,7 @@ const withFormikValidation = withFormik<Props, UserProfileValues>({
                 phoneNumber: props.userProfileValues.phoneNumber,
                 email: props.userProfileValues.email,
                 password: props.userProfileValues.password,
-                confirmedPassword: props.userProfileValues.confirmedPassword,
+                confirmedPassword: '',
             } :
             {
                 firstName: '',
@@ -116,130 +117,143 @@ const UserProfileComponent = (props: Props & FormikProps<UserProfileValues>) => 
         <div className='single-page'>
             {isLoading && <Spinner/>}
             <Container maxWidth={false} className={classes.container}>
-                <Grid container xs={7}>
+                <Grid item xs={7}>
                     <Paper className={classes.paper}>
                         <Typography variant={'h5'} align={'center'} className={classes.typography}>
                             Moje konto
                         </Typography>
                         <Divider/>
-                        <div className={classes.formControl}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={4}>
-                                    <InputLabel>Imię</InputLabel>
-                                    <OrangeTextField
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        value={values.firstName}
-                                        onChange={handleChange}
-                                        disabled={isBrowseMode}
-                                    />
+                        <form onSubmit={handleSubmit}>
+                            <div className={classes.formControl}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={4}>
+                                        <InputLabel>Imię</InputLabel>
+                                        <OrangeTextField
+                                            id={'firstName'}
+                                            variant="outlined"
+                                            className={clsx(classes.margin, classes.textField)}
+                                            value={values.firstName}
+                                            onChange={handleChange}
+                                            disabled={isBrowseMode}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={4}>
+                                        <InputLabel>Nazwisko</InputLabel>
+                                        <OrangeTextField
+                                            id={'lastName'}
+                                            variant="outlined"
+                                            className={clsx(classes.margin, classes.textField)}
+                                            value={values.lastName}
+                                            onChange={handleChange}
+                                            disabled={isBrowseMode}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={4}>
+                                        <InputLabel>Data utworzenia konta</InputLabel>
+                                        <OrangeTextField
+                                            id={'accountCreateDate'}
+                                            variant="outlined"
+                                            className={clsx(classes.margin, classes.textField)}
+                                            disabled
+                                            value={values.accountCreateDate}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={4}>
+                                        <InputLabel>Telefon</InputLabel>
+                                        <OrangeTextField
+                                            id={'phoneNumber'}
+                                            variant="outlined"
+                                            className={clsx(classes.margin, classes.textField)}
+                                            disabled={isBrowseMode}
+                                            value={values.phoneNumber}
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={4}>
+                                        <InputLabel>E-mail</InputLabel>
+                                        <OrangeTextField
+                                            id={'email'}
+                                            variant="outlined"
+                                            className={clsx(classes.margin, classes.textField)}
+                                            disabled={isBrowseMode}
+                                            type={'e-mail'}
+                                            value={values.email}
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={4}/>
+
+                                    <Grid item xs={4}>
+                                        <InputLabel>Hasło</InputLabel>
+                                        <OrangeTextField
+                                            id={'password'}
+                                            variant="outlined"
+                                            className={clsx(classes.margin, classes.textField)}
+                                            disabled={isBrowseMode}
+                                            type={'password'}
+                                            value={values.password}
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>
+
+                                    {isEditMode && <Grid item xs={4}>
+                                        <InputLabel>Powtórz hasło</InputLabel>
+                                        <OrangeTextField
+                                            id={'confirmedPassword'}
+                                            variant="outlined"
+                                            className={clsx(classes.margin, classes.textField)}
+                                            disabled={isBrowseMode}
+                                            type={'password'}
+                                            value={values.confirmedPassword}
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>}
+
+                                    <Grid item xs={12}>
+                                        <Box display="flex" justifyContent={'flex-start'}
+                                             className={classes.buttonsBox}>
+                                            <MuiThemeProvider theme={theme}>
+                                                {isBrowseMode && <GreenButton
+                                                    type={"button"}
+                                                    variant={'contained'}
+                                                    onClick={() => setMode('EDIT')}
+                                                >
+                                                    Edytuj
+                                                </GreenButton>}
+                                                {isEditMode &&
+                                                <GreenButton
+                                                    type={"submit"}
+                                                    variant={'contained'}>
+                                                    Zapisz
+                                                </GreenButton>}
+                                                {!isBrowseMode &&
+                                                <GreenButton
+                                                    type={"button"}
+                                                    variant={'contained'}>
+                                                    Anuluj
+                                                </GreenButton>}
+                                                <GreenButton
+                                                    type={"button"}
+                                                    variant={'contained'}>
+                                                    Oferty
+                                                </GreenButton>
+                                                {isEditMode && <Button
+                                                    className={classes.deleteButton}
+                                                    type={"button"}
+                                                    variant={'contained'}>
+                                                    Zamknij konto
+                                                </Button>}
+                                            </MuiThemeProvider>
+                                        </Box>
+                                    </Grid>
                                 </Grid>
-
-                                <Grid item xs={4}>
-                                    <InputLabel>Nazwisko</InputLabel>
-                                    <OrangeTextField
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        value={values.lastName}
-                                        onChange={handleChange}
-                                        disabled={isBrowseMode}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={4}>
-                                    <InputLabel>Data utworzenia konta</InputLabel>
-                                    <OrangeTextField
-                                        disabled
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        value={values.accountCreateDate}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={4}>
-                                    <InputLabel>Telefon</InputLabel>
-                                    <OrangeTextField
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        value={values.phoneNumber}
-                                        onChange={handleChange}
-                                        disabled={isBrowseMode}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={4}>
-                                    <InputLabel>E-mail</InputLabel>
-                                    <OrangeTextField
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        value={values.email}
-                                        onChange={handleChange}
-                                        disabled={isBrowseMode}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={4}/>
-
-                                <Grid item xs={4}>
-                                    <InputLabel>Hasło</InputLabel>
-                                    <OrangeTextField
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        value={values.password}
-                                        onChange={handleChange}
-                                        disabled={isBrowseMode}
-                                    />
-                                </Grid>
-
-                                {isEditMode && <Grid item xs={4}>
-                                    <InputLabel>Powtórz hasło</InputLabel>
-                                    <OrangeTextField
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        value={values.confirmedPassword}
-                                        onChange={handleChange}
-                                        disabled={isBrowseMode}
-                                    />
-                                </Grid>}
-
-                                <Grid item xs={12}>
-                                    <Box display="flex" justifyContent={'flex-start'} className={classes.buttonsBox}>
-                                        <MuiThemeProvider theme={theme}>
-                                            {isBrowseMode && <GreenButton
-                                                type={"button"}
-                                                variant={'contained'}
-                                                onClick={() => setMode('EDIT')}
-                                            >
-                                                Edytuj
-                                            </GreenButton>}
-                                            {isEditMode &&
-                                            <GreenButton
-                                                type={"submit"}
-                                                variant={'contained'}>
-                                                Zapisz
-                                            </GreenButton>}
-                                            {!isBrowseMode &&
-                                            <GreenButton
-                                                type={"button"}
-                                                variant={'contained'}>
-                                                Anuluj
-                                            </GreenButton>}
-                                            <GreenButton
-                                                type={"button"}
-                                                variant={'contained'}>
-                                                Oferty
-                                            </GreenButton>
-                                            {isEditMode && <Button
-                                                className={classes.deleteButton}
-                                                type={"button"}
-                                                variant={'contained'}>
-                                                Zamknij konto
-                                            </Button>}
-                                        </MuiThemeProvider>
-                                    </Box>
-                                </Grid>
-                            </Grid>
-                        </div>
+                            </div>
+                        </form>
                     </Paper>
                 </Grid>
             </Container>
@@ -262,7 +276,7 @@ interface Props {
     setIsLoading: (isLoading: boolean) => void,
     mode: Mode,
     setMode: (mode: Mode) => void,
-    userProfileValues: UserProfileValues | undefined,
+    userProfileValues: UserDto | undefined,
     onSubmit: (values: UserProfileValues) => void,
 }
 

@@ -139,7 +139,5 @@ export interface UserDto {
 }
 
 export interface UserDtoBuilder {
-}
-
-export class AuthenticatedUser {
+    accountCreateDate: Date;
 }

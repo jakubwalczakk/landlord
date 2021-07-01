@@ -1,8 +1,7 @@
 import React from 'react';
-import {Avatar, Box, Container, CssBaseline, Grid, Link, TextField, Typography} from '@material-ui/core';
+import {Avatar, Container, CssBaseline, Grid, Link, TextField, Typography} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
-import Copyright from "../../ui/Copyright";
 import {GREEN_COLOR, ORANGE_COLOR} from "../../COLOR_CONSTANTS";
 import {GreenButton} from "../../ui/GreenComponents";
 import {FormikBag, FormikProps, withFormik} from "formik";
@@ -130,9 +129,6 @@ const SignInComponent = (props: Props & FormikProps<SignInValues>) => {
                     </Grid>
                 </form>
             </div>
-            <Box mt={8}>
-                <Copyright/>
-            </Box>
         </Container>
     );
 }

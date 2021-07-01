@@ -1,10 +1,9 @@
 import React from 'react';
-import {Avatar, Box, Container, CssBaseline, Grid, Link, TextField, Typography} from '@material-ui/core';
+import {Avatar, Container, CssBaseline, Grid, Link, TextField, Typography} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
 import {GreenButton} from "../../ui/GreenComponents";
 import {GREEN_COLOR, ORANGE_COLOR} from "../../COLOR_CONSTANTS";
-import Copyright from "../../ui/Copyright";
 import {FormikBag, FormikProps, withFormik} from "formik";
 
 const withFormikValidation = withFormik<Props, SignUpValues>({
@@ -159,9 +158,6 @@ const SignUpComponent = (props: Props & FormikProps<SignUpValues>) => {
                     </Grid>
                 </form>
             </div>
-            <Box mt={5}>
-                <Copyright/>
-            </Box>
         </Container>
     );
 }

@@ -121,8 +121,8 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                             >
                                 <option value=""/>
                                 {
-                                    buildingTypes.map(([k, v]) => {
-                                        return (<option value={k}>{v}</option>);
+                                    buildingTypes.map(({key, value}) => {
+                                        return (<option value={key}>{value}</option>);
                                     })
                                 }
                             </OrangeSelect>
@@ -162,8 +162,8 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                             >
                                 <option value=""/>
                                 {
-                                    buildingMaterials.map(([k, v]) => {
-                                        return (<option value={k}>{v}</option>);
+                                    buildingMaterials.map(({key, value}) => {
+                                        return (<option value={key}>{value}</option>);
                                     })
                                 }
                             </OrangeSelect>
@@ -181,8 +181,8 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                             >
                                 <option value=""/>
                                 {
-                                    windowsTypes.map(([k, v]) => {
-                                        return (<option value={k}>{v}</option>);
+                                    windowsTypes.map(({key, value}) => {
+                                        return (<option value={key}>{value}</option>);
                                     })
                                 }
                             </OrangeSelect>
@@ -200,8 +200,8 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                             >
                                 <option value=""/>
                                 {
-                                    heatingTypes.map(([k, v]) => {
-                                        return (<option value={k}>{v}</option>);
+                                    heatingTypes.map(({key, value}) => {
+                                        return (<option value={key}>{value}</option>);
                                     })
                                 }
                             </OrangeSelect>
@@ -230,8 +230,8 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                             >
                                 <option value=""/>
                                 {
-                                    flatStatuses.map(([k, v]) => {
-                                        return (<option value={k}>{v}</option>);
+                                    flatStatuses.map(({key, value}) => {
+                                        return (<option value={key}>{value}</option>);
                                     })
                                 }
                             </OrangeSelect>
@@ -287,11 +287,11 @@ export interface DetailedInformationValues {
 }
 
 interface Props {
-    buildingMaterials: [key: string, value: string][],
-    buildingTypes: [key: string, value: string][],
-    flatStatuses: [key: string, value: string][],
-    heatingTypes: [key: string, value: string][],
-    windowsTypes: [key: string, value: string][],
+    buildingMaterials: { key: string, value: string }[],
+    buildingTypes: { key: string, value: string }[],
+    flatStatuses: { key: string, value: string }[],
+    heatingTypes: { key: string, value: string }[],
+    windowsTypes: { key: string, value: string }[],
 
 
     detailedInformationValues: DetailedInformationValues | undefined,

@@ -185,8 +185,8 @@ const BasicInfoComponent = (props: Props & FormikProps<BasicInfoValues>) => {
                                     onChange={handleChange}
                                     className={classes.dispInlineBlock}>
                             {
-                                advertiserTypes.map(([k, v]) => {
-                                    return (<FormControlLabel value={k} control={<OrangeRadio/>} label={v}/>);
+                                advertiserTypes.map(({key, value}) => {
+                                    return (<FormControlLabel value={key} control={<OrangeRadio/>} label={value}/>);
                                 })
                             }
                         </RadioGroup>
@@ -208,7 +208,7 @@ export interface BasicInfoValues {
 }
 
 interface Props {
-    advertiserTypes: [key: string, value: string][],
+    advertiserTypes: { key: string, value: string }[],
     basicInfoValues: BasicInfoValues | undefined,
     onSubmit: (values: BasicInfoValues) => void,
 

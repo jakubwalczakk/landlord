@@ -1,6 +1,5 @@
-import {redirectFetch} from "./redirectFetch";
-import {ApiResponseMessage} from "../dto/dto";
-
-export function getFlatStatuses(): Promise<Record<string, string> | ApiResponseMessage> {
-    return redirectFetch('/flat-status').then(response => response.json());
-}
+export const FLAT_STATUSES: { key: string, value: string }[] = [
+    {key: 'Do zamieszkania', value: 'FOR_LIVING'},
+    {key: 'Do wykończenia', value: 'TO_FINISH'},
+    {key: 'IDo remontunne', value: 'FOR_RENOVATION'},
+];

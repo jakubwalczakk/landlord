@@ -1,7 +1,6 @@
 import React, {FC, useContext, useEffect} from "react";
 
 import {Route, Switch, useLocation} from 'react-router-dom';
-import HomePageContainer from "../components/home/HomePageComponent";
 import OfferListContainer from "../components/list/OfferListContainer";
 import UserProfileContainer from "../components/user/UserProfileContainer";
 import OfferAddContainer from "../components/offer/editable/OfferAddContainer";
@@ -25,7 +24,7 @@ const AppRoutes: FC = () => {
             <Route
                 exact
                 path={'/'}
-                component={HomePageContainer}
+                component={OfferListContainer}
             />
 
             <Route
@@ -48,7 +47,8 @@ const AppRoutes: FC = () => {
 
             <Route
                 exact
-                path={'/details/:id'}
+                path={'' +
+                '/details/:id'}
                 component={OfferDetailsContainer}
             />
 

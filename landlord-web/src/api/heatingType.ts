@@ -1,6 +1,8 @@
-import {redirectFetch} from "./redirectFetch";
-import {ApiResponseMessage} from "../dto/dto";
-
-export function getHeatingTypes(): Promise<Record<string, string> | ApiResponseMessage> {
-    return redirectFetch('/heating-type').then(response => response.json());
-}
+export const HEATING_TYPES: { key: string, value: string }[] = [
+    {key: 'Miejskie', value: 'DISTRICT'},
+    {key: 'Gazowe', value: 'GAS'},
+    {key: 'Piec kaflowy', value: 'TILED_STOVE'},
+    {key: 'Elektryczne', value: 'ELECTRIC'},
+    {key: 'Kotłownia', value: 'BOILER'},
+    {key: 'Inne', value: 'OTHER'},
+];

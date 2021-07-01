@@ -1,0 +1,8 @@
+Lista okien do zaimplementowania:
+- wyszukiwajka
+- lista rezultatów
+- szczegóły
+- edycyjna formatka oferty
+- profil użytkownika
+- logowanie
+- rejestracja

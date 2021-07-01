@@ -31,15 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function MediaViewContainer() {
+const MediaViewContainer = (props: MediaProps) => {
     const classes = useStyles();
 
-    const data: string[] = ['internet', 'telefon'];
-
-    const listItems = data.map((d) => <Grid item xs={4}>
-        <li>{d}</li>
-        {/*<li key={d}>{d}</li>*/}
-    </Grid>)
+    const {mediaValues} = props;
 
     return (
         <Paper className={classes.paper}>
@@ -49,12 +44,40 @@ export default function MediaViewContainer() {
             <Divider/>
 
             <div className={classes.formControl}>
+                {mediaValues &&
                 <Grid container xs={12}>
-                    {
-                        listItems
+                    {mediaValues.tv &&
+                    <Grid item xs={4}>
+                        <li key={'tv'}>{'telewizja'}</li>
+                    </Grid>
+                    }
+
+                    {mediaValues.internet &&
+                    <Grid item xs={4}>
+                        <li key={'internet'}>{'internet'}</li>
+                    </Grid>
+                    }
+
+                    {mediaValues.phone &&
+                    <Grid item xs={4}>
+                        <li key={'phone'}>{'telefon'}</li>
+                    </Grid>
                     }
                 </Grid>
+                }
             </div>
         </Paper>
     );
 }
+
+export interface MediaValues {
+    internet: boolean,
+    tv: boolean,
+    phone: boolean,
+}
+
+export interface MediaProps {
+    mediaValues: MediaValues
+}
+
+export default MediaViewContainer;

@@ -3,7 +3,6 @@ import './App.css';
 import {Button, createMuiTheme, ThemeProvider} from '@material-ui/core';
 import {BrowserRouter} from 'react-router-dom';
 import {SnackbarProvider, useSnackbar} from 'notistack';
-import AuthProvider from "./ui/AuthProvider";
 import FooterComponent from "./ui/FooterComponent";
 import AppRoutes from "./util/AppRoutes";
 import TopBarComponent from "./components/topbar/TopBarComponent";
@@ -28,11 +27,11 @@ function App() {
                     maxSnack={4}
                     action={key => <DismissAction id={key}/>}
                 >
-                    <AuthProvider>
+                    {/*<AuthProvider>*/}
                         <TopBarComponent/>
                         <AppRoutes/>
                         <FooterComponent/>
-                    </AuthProvider>
+                    {/*</AuthProvider>*/}
                 </SnackbarProvider>
             </BrowserRouter>
         </ThemeProvider>
