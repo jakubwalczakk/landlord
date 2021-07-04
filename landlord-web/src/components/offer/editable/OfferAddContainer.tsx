@@ -1,8 +1,24 @@
-import React from 'react';
-import OfferAddComponent from './OfferAddComponent';
+import React, {useState} from 'react';
+import OfferAddComponent, {OfferAddValues} from './OfferAddComponent';
+import {Mode} from "../../../util/customTypes";
 
-export default function OfferAddContainer() {
+const OfferAddContainer = () => {
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [mode, setMode] = useState<Mode>('BROWSE');
+    const [offerAddValues, setOfferAddValues] = useState<OfferAddValues | undefined>();
+
+    const onSubmit = (values: OfferAddValues) => {
+        console.log(values)
+    }
+
     return (
-        <OfferAddComponent/>
+        <OfferAddComponent
+            offerAddValues={offerAddValues}
+            onSubmit={onSubmit}
+        />
     );
 }
+
+
+export default OfferAddContainer;

@@ -32,13 +32,13 @@ const withFormikValidation = withFormik<Props, UserProfileValues>({
                 confirmedPassword: '',
             } :
             {
-                firstName: '',
-                lastName: '',
-                accountCreateDate: undefined,
-                phoneNumber: '',
-                email: '',
-                password: '',
-                confirmedPassword: '',
+                firstName: null,
+                lastName: null,
+                accountCreateDate: null,
+                phoneNumber: null,
+                email: null,
+                password: null,
+                confirmedPassword: null,
             };
     },
     handleSubmit: (values: UserProfileValues, formikBag: FormikBag<Props, UserProfileValues>): void => {
@@ -107,7 +107,8 @@ const UserProfileComponent = (props: Props & FormikProps<UserProfileValues>) => 
         setMode,
         values,
         handleChange,
-        handleSubmit
+        handleSubmit,
+        setFieldValue
     } = props;
 
     const isEditMode = mode === 'EDIT';
@@ -189,7 +190,10 @@ const UserProfileComponent = (props: Props & FormikProps<UserProfileValues>) => 
                                     <Grid item xs={4}/>
 
                                     <Grid item xs={4}>
-                                        <InputLabel>Hasło</InputLabel>
+                                        {isEditMode &&
+                                        <InputLabel>Zmień hasło</InputLabel>}
+                                        {!isEditMode &&
+                                        <InputLabel>Hasło</InputLabel>}
                                         <OrangeTextField
                                             id={'password'}
                                             variant="outlined"
@@ -221,7 +225,10 @@ const UserProfileComponent = (props: Props & FormikProps<UserProfileValues>) => 
                                                 {isBrowseMode && <GreenButton
                                                     type={"button"}
                                                     variant={'contained'}
-                                                    onClick={() => setMode('EDIT')}
+                                                    onClick={() => {
+                                                        setMode('EDIT');
+                                                        setFieldValue('password', '')
+                                                    }}
                                                 >
                                                     Edytuj
                                                 </GreenButton>}
@@ -234,14 +241,11 @@ const UserProfileComponent = (props: Props & FormikProps<UserProfileValues>) => 
                                                 {!isBrowseMode &&
                                                 <GreenButton
                                                     type={"button"}
-                                                    variant={'contained'}>
+                                                    variant={'contained'}
+                                                    onClick={() => setMode('BROWSE')}
+                                                >
                                                     Anuluj
                                                 </GreenButton>}
-                                                <GreenButton
-                                                    type={"button"}
-                                                    variant={'contained'}>
-                                                    Oferty
-                                                </GreenButton>
                                                 {isEditMode && <Button
                                                     className={classes.deleteButton}
                                                     type={"button"}
@@ -262,17 +266,18 @@ const UserProfileComponent = (props: Props & FormikProps<UserProfileValues>) => 
 }
 
 export interface UserProfileValues {
-    firstName: string,
-    lastName: string,
-    accountCreateDate: Date | undefined,
-    phoneNumber: string,
-    email: string,
-    password: string,
-    confirmedPassword: string,
+    firstName: string | null,
+    lastName: string | null,
+    accountCreateDate: Date | null,
+    phoneNumber: string | null,
+    email: string | null,
+    password: string | null,
+    confirmedPassword: string | null,
 }
 
 interface Props {
     isLoading: boolean,
+    isError: boolean,
     setIsLoading: (isLoading: boolean) => void,
     mode: Mode,
     setMode: (mode: Mode) => void,

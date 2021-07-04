@@ -5,6 +5,7 @@ import {OrangeTextField} from "../../../../ui/OrangeComponents";
 import clsx from "clsx";
 import {FormikBag, FormikProps, withFormik} from "formik";
 import * as Yup from "yup";
+import {GreenButton} from "../../../../ui/GreenComponents";
 
 
 const withFormikValidation = withFormik<Props, ContactValues>({
@@ -16,11 +17,11 @@ const withFormikValidation = withFormik<Props, ContactValues>({
         };
     },
     validationSchema: Yup.object().shape({
-        // name: Yup.string()
-        //     .min(2, 'Too Short!')
-        //     .max(50, 'Too Long!')
-        //     .required('Required'),
-        // email: Yup.string().email('Invalid email').required('Required'),
+        name: Yup.string()
+            .min(2, 'Wartość zbyt krótka')
+            .max(50, 'Wartość zbyt długa')
+            .required('Pole obowiązkowe'),
+        email: Yup.string().email('Niepoprawny format adresu e-mail').required('Pole obowiązkowe'),
     }),
     handleSubmit: (values: ContactValues, formikBag: FormikBag<Props, ContactValues>): void => {
         formikBag.props.onSubmit(values);
@@ -108,6 +109,9 @@ const ContactComponent = (props: Props & FormikProps<ContactValues>) => {
                         />
                     </Grid>
                 </Grid>
+                <GreenButton onClick={() => console.log(values)}>
+                    Submit
+                </GreenButton>
             </div>
         </Paper>
     );

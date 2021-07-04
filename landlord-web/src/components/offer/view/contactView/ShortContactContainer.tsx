@@ -50,7 +50,7 @@ const ShortContactContainer = (props: ContactProps) => {
                     justify="center"
                     alignItems="center"
                 >
-                    <Grid item direction={'column'}>
+                    <Grid item>
                         {contactValues.name}
                     </Grid>
                     <Grid item>

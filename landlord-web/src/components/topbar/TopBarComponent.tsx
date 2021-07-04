@@ -10,6 +10,7 @@ import {GreenButton} from "../../ui/GreenComponents";
 import {GRAY_COLOR} from "../../COLOR_CONSTANTS";
 import {ButtonBase, CardContent, CardMedia} from "@material-ui/core";
 import {useHistory} from 'react-router-dom';
+import {OrangeButton} from "../../ui/OrangeComponents";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButton: {
         margin: theme.spacing(2),
-        color: '#ffffff'
+        color: '#ffffff',
+        minWidth: 210,
     },
     title: {
         display: 'inline',
@@ -77,6 +79,12 @@ export default function TopBarComponent() {
                 >
                     Moje konto
                 </Button>
+                <OrangeButton className={classes.menuButton}
+                              startIcon={<PersonIcon/>}
+                              onClick={onMyAccountButtonClick}
+                >
+                    Moje oferty
+                </OrangeButton>
                 <GreenButton variant="contained"
                              className={classes.menuButton}
                              startIcon={<AddIcon/>}

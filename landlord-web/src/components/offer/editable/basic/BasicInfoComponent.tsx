@@ -18,6 +18,8 @@ import {
 import {ORANGE_COLOR} from "../../../../COLOR_CONSTANTS";
 import {OrangeTextField} from "../../../../ui/OrangeComponents";
 import {FormikBag, FormikProps, withFormik} from "formik";
+import {GreenButton} from "../../../../ui/GreenComponents";
+import * as Yup from 'yup';
 
 const withFormikValidation = withFormik<Props, BasicInfoValues>({
     mapPropsToValues: (props): BasicInfoValues => {
@@ -34,6 +36,15 @@ const withFormikValidation = withFormik<Props, BasicInfoValues>({
     handleSubmit: (values: BasicInfoValues, formikBag: FormikBag<Props, BasicInfoValues>): void => {
         formikBag.props.onSubmit(values);
     },
+    validationSchema: Yup.object().shape({
+        title: Yup.string().required("Pole obowiązkowe"),
+        price: Yup.number().min(0).required("Pole obowiązkowe"),
+        rentPrice: Yup.number().min(0).required("Pole obowiązkowe"),
+        bail: Yup.number().min(0).required("Pole obowiązkowe"),
+        surfaceArea: Yup.number().min(0).required("Pole obowiązkowe"),
+        roomsNumber: Yup.number().min(0).required("Pole obowiązkowe"),
+        advertiserType: Yup.string().required("Pole obowiązkowe"),
+    }),
 });
 
 
@@ -105,6 +116,8 @@ const BasicInfoComponent = (props: Props & FormikProps<BasicInfoValues>) => {
                         <OrangeTextField
                             id={'title'}
                             fullWidth
+                            multiline
+                            rowsMax={2}
                             className={clsx(classes.margin, classes.textField)}
                             variant="outlined"
                             value={values.title}
@@ -161,7 +174,7 @@ const BasicInfoComponent = (props: Props & FormikProps<BasicInfoValues>) => {
                             className={clsx(classes.margin, classes.textField)}
                             variant="outlined"
                             InputProps={{
-                                endAdornment: <InputAdornment position="end"><i>m<sup>2</sup></i></InputAdornment>,
+                                endAdornment: <InputAdornment position="end">m<sup>2</sup></InputAdornment>,
                             }}
                             value={values.surfaceArea}
                             onChange={(e) => setFieldValue('surfaceArea', e.target.value)}
@@ -186,12 +199,15 @@ const BasicInfoComponent = (props: Props & FormikProps<BasicInfoValues>) => {
                                     className={classes.dispInlineBlock}>
                             {
                                 advertiserTypes.map(({key, value}) => {
-                                    return (<FormControlLabel value={key} control={<OrangeRadio/>} label={value}/>);
+                                    return (<FormControlLabel value={value} control={<OrangeRadio/>} label={key}/>);
                                 })
                             }
                         </RadioGroup>
                     </Grid>
                 </Grid>
+                <GreenButton onClick={() => console.log(values)}>
+                    Submit
+                </GreenButton>
             </div>
         </Paper>
     );

@@ -5,6 +5,7 @@ import {Divider, FormControl, FormControlLabel, Grid, Paper, Typography} from '@
 import {OrangeCheckbox} from "../../../../ui/OrangeComponents";
 import clsx from "clsx";
 import {FormikBag, FormikProps, withFormik} from "formik";
+import {GreenButton} from "../../../../ui/GreenComponents";
 
 
 const withFormikValidation = withFormik<Props, EquipmentInfoValues>({
@@ -147,6 +148,11 @@ const EquipmentInfoComponent = (props: Props & FormikProps<EquipmentInfoValues>)
                         </Grid>
                     </Grid>
                 </FormControl>
+
+
+                <GreenButton onClick={() => console.log(values)}>
+                    Submit
+                </GreenButton>
             </div>
         </Paper>
     );

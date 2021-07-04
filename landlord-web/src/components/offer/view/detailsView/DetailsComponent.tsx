@@ -1,13 +1,11 @@
 import React from 'react';
-import {Divider, Grid, Paper, Typography} from "@material-ui/core";
+import {Button, Divider, Grid, Paper, Typography} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {FormikProps, withFormik} from "formik";
 
 const withFormikValidation = withFormik<DetailsProps, DetailsValues>({
     mapPropsToValues: (props): DetailsValues => {
         return props.detailsValues !== undefined ? {
-                title: props.detailsValues.title,
-                price: props.detailsValues.price,
                 rentPrice: props.detailsValues.rentPrice,
                 bail: props.detailsValues.bail,
                 surfaceArea: props.detailsValues.surfaceArea,
@@ -25,14 +23,12 @@ const withFormikValidation = withFormik<DetailsProps, DetailsValues>({
                 availableFrom: props.detailsValues.availableFrom,
             } :
             {
-                title: '',
-                price: undefined,
                 rentPrice: undefined,
                 bail: undefined,
                 surfaceArea: undefined,
                 roomsNumber: undefined,
                 advertiserType: '',
-                description: '',
+                description: 'XYZXYZXYZXYZ',
                 buildingType: '',
                 level: undefined,
                 buildingLevels: undefined,
@@ -99,7 +95,7 @@ const DetailsComponent = (props: DetailsProps & FormikProps<DetailsValues>) => {
                         Kaucja: <b>{values.bail} zł</b>
                     </Grid>
                     <Grid item xs={4}>
-                        Powierzchnia: <b>{values.surfaceArea} <i>m<sup>2</sup></i></b>
+                        Powierzchnia: <b>{values.surfaceArea} m<sup>2</sup></b>
                     </Grid>
 
                     <Grid item xs={4}>
@@ -132,14 +128,15 @@ const DetailsComponent = (props: DetailsProps & FormikProps<DetailsValues>) => {
                         Ogrzewanie: <b>{values.heatingType}</b>
                     </Grid>
                 </Grid>
+                <Button onClick={() => console.log(values)}>
+                    Pokaż wartości
+                </Button>
             </div>
         </Paper>
     );
 }
 
 export interface DetailsValues {
-    title: string,
-    price: number | undefined,
     rentPrice: number | undefined,
     bail: number | undefined,
     surfaceArea: number | undefined,

@@ -2,142 +2,160 @@
 /* eslint-disable */
 
 export interface AddressDto {
-    voivodeshipCode: string;
-    districtCode: string;
-    cityCode: string;
-    name: string;
-    additionalName: string;
-    cityType: string;
+    voivodeshipCode: string | null;
+    districtCode: string | null;
+    cityCode: string | null;
+    name: string | null;
+    additionalName: string | null;
+    cityType: string | null;
 }
 
 export interface AddressDtoBuilder {
 }
 
 export interface AmenitiesInfoDto {
-    balcony: boolean;
-    utilityRoom: boolean;
-    garage: boolean;
-    cellar: boolean;
-    garden: boolean;
-    terrace: boolean;
-    elevator: boolean;
-    twoLevelsFlat: boolean;
-    separateKitchen: boolean;
-    airConditioning: boolean;
-    onlyForNonSmokers: boolean;
+    balcony: boolean | null;
+    utilityRoom: boolean | null;
+    garage: boolean | null;
+    cellar: boolean | null;
+    garden: boolean | null;
+    terrace: boolean | null;
+    elevator: boolean | null;
+    twoLevelsFlat: boolean | null;
+    separateKitchen: boolean | null;
+    airConditioning: boolean | null;
+    onlyForNonSmokers: boolean | null;
 }
 
 export interface AmenitiesInfoDtoBuilder {
 }
 
 export interface ApiResponseMessage {
-    success: boolean;
-    message: string;
-    data: string;
+    success: boolean | null;
+    message: string | null;
+    data: string | null;
 }
 
 export interface ApiResponseMessageBuilder {
 }
 
 export interface EquipmentInfoDto {
-    fridge: boolean;
-    cooker: boolean;
-    oven: boolean;
-    dishwasher: boolean;
-    washingMachine: boolean;
-    furniture: boolean;
-    tv: boolean;
+    fridge: boolean | null;
+    cooker: boolean | null;
+    oven: boolean | null;
+    dishwasher: boolean | null;
+    washingMachine: boolean | null;
+    furniture: boolean | null;
+    tv: boolean | null;
 }
 
 export interface EquipmentInfoDtoBuilder {
 }
 
 export interface FlatDto {
-    roomsNumber: number;
-    surfaceArea: number;
-    level: number;
-    buildingLevels: number;
-    buildYear: number;
-    flatStatus: string;
-    buildingType: string;
-    buildingMaterial: string;
-    windowsType: string;
-    heatingType: string;
-    equipments: EquipmentInfoDto;
-    securityTools: SecurityToolsDto;
-    mediaInfo: MediaInfoDto;
-    amenitiesInfo: AmenitiesInfoDto;
-    address: AddressDto;
+    roomsNumber: number | null;
+    surfaceArea: number | null;
+    level: number | null;
+    buildingLevels: number | null;
+    buildYear: number | null;
+    flatStatus: string | null;
+    buildingType: string | null;
+    buildingMaterial: string | null;
+    windowsType: string | null;
+    heatingType: string | null;
+    equipments: EquipmentInfoDto | null;
+    securityTools: SecurityToolsDto | null;
+    mediaInfo: MediaInfoDto | null;
+    amenitiesInfo: AmenitiesInfoDto | null;
+    address: AddressDto | null;
 }
 
 export interface FlatDtoBuilder {
 }
 
 export interface MediaInfoDto {
-    internet: boolean;
-    tv: boolean;
-    phone: boolean;
+    internet: boolean | null;
+    tv: boolean | null;
+    phone: boolean | null;
 }
 
 export interface MediaInfoDtoBuilder {
 }
 
 export interface OfferAttachmentDto {
-    filename: string;
-    content: any;
-    insertDate: Date;
-    size: number;
-    width: number;
-    height: number;
+    filename: string | null;
+    content: any | null;
+    insertDate: Date | null;
+    size: number | null;
+    width: number | null;
+    height: number | null;
 }
 
 export interface OfferAttachmentDtoBuilder {
 }
 
 export interface OfferDto {
-    attachments: OfferAttachmentDto[];
-    mainPhoto: OfferAttachmentDto;
-    flat: FlatDto;
-    price: number;
-    rentPrice: number;
-    bail: number;
-    createDate: Date;
-    expirationDate: Date;
-    premiumOffer: boolean;
-    title: string;
-    description: string;
-    advertiserType: string;
-    availableFrom: Date;
-    availableForStudents: boolean;
-    owner: UserDto;
+    attachments: OfferAttachmentDto[] | null;
+    mainPhoto: OfferAttachmentDto | null;
+    flat: FlatDto | null;
+    price: number | null;
+    rentPrice: number | null;
+    bail: number | null;
+    createDate: Date | null;
+    expirationDate: Date | null;
+    premiumOffer: boolean | null;
+    title: string | null;
+    description: string | null;
+    advertiserType: string | null;
+    availableFrom: Date | null;
+    availableForStudents: boolean | null;
+    owner: UserDto | null;
 }
 
 export interface OfferDtoBuilder {
 }
 
+export interface SearchCriteria {
+    voivodeshipCode: string | null;
+    districtCode: string | null;
+    cityCode: string | null;
+    priceMin: number | null;
+    priceMax: number | null;
+    surfaceMin: number | null;
+    surfaceMax: number | null;
+    numberOfRooms: number[] | null;
+    buildingTypes: string[] | null;
+    heatingTypes: string[] | null;
+    level: number[] | null;
+    buildingLevels: number | null;
+}
+
+export interface SearchCriteriaBuilder {
+}
+
 export interface SecurityToolsDto {
-    antiBurglaryBlinds: boolean;
-    securityDoor: boolean;
-    antiBurglaryWindows: boolean;
-    intercom: boolean;
-    monitoring: boolean;
-    alarmSystem: boolean;
-    closedArea: boolean;
+    antiBurglaryBlinds: boolean | null;
+    securityDoor: boolean | null;
+    antiBurglaryWindows: boolean | null;
+    intercom: boolean | null;
+    monitoring: boolean | null;
+    alarmSystem: boolean | null;
+    closedArea: boolean | null;
 }
 
 export interface SecurityToolsDtoBuilder {
 }
 
 export interface UserDto {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    password: string;
-    accountCreateDate: Date;
-    userOffers: OfferDto[];
+    firstName: string | null;
+    lastName: string | null;
+    email: string | null;
+    phoneNumber: string | null;
+    password: string | null;
+    accountCreateDate: Date | null;
+    userOffers: OfferDto[] | null;
 }
 
 export interface UserDtoBuilder {
-    accountCreateDate: Date;
+    accountCreateDate: Date | null;
 }

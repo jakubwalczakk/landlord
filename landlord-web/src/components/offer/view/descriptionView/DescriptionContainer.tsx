@@ -1,5 +1,5 @@
 import React from 'react';
-import {Divider, Paper, Typography} from "@material-ui/core";
+import {Divider, FormControl, Paper, TextareaAutosize, Typography} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -44,7 +44,13 @@ const DescriptionContainer = (props: DescriptionValues) => {
             <Divider/>
 
             <div className={classes.formControl}>
-                {description}
+                <FormControl fullWidth>
+                    <TextareaAutosize
+                        disabled
+                        rowsMin={4}
+                        value={description}
+                    />
+                </FormControl>
             </div>
         </Paper>
     );

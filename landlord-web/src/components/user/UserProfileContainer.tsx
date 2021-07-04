@@ -1,51 +1,62 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import UserProfileComponent, {UserProfileValues} from './UserProfileComponent';
 import {Mode} from "../../util/customTypes";
 import {getCurrentUserData} from "../../api/currentUser";
-import {UserDto} from "../../dto/dto";
+import {ApiResponseMessage, UserDto} from "../../dto/dto";
+import {useSnackbar} from "notistack";
+import {NavigationLockContextProps, withNavigationLockContext} from "../../ui/NavigationLockContext";
 
-const UserProfileContainer = () => {
+const UserProfileContainer: FC<Props & NavigationLockContextProps> = (props) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
     const [mode, setMode] = useState<Mode>('BROWSE');
-    const [userProfileValues, setUserProfileValues] = useState<UserProfileValues | undefined>(undefined);
-    const [userDto, setUserDto] = useState<UserDto | undefined>(undefined);
+    const [userProfileValues, setUserProfileValues] = useState<UserDto | undefined>(undefined);
+    const {enqueueSnackbar} = useSnackbar();
 
     useEffect(() => {
-        getCurrentUserData()
-            .then(response => {
-                setUserProfileValues({
-                    firstName: 'XD',
-                    lastName: '',
-                    email: '',
-                    confirmedPassword: '',
-                    accountCreateDate: undefined,
-                    phoneNumber: '',
-                    password: ''
+        if (mode !== 'ADD') {
+            setIsLoading(true);
+            getCurrentUserData()
+                .then(response => {
+                    if ((response as ApiResponseMessage).message !== undefined && !(response as ApiResponseMessage).success) {
+                        setIsError(true);
+                        response = response as ApiResponseMessage;
+                        enqueueSnackbar(response.message, {
+                            variant: 'error',
+                            persist: true
+                        });
+                    } else {
+                        setUserProfileValues(response as UserDto);
+                        console.log("RRR => ", response)
+                    }
+                    setIsLoading(false);
                 });
-            });
+        }
+    }, [mode]);
 
-        getCurrentUserData()
-            .then(response => {
-                setUserDto(response as UserDto);
-                console.log("RRR => ", response)
-            })
-    }, []);
 
     const onSubmit = (values: UserProfileValues) => {
+        setIsLoading(true);
         console.log(values)
+        setIsLoading(false);
     }
 
     return (
         <UserProfileComponent
             isLoading={isLoading}
+            isError={isError}
             setIsLoading={setIsLoading}
             mode={mode}
             setMode={setMode}
-            userProfileValues={userDto}
+            userProfileValues={userProfileValues as UserDto}
             onSubmit={onSubmit}
         />
     );
 }
 
-export default UserProfileContainer;
+interface Props {
+    mode: Mode,
+}
+
+export default withNavigationLockContext(UserProfileContainer);

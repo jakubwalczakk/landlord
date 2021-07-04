@@ -7,6 +7,7 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {OrangeSelect, OrangeTextField} from "../../../../ui/OrangeComponents";
 import clsx from "clsx";
 import {KeyboardDatePicker,} from "@material-ui/pickers";
+import {GreenButton} from "../../../../ui/GreenComponents";
 
 const withFormikValidation = withFormik<Props, DetailedInformationValues>({
     mapPropsToValues: (props): DetailedInformationValues => {
@@ -73,6 +74,7 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
     const {
         values,
         setFieldValue,
+        handleChange,
         handleSubmit,
         buildingMaterials,
         buildingTypes,
@@ -102,6 +104,8 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                             <OrangeTextField
                                 id={'description'}
                                 fullWidth
+                                multiline
+                                rowsMax={5}
                                 className={clsx(classes.margin, classes.textField)}
                                 variant={'outlined'}
                                 value={values.description}
@@ -122,7 +126,7 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                                 <option value=""/>
                                 {
                                     buildingTypes.map(({key, value}) => {
-                                        return (<option value={key}>{value}</option>);
+                                        return (<option value={value}>{key}</option>);
                                     })
                                 }
                             </OrangeSelect>
@@ -163,7 +167,7 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                                 <option value=""/>
                                 {
                                     buildingMaterials.map(({key, value}) => {
-                                        return (<option value={key}>{value}</option>);
+                                        return (<option value={value}>{key}</option>);
                                     })
                                 }
                             </OrangeSelect>
@@ -182,7 +186,7 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                                 <option value=""/>
                                 {
                                     windowsTypes.map(({key, value}) => {
-                                        return (<option value={key}>{value}</option>);
+                                        return (<option value={value}>{key}</option>);
                                     })
                                 }
                             </OrangeSelect>
@@ -201,7 +205,7 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                                 <option value=""/>
                                 {
                                     heatingTypes.map(({key, value}) => {
-                                        return (<option value={key}>{value}</option>);
+                                        return (<option value={value}>{key}</option>);
                                     })
                                 }
                             </OrangeSelect>
@@ -231,7 +235,7 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                                 <option value=""/>
                                 {
                                     flatStatuses.map(({key, value}) => {
-                                        return (<option value={key}>{value}</option>);
+                                        return (<option value={value}>{key}</option>);
                                     })
                                 }
                             </OrangeSelect>
@@ -244,6 +248,7 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                                 className={clsx(classes.margin, classes.textField)}
                                 okLabel={'OK'}
                                 cancelLabel={'Anuluj'}
+                                clearLabel={'Wyczyść'}
                                 format={'dd-MM-yyyy'}
                                 inputVariant={'outlined'}
                                 invalidDateMessage={'Niepoprawny format daty'}
@@ -254,19 +259,18 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
                             />
                         </Grid>
 
-                        <Grid item xs={4}>
-                            {/*<MuiPickersUtilsProvider utils={DateFnsUtils}>*/}
-                            {/*    <DatePicker value={selectedDate} onChange={(x:any) => console.log}/>*/}
-                            {/*    <TimePicker value={selectedDate} onChange={(x:any) => console.log}/>*/}
-                            {/*    <DateTimePicker value={selectedDate} onChange={(x:any) => console.log}/>*/}
-                            {/*</MuiPickersUtilsProvider>*/}
-                            {/*<FormControlLabel*/}
-                            {/*    control={<OrangeCheckbox checked={false} onChange={handleChange}*/}
-                            {/*                             name="Dostępne również dla studentów"/>}*/}
-                            {/*    label="Oferta dostępna dla studentów"*/}
-                            {/*/>*/}
-                        </Grid>
+                        {/*<Grid item xs={4}>*/}
+                        {/*    <FormControlLabel*/}
+                        {/*        control={<OrangeCheckbox checked={values.availableForStudents} onChange={handleChange}*/}
+                        {/*                                 name="Dostępne również dla studentów"/>}*/}
+                        {/*        label="Oferta dostępna dla studentów"*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
                     </Grid>
+
+                    <GreenButton onClick={() => console.log(values)}>
+                        Submit
+                    </GreenButton>
                 </div>
             </form>
         </Paper>

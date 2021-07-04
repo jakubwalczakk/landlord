@@ -62,6 +62,10 @@
             <version>1.4.2.Final</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
             <scope>test</scope>
@@ -114,11 +118,11 @@
                             <!--                                <mapping>java.util.LocalDateTime:string</mapping>-->
                             <!--                            </customTypeMappings>-->
                             <optionalPropertiesDeclaration>nullableType</optionalPropertiesDeclaration>
-                            <!--                            <requiredAnnotations>-->
-                            <!--                                <annotaton>javax.validation.constraints.NotNull</annotaton>-->
-                            <!--                                <annotaton>javax.validation.constraints.NotEmpty</annotaton>-->
-                            <!--                                <annotaton>javax.validation.constraints.NotBlank</annotaton>-->
-                            <!--                            </requiredAnnotations>-->
+                            <requiredAnnotations>
+                                <annotaton>javax.validation.constraints.NotNull</annotaton>
+                                <annotaton>javax.validation.constraints.NotEmpty</annotaton>
+                                <annotaton>javax.validation.constraints.NotBlank</annotaton>
+                            </requiredAnnotations>
                             <noFileComment>true</noFileComment>
                         </configuration>
                     </plugin>

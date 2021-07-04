@@ -1,25 +1,61 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
     Button,
-    Checkbox,
     Grid,
     InputAdornment,
     InputLabel,
-    ListItemText,
-    MenuItem,
     Paper,
     Typography
 } from '@material-ui/core';
 import clsx from "clsx";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {OrangeButton, OrangeSelect, OrangeTextField} from "../../../ui/OrangeComponents";
+import {OrangeButton, OrangeTextField} from "../../../ui/OrangeComponents";
 import {Clear, Search} from "@material-ui/icons";
-import {HEATING_TYPES} from "../../../api/heatingType";
-import {BUILDING_TYPES} from "../../../api/buildingType";
+import {SearchCriteria} from "../../../dto/dto";
+import {FormikBag, FormikProps, withFormik} from "formik";
+
+const withFormikValidation = withFormik<Props, SearchCriteria>({
+    mapPropsToValues: (props): SearchCriteria => {
+        const {
+            searchCriteria,
+        } = props;
+
+        return (searchCriteria !== undefined ? {
+            voivodeshipCode: searchCriteria.voivodeshipCode !== null ? searchCriteria.voivodeshipCode : '',
+            districtCode: searchCriteria.districtCode !== null ? searchCriteria.districtCode : '',
+            cityCode: searchCriteria.cityCode !== null ? searchCriteria.cityCode : '',
+            priceMin: searchCriteria.priceMin !== null ? searchCriteria.priceMin : 0,
+            priceMax: searchCriteria.priceMax !== null ? searchCriteria.priceMax : 0,
+            surfaceMin: searchCriteria.surfaceMin !== null ? searchCriteria.surfaceMin : 0,
+            surfaceMax: searchCriteria.surfaceMax !== null ? searchCriteria.surfaceMax : 0,
+            numberOfRooms: searchCriteria.numberOfRooms !== null ? searchCriteria.numberOfRooms : [],
+            buildingTypes: searchCriteria.buildingTypes !== null ? searchCriteria.buildingTypes : [],
+            heatingTypes: searchCriteria.heatingTypes !== null ? searchCriteria.heatingTypes : [],
+            level: searchCriteria.level !== null ? searchCriteria.level : [],
+            buildingLevels: searchCriteria.buildingLevels !== null ? searchCriteria.buildingLevels : 0,
+        } : {
+            voivodeshipCode: null,
+            districtCode: null,
+            cityCode: null,
+            priceMin: null,
+            priceMax: null,
+            surfaceMin: null,
+            surfaceMax: null,
+            numberOfRooms: null,
+            buildingTypes: null,
+            heatingTypes: null,
+            level: null,
+            buildingLevels: null,
+        });
+    },
+    handleSubmit: (values: SearchCriteria, formikBag: FormikBag<Props, SearchCriteria>): void => {
+        formikBag.props.onSubmit(values);
+    },
+});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -87,301 +123,276 @@ const MenuProps = {
     },
 };
 
-const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-];
-
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-export default function SearchComponent() {
+const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
     const classes = useStyles();
-    const [age, setAge] = React.useState('');
 
-    var heatingTypes = {};
-    var buildingTypes = {};
-
-    const [personName, setPersonName] = React.useState<string[]>([]);
-
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setPersonName(event.target.value as string[]);
-    };
+    const {
+        values,
+        handleChange,
+        setFieldValue
+    } = props;
 
     return (
         <div className={classes.root}>
-            <Paper className={classes.paper}>
-                <Grid
-                    container
-                    spacing={2}
-                    direction="row"
-                    justify="center"
-                    alignItems="stretch"
-                    className={classes.container}
-                >
-                    <Grid item xs>
-                        <InputLabel>Województwo</InputLabel>
-                        <OrangeSelect
-                            value={age}
-                            onChange={() => console.log("Województwo changed")}
-                            label="Województwo"
-                            variant={'outlined'}
-                            className={clsx(classes.margin, classes.selectField)}
-                        >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                        </OrangeSelect>
-                    </Grid>
-                    <Grid item xs>
-                        <InputLabel>Powiat</InputLabel>
-                        <OrangeSelect
-                            value={age}
-                            onChange={() => console.log("Powiat changed")}
-                            label="Powiat"
-                            variant={'outlined'}
-                            className={clsx(classes.margin, classes.selectField)}
-                        >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                        </OrangeSelect>
-                    </Grid>
-                    <Grid item xs>
-                        <InputLabel htmlFor="my-input">Gmina</InputLabel>
-                        <OrangeSelect
-                            id="my-input"
-                            value={age}
-                            onChange={() => console.log("Gmina changed")}
-                            label="Gmina"
-                            variant={'outlined'}
-                            className={clsx(classes.margin, classes.selectField)}
-                        >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                        </OrangeSelect>
-                    </Grid>
-                    <Grid item xs>
-                        <OrangeButton
-                            size={'large'}
-                            variant="contained"
-                            color="secondary"
-                            className={classes.button}
-                            endIcon={<Search/>}
-                        >
-                            Szukaj
-                        </OrangeButton>
-
-                        <Button
-                            size={'large'}
-                            className={classes.clearButton}
-                            type={"button"}
-                            endIcon={<Clear/>}
-                            variant={'contained'}>
-                            Wyczyść filtry
-                        </Button>
-                    </Grid>
-                </Grid>
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
+            <form onSubmit={props.handleSubmit}>
+                <Paper className={classes.paper}>
+                    <Grid
+                        container
+                        spacing={2}
+                        direction="row"
+                        justify="center"
+                        alignItems="stretch"
+                        className={classes.container}
                     >
-                        <Typography className={classes.heading}>Wiecej filtrów</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Grid
-                            container
-                            spacing={2}
-                            direction="row"
-                            justify="center"
-                            alignItems="stretch"
-                            className={classes.container}
-                        >
-                            <Grid item>
-                                <InputLabel>Cena</InputLabel>
-                                <OrangeTextField
-                                    size={'small'}
-                                    className={clsx(classes.margin, classes.textField)}
-                                    variant="outlined"
-                                    InputProps={{
-                                        endAdornment: <InputAdornment position="end">zł</InputAdornment>,
-                                    }}
-                                    // value={values.price}
-                                    // onChange={(e) => setFieldValue('price', e.target.value)}
-                                />
-                                -
-                                <OrangeTextField
-                                    size={'small'}
-                                    className={clsx(classes.margin, classes.textField)}
-                                    variant="outlined"
-                                    InputProps={{
-                                        endAdornment: <InputAdornment position="end">zł</InputAdornment>,
-                                    }}
-                                    // value={values.price}
-                                    // onChange={(e) => setFieldValue('price', e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs>
-                                <InputLabel>Powierzchnia</InputLabel>
-                                <OrangeTextField
-                                    size={'small'}
-                                    className={clsx(classes.margin, classes.textField)}
-                                    variant="outlined"
-                                    InputProps={{
-                                        endAdornment: <InputAdornment
-                                            position="end"><i>m<sup>2</sup></i></InputAdornment>,
-                                    }}
-                                    // value={values.price}
-                                    // onChange={(e) => setFieldValue('price', e.target.value)}
-                                />
-                                -
-                                <OrangeTextField
-                                    size={'small'}
-                                    className={clsx(classes.margin, classes.textField)}
-                                    variant="outlined"
-                                    InputProps={{
-                                        endAdornment: <InputAdornment
-                                            position="end"><i>m<sup>2</sup></i></InputAdornment>,
-                                    }}
-                                    // value={values.price}
-                                    // onChange={(e) => setFieldValue('price', e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs>
-                                <InputLabel htmlFor={'roomsNumber'}>Liczba pokoi</InputLabel>
-                                <OrangeSelect
-                                    id="roomsNumber"
-                                    multiple
-                                    value={personName}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    // input={<Input />}
-                                    renderValue={(selected) => (selected as string[]).join(', ')}
-                                    MenuProps={MenuProps}
-                                >
-                                    {numbers.map((number) => (
-                                        <MenuItem key={number} value={number}>
-                                            <Checkbox checked={numbers.indexOf(number) > -1}/>
-                                            <ListItemText primary={number}/>
-                                        </MenuItem>
-                                    ))}
-                                </OrangeSelect>
-                            </Grid>
-                            <Grid item xs>
-                                <InputLabel htmlFor={'roomsNumber'}>Rodzaj zabudowy</InputLabel>
-                                <OrangeSelect
-                                    id="roomsNumber"
-                                    multiple
-                                    value={personName}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    // input={<Input />}
-                                    renderValue={(selected) => (selected as string[]).join(', ')}
-                                    MenuProps={MenuProps}
-                                >
-                                    {BUILDING_TYPES.map(({key, value}) => (
-                                        <MenuItem key={key} value={value}>
-                                            {/*<Checkbox checked={buildingTypes.indexOf(key) > -1} />*/}
-                                            <ListItemText primary={key}/>
-                                        </MenuItem>
-                                    ))}
-                                </OrangeSelect>
-                            </Grid>
-                            <Grid item xs>
-                                <InputLabel htmlFor={'roomsNumber'}>Ogrzewanie</InputLabel>
-                                <OrangeSelect
-                                    id="roomsNumber"
-                                    multiple
-                                    value={personName}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    // input={<Input />}
-                                    renderValue={(selected) => (selected as string[]).join(', ')}
-                                    MenuProps={MenuProps}
-                                >
-                                    {HEATING_TYPES.map(({key, value}) => (
-                                        <MenuItem key={key} value={value}>
-                                            {/*<Checkbox checked={heatingTypes.indexOf(key) > -1} />*/}
-                                            <ListItemText primary={key}/>
-                                        </MenuItem>
-                                    ))}
-                                </OrangeSelect>
-                            </Grid>
-                            <Grid item xs>
-                                <InputLabel htmlFor={'roomsNumber'}>Piętro</InputLabel>
-                                <OrangeSelect
-                                    id="roomsNumber"
-                                    multiple
-                                    value={personName}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    // input={<Input />}
-                                    renderValue={(selected) => (selected as string[]).join(', ')}
-                                    MenuProps={MenuProps}
-                                >
-                                    {numbers.map((number) => (
-                                        <MenuItem key={number} value={number}>
-                                            <Checkbox checked={numbers.indexOf(number) > -1}/>
-                                            <ListItemText primary={number}/>
-                                        </MenuItem>
-                                    ))}
-                                </OrangeSelect>
-                            </Grid>
-                            <Grid item xs>
-                                <InputLabel>Liczba pięter</InputLabel>
-                                <OrangeTextField
-                                    size={'small'}
-                                    className={clsx(classes.margin, classes.textField)}
-                                    variant="outlined"
-                                    InputProps={{
-                                        endAdornment: <InputAdornment
-                                            position="end"><i>m<sup>2</sup></i></InputAdornment>,
-                                    }}
-                                    // value={values.price}
-                                    // onChange={(e) => setFieldValue('price', e.target.value)}
-                                />
-                                -
-                                <OrangeTextField
-                                    size={'small'}
-                                    className={clsx(classes.margin, classes.textField)}
-                                    variant="outlined"
-                                    InputProps={{
-                                        endAdornment: <InputAdornment
-                                            position="end"><i>m<sup>2</sup></i></InputAdornment>,
-                                    }}
-                                    // value={values.price}
-                                    // onChange={(e) => setFieldValue('price', e.target.value)}
-                                />
-                            </Grid>
-
-                            <Grid item xs>
-                                Media
-                            </Grid>
-
-                            <Grid item xs>
-                                Informacje dodatkowe
-                            </Grid>
+                        <Grid item xs>
+                            {/*<InputLabel>Województwo</InputLabel>*/}
+                            {/*<OrangeSelect*/}
+                            {/*    id={'voivodeshipCode'}*/}
+                            {/*    value={values.voivodeshipCode}*/}
+                            {/*    onChange={handleChange}*/}
+                            {/*    label="Województwo"*/}
+                            {/*    variant={'outlined'}*/}
+                            {/*    className={clsx(classes.margin, classes.selectField)}*/}
+                            {/*>*/}
+                            {/*    <MenuItem value={10}>Ten</MenuItem>*/}
+                            {/*    <MenuItem value={20}>Twenty</MenuItem>*/}
+                            {/*    <MenuItem value={30}>Thirty</MenuItem>*/}
+                            {/*</OrangeSelect>*/}
                         </Grid>
-                    </AccordionDetails>
-                </Accordion>
-            </Paper>
+                        <Grid item xs>
+                            {/*<InputLabel>Powiat</InputLabel>*/}
+                            {/*<OrangeSelect*/}
+                            {/*    id={'districtCode'}*/}
+                            {/*    value={values.districtCode}*/}
+                            {/*    onChange={handleChange}*/}
+                            {/*    label="Powiat"*/}
+                            {/*    variant={'outlined'}*/}
+                            {/*    className={clsx(classes.margin, classes.selectField)}*/}
+                            {/*>*/}
+                            {/*    <MenuItem value={10}>Ten</MenuItem>*/}
+                            {/*    <MenuItem value={20}>Twenty</MenuItem>*/}
+                            {/*    <MenuItem value={30}>Thirty</MenuItem>*/}
+                            {/*</OrangeSelect>*/}
+                        </Grid>
+                        <Grid item xs>
+                            {/*<InputLabel htmlFor="cityCode">Gmina</InputLabel>*/}
+                            {/*<OrangeSelect*/}
+                            {/*    id={'cityCode'}*/}
+                            {/*    value={values.cityCode}*/}
+                            {/*    onChange={handleChange}*/}
+                            {/*    label="Gmina"*/}
+                            {/*    variant={'outlined'}*/}
+                            {/*    className={clsx(classes.margin, classes.selectField)}*/}
+                            {/*>*/}
+                            {/*    <MenuItem value={10}>Ten</MenuItem>*/}
+                            {/*    <MenuItem value={20}>Twenty</MenuItem>*/}
+                            {/*    <MenuItem value={30}>Thirty</MenuItem>*/}
+                            {/*</OrangeSelect>*/}
+                        </Grid>
+                        <Grid item xs>
+                            <OrangeButton
+                                size={'large'}
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
+                                endIcon={<Search/>}
+                                type={'submit'}
+                            >
+                                Szukaj
+                            </OrangeButton>
+
+                            <Button
+                                size={'large'}
+                                className={classes.clearButton}
+                                type={"button"}
+                                endIcon={<Clear/>}
+                                variant={'contained'}>
+                                Wyczyść filtry
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    <Accordion>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon/>}
+                        >
+                            <Typography className={classes.heading}>Wiecej filtrów</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Grid
+                                container
+                                spacing={2}
+                                direction="row"
+                                justify="center"
+                                alignItems="stretch"
+                                className={classes.container}
+                            >
+                                <Grid item>
+                                    <InputLabel>Cena</InputLabel>
+                                    <OrangeTextField
+                                        id={'priceMin'}
+                                        size={'small'}
+                                        className={clsx(classes.margin, classes.textField)}
+                                        variant="outlined"
+                                        InputProps={{
+                                            endAdornment: <InputAdornment position="end">zł</InputAdornment>,
+                                        }}
+                                        value={values.priceMin}
+                                        onChange={handleChange}
+                                    />
+                                    -
+                                    <OrangeTextField
+                                        id={'priceMax'}
+                                        size={'small'}
+                                        className={clsx(classes.margin, classes.textField)}
+                                        variant="outlined"
+                                        InputProps={{
+                                            endAdornment: <InputAdornment position="end">zł</InputAdornment>,
+                                        }}
+                                        value={values.priceMax}
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <InputLabel>Powierzchnia</InputLabel>
+                                    <OrangeTextField
+                                        id={'surfaceMin'}
+                                        size={'small'}
+                                        className={clsx(classes.margin, classes.textField)}
+                                        variant="outlined"
+                                        InputProps={{
+                                            endAdornment: <InputAdornment
+                                                position="end">m<sup>2</sup></InputAdornment>,
+                                        }}
+                                        value={values.surfaceMin}
+                                        onChange={handleChange}
+                                    />
+                                    -
+                                    <OrangeTextField
+                                        id={'surfaceMax'}
+                                        size={'small'}
+                                        className={clsx(classes.margin, classes.textField)}
+                                        variant="outlined"
+                                        InputProps={{
+                                            endAdornment: <InputAdornment
+                                                position="end">m<sup>2</sup></InputAdornment>,
+                                        }}
+                                        value={values.surfaceMax}
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={4}>
+                                    {/*<InputLabel htmlFor={'roomsNumber'}>Liczba pokoi</InputLabel>*/}
+                                    {/*<OrangeSelect*/}
+                                    {/*    id="roomsNumber"*/}
+                                    {/*    multiple*/}
+                                    {/*    onChange={handleChange}*/}
+                                    {/*    variant="outlined"*/}
+                                    {/*    value={values.numberOfRooms}*/}
+                                    {/*    // input={<Input />}*/}
+                                    {/*    renderValue={(selected) => (selected as string[]).join(', ')}*/}
+                                    {/*    MenuProps={MenuProps}*/}
+                                    {/*>*/}
+                                    {/*    {numbers.map((number) => (*/}
+                                    {/*        <MenuItem key={number} value={number}>*/}
+                                    {/*            <Checkbox checked={numbers.indexOf(number) > -1}/>*/}
+                                    {/*            <ListItemText primary={number}/>*/}
+                                    {/*        </MenuItem>*/}
+                                    {/*    ))}*/}
+                                    {/*</OrangeSelect>*/}
+                                </Grid>
+                                <Grid item xs={4}>
+                                    {/*<InputLabel htmlFor={'buildingType'}>Rodzaj zabudowy</InputLabel>*/}
+                                    {/*<OrangeSelect*/}
+                                    {/*    id="buildingType"*/}
+                                    {/*    multiple*/}
+                                    {/*    value={values.buildingTypes}*/}
+                                    {/*    onChange={handleChange}*/}
+                                    {/*    variant="outlined"*/}
+                                    {/*    // input={<Input />}*/}
+                                    {/*    renderValue={(selected) => (selected as string[]).join(', ')}*/}
+                                    {/*    MenuProps={MenuProps}*/}
+                                    {/*>*/}
+                                    {/*    {BUILDING_TYPES.map(({key, value}) => (*/}
+                                    {/*        <MenuItem key={key} value={value}>*/}
+                                    {/*            /!*<Checkbox checked={buildingTypes.indexOf(key) > -1} />*!/*/}
+                                    {/*            <ListItemText primary={key}/>*/}
+                                    {/*        </MenuItem>*/}
+                                    {/*    ))}*/}
+                                    {/*</OrangeSelect>*/}
+                                </Grid>
+                                <Grid item xs={4}>
+                                    {/*<InputLabel htmlFor={'heatingType'}>Ogrzewanie</InputLabel>*/}
+                                    {/*<OrangeSelect*/}
+                                    {/*    id="heatingType"*/}
+                                    {/*    multiple*/}
+                                    {/*    onChange={handleChange}*/}
+                                    {/*    value={values.heatingTypes}*/}
+                                    {/*    variant="outlined"*/}
+                                    {/*    // input={<Input />}*/}
+                                    {/*    renderValue={(selected) => (selected as string[]).join(', ')}*/}
+                                    {/*    MenuProps={MenuProps}*/}
+                                    {/*>*/}
+                                    {/*    {HEATING_TYPES.map(({key, value}) => (*/}
+                                    {/*        <MenuItem key={key} value={value}>*/}
+                                    {/*            /!*<Checkbox checked={heatingTypes.indexOf(key) > -1} />*!/*/}
+                                    {/*            <ListItemText primary={key}/>*/}
+                                    {/*        </MenuItem>*/}
+                                    {/*    ))}*/}
+                                    {/*</OrangeSelect>*/}
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <InputLabel htmlFor={'level'}>Piętro</InputLabel>
+                                    {/*<OrangeSelect*/}
+                                    {/*    id="level"*/}
+                                    {/*    multiple*/}
+                                    {/*    value={values.level}*/}
+                                    {/*    onChange={handleChange}*/}
+                                    {/*    variant="outlined"*/}
+                                    {/*    // input={<Input />}*/}
+                                    {/*    renderValue={(selected) => (selected as string[]).join(', ')}*/}
+                                    {/*    MenuProps={MenuProps}*/}
+                                    {/*>*/}
+                                    {/*    {numbers.map((number) => (*/}
+                                    {/*        <MenuItem key={number} value={number}>*/}
+                                    {/*            <Checkbox checked={numbers.indexOf(number) > -1}/>*/}
+                                    {/*            <ListItemText primary={number}/>*/}
+                                    {/*        </MenuItem>*/}
+                                    {/*    ))}*/}
+                                    {/*</OrangeSelect>*/}
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <InputLabel>Liczba pięter</InputLabel>
+                                    <OrangeTextField
+                                        id={'buildingLevels'}
+                                        size={'small'}
+                                        className={clsx(classes.margin, classes.textField)}
+                                        variant="outlined"
+                                        value={values.buildingLevels}
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={4}>
+                                    Media
+                                </Grid>
+
+                                <Grid item xs={4}>
+                                    Informacje dodatkowe
+                                </Grid>
+                            </Grid>
+                        </AccordionDetails>
+                    </Accordion>
+                </Paper>
+            </form>
         </div>
     );
 }
+
+interface Props {
+    searchCriteria: SearchCriteria | undefined,
+    onSubmit: (criteria: SearchCriteria) => void
+}
+
+export default withFormikValidation(SearchComponent);

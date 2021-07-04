@@ -1,23 +1,51 @@
-import React, {useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import OfferDetailsComponent, {OfferDetailsValues} from './OfferDetailsComponent';
-import {Mode} from "../../../util/customTypes";
+import {loadOfferDetails} from "../../../api/offerDetails";
+import {ApiResponseMessage} from "../../../dto/dto";
+import {useParams} from 'react-router-dom';
+import {useSnackbar} from "notistack";
+import {NavigationLockContextProps, withNavigationLockContext} from "../../../ui/NavigationLockContext";
 
 
-const OfferDetailsContainer = () => {
+const OfferDetailsContainer: FC<NavigationLockContextProps> = (props) => {
+    const {id} = useParams<ParamTypes>();
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [mode, setMode] = useState<Mode>('BROWSE');
-    const [offerDetailsValues, setOfferDetailsValues] = useState<OfferDetailsValues | undefined>(undefined);
+    const [isError, setIsError] = useState<boolean>(false);
+    const [offerDetailsValues, setOfferDetailsValues] = useState<OfferDetailsValues>();
+    const {enqueueSnackbar} = useSnackbar();
 
-    const onSubmit = (values: OfferDetailsValues) => {
-        console.log(values)
-    }
+    useEffect(() => {
+        console.log("ID = ", id)
+        setIsLoading(true);
+        loadOfferDetails(parseInt(id))
+            .then(response => {
+                if ((response as ApiResponseMessage).message !== undefined && !(response as ApiResponseMessage).success) {
+                    setIsError(true);
+                    response = response as ApiResponseMessage;
+                    enqueueSnackbar(response.message, {
+                        variant: 'error',
+                        persist: true,
+                    });
+                } else {
+                    console.log('XXXX =', response as OfferDetailsValues)
+                    setOfferDetailsValues(response as OfferDetailsValues);
+                }
+                setIsLoading(false);
+            });
+    }, []);
 
     return (
         <OfferDetailsComponent
+            isLoading={isLoading}
+            isError={isError}
             offerDetailsValues={offerDetailsValues}
-            onSubmit={onSubmit}
         />
     );
 }
 
-export default OfferDetailsContainer;
+interface ParamTypes {
+    id: string,
+}
+
+export default withNavigationLockContext(OfferDetailsContainer);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {Container, Grid, Typography} from '@material-ui/core'
@@ -17,16 +17,20 @@ import {EquipmentValues} from "./equipmentView/EquipmentViewComponent";
 
 const withFormikValidation = withFormik<Props, OfferDetailsValues>({
     mapPropsToValues: (props): OfferDetailsValues => {
-        return props.offerDetailsValues !== undefined ? {
-                title: props.offerDetailsValues.title,
-                price: props.offerDetailsValues.price,
-                description: props.offerDetailsValues.description,
-                details: props.offerDetailsValues.details,
-                equipments: props.offerDetailsValues.equipments,
-                securityTools: props.offerDetailsValues.securityTools,
-                media: props.offerDetailsValues.media,
-                additionalInfo: props.offerDetailsValues.additionalInfo,
-                contact: props.offerDetailsValues.contact,
+        const {
+            offerDetailsValues
+        } = props;
+
+        return offerDetailsValues !== undefined ? {
+                title: offerDetailsValues.title as string,
+                price: offerDetailsValues.price as number,
+                description: offerDetailsValues.description as string,
+                details: offerDetailsValues.details as DetailsValues,
+                equipments: offerDetailsValues.equipments as EquipmentValues,
+                securityTools: offerDetailsValues.securityTools as SecurityToolsValues,
+                media: offerDetailsValues.media as MediaValues,
+                additionalInfo: offerDetailsValues.additionalInfo as AdditionalInfoValues,
+                contact: offerDetailsValues.contact as ContactValues,
             } :
             {
                 title: undefined,
@@ -41,7 +45,7 @@ const withFormikValidation = withFormik<Props, OfferDetailsValues>({
             };
     },
     handleSubmit: (values: OfferDetailsValues, formikBag: FormikBag<Props, OfferDetailsValues>): void => {
-        formikBag.props.onSubmit(values);
+        console.log(values);
     }
 });
 
@@ -60,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const OfferDetailsComponent = (props: Props & FormikProps<OfferDetailsValues>) => {
+const OfferDetailsComponent: FC<Props & FormikProps<OfferDetailsValues>> = (props) => {
     const isLoading = false;
     const classes = useStyles();
 
@@ -86,9 +90,9 @@ const OfferDetailsComponent = (props: Props & FormikProps<OfferDetailsValues>) =
                                 <MultimediaCarouselContainer/>
                             </Grid>
                             <Grid item xs={3}>
-                                {/*<ShortContactContainer*/}
-                                {/*    contactValues={values.contact}*/}
-                                {/*/>*/}
+                                <ShortContactContainer
+                                    contactValues={values.contact}
+                                />
                                 <ShortContactContainer
                                     contactValues={{
                                         email: 'jwalczak@gmail.com',
@@ -104,13 +108,13 @@ const OfferDetailsComponent = (props: Props & FormikProps<OfferDetailsValues>) =
                             </Grid>
                             <Grid item xs={3}/>
                             <Grid item xs={9}>
-                                {/*<DescriptionContainer*/}
-                                {/*    description={values.description}*/}
-                                {/*/>*/}
                                 <DescriptionContainer
-                                    description={'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' +
-                                    'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa'}
+                                    description={values.description}
                                 />
+                                {/*<DescriptionContainer*/}
+                                {/*    description={'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' +*/}
+                                {/*    'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa'}*/}
+                                {/*/>*/}
                             </Grid>
                             <Grid item xs={3}/>
                             <Grid item xs={9}>
@@ -120,54 +124,54 @@ const OfferDetailsComponent = (props: Props & FormikProps<OfferDetailsValues>) =
                             </Grid>
                             <Grid item xs={3}/>
                             <Grid item xs={9}>
-                                {/*<SecurityViewContainer*/}
-                                {/*    securityValues={values.securityTools as SecurityToolsValues}*/}
-                                {/*/>*/}
                                 <SecurityViewContainer
-                                    securityToolsValues={{
-                                        antiBurglaryBlinds: true,
-                                        securityDoor: true,
-                                        antiBurglaryWindows: true,
-                                        intercom: true,
-                                        monitoring: true,
-                                        alarmSystem: true,
-                                        closedArea: true,
-                                    }}
+                                    securityToolsValues={values.securityTools as SecurityToolsValues}
                                 />
+                                {/*<SecurityViewContainer*/}
+                                {/*    securityToolsValues={{*/}
+                                {/*        antiBurglaryBlinds: true,*/}
+                                {/*        securityDoor: true,*/}
+                                {/*        antiBurglaryWindows: true,*/}
+                                {/*        intercom: true,*/}
+                                {/*        monitoring: true,*/}
+                                {/*        alarmSystem: true,*/}
+                                {/*        closedArea: true,*/}
+                                {/*    }}*/}
+                                {/*/>*/}
                             </Grid>
                             <Grid item xs={3}/>
                             <Grid item xs={9}>
-                                {/*<MediaViewContainer*/}
-                                {/*    mediaValues={values.media as MediaValues}*/}
-                                {/*/>*/}
                                 <MediaViewContainer
-                                    mediaValues={{
-                                        internet: true,
-                                        tv: true,
-                                        phone: true,
-                                    }}
+                                    mediaValues={values.media as MediaValues}
                                 />
+                                {/*<MediaViewContainer*/}
+                                {/*    mediaValues={{*/}
+                                {/*        internet: true,*/}
+                                {/*        tv: true,*/}
+                                {/*        phone: true,*/}
+                                {/*    }}*/}
+                                {/*/>*/}
                             </Grid>
                             <Grid item xs={3}/>
                             <Grid item xs={9}>
-                                {/*<AdditionalViewContainer*/}
-                                {/*    additionalInfoValues={values.additionalInfo as AdditionalInfoValues}*/}
-                                {/*/>*/}
                                 <AdditionalViewContainer
-                                    additionalInfoValues={{
-                                        balcony: true,
-                                        utilityRoom: true,
-                                        garage: true,
-                                        cellar: true,
-                                        garden: true,
-                                        terrace: true,
-                                        elevator: true,
-                                        twoLevelsFlat: true,
-                                        separateKitchen: true,
-                                        airConditioning: true,
-                                        onlyForNonSmokers: true,
-                                    }}
+                                    additionalInfoValues={values.additionalInfo as AdditionalInfoValues}
                                 />
+                                {/*<AdditionalViewContainer*/}
+                                {/*    additionalInfoValues={{*/}
+                                {/*        balcony: true,*/}
+                                {/*        utilityRoom: true,*/}
+                                {/*        garage: true,*/}
+                                {/*        cellar: true,*/}
+                                {/*        garden: true,*/}
+                                {/*        terrace: true,*/}
+                                {/*        elevator: true,*/}
+                                {/*        twoLevelsFlat: true,*/}
+                                {/*        separateKitchen: true,*/}
+                                {/*        airConditioning: true,*/}
+                                {/*        onlyForNonSmokers: true,*/}
+                                {/*    }}*/}
+                                {/*/>*/}
                             </Grid>
                             <Grid item xs={3}/>
                         </Grid>
@@ -177,7 +181,6 @@ const OfferDetailsComponent = (props: Props & FormikProps<OfferDetailsValues>) =
         </div>
     );
 }
-
 
 export interface OfferDetailsValues {
     title: string | undefined,
@@ -193,7 +196,8 @@ export interface OfferDetailsValues {
 
 interface Props {
     offerDetailsValues: OfferDetailsValues | undefined,
-    onSubmit: (values: OfferDetailsValues) => void,
+    isLoading: boolean,
+    isError: boolean,
 }
 
 export default withFormikValidation(OfferDetailsComponent);

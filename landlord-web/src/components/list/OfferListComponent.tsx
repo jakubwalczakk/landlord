@@ -122,7 +122,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                             {switchLabelByRoomsNumber()}
                         </Typography>
                         <Typography variant="h6" color="textSecondary">
-                            {row.surfaceArea} m2
+                            {row.surfaceArea} m<sup>2</sup>
                         </Typography>
                     </Grid>
                     <Grid item style={{marginRight: 0, marginLeft: "auto"}}>

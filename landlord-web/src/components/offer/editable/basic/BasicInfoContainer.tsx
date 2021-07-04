@@ -1,12 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import BasicInfoComponent, {BasicInfoValues} from './BasicInfoComponent';
 import {ADVERTISER_TYPES} from "../../../../api/advertiserType";
 
-export default function BasicInfoContainer() {
-
-    const [advertiserTypes, setAdvertiserTypes] = useState<{ key: string, value: string }[]>(ADVERTISER_TYPES);
-
-    const [basicInfoValues, setBasicInfoValues] = useState<BasicInfoValues | undefined>();
+const BasicInfoContainer = (props: Props) => {
 
     const onSubmit = (values: BasicInfoValues) => {
         console.log(values)
@@ -14,9 +10,15 @@ export default function BasicInfoContainer() {
 
     return (
         <BasicInfoComponent
-            basicInfoValues={basicInfoValues}
+            basicInfoValues={props.basicInfoValues}
             onSubmit={onSubmit}
-            advertiserTypes={advertiserTypes}
+            advertiserTypes={ADVERTISER_TYPES}
         />
     );
 }
+
+interface Props {
+    basicInfoValues: BasicInfoValues | undefined,
+}
+
+export default BasicInfoContainer;

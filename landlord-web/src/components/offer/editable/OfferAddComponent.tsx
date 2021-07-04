@@ -12,6 +12,8 @@ import BasicInfoContainer from './basic/BasicInfoContainer';
 import Spinner from '../../../ui/Spinner';
 import ContactContainer from './contact/ContactContainer';
 import MultimediaContainer from "./multimedia/MultimediaContainer";
+import {GreenButton} from "../../../ui/GreenComponents";
+import {BasicInfoValues} from "./basic/BasicInfoComponent";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,8 +30,11 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function OfferAddComponent() {
+const OfferAddComponent = (props: OfferAddProps) => {
     const isLoading = false;
+
+    const {offerAddValues} = props;
+
     const classes = useStyles();
     return (
         <div className='single-page'>
@@ -41,7 +46,7 @@ export default function OfferAddComponent() {
                 <Grid container xs={7}>
                     <div className={classes.formControl}>
                         <form>
-                            <BasicInfoContainer/>
+                            <BasicInfoContainer basicInfoValues={offerAddValues?.basicInfoValues}/>
                             <MultimediaContainer/>
                             <LocalizationContainer/>
                             <DetailedInformationContainer/>
@@ -50,6 +55,9 @@ export default function OfferAddComponent() {
                             <MediaInfoContainer/>
                             <AdditionalInfoContainer/>
                             <ContactContainer/>
+                            <GreenButton onClick={() => console.log(offerAddValues)}>
+                                ZAPISZ
+                            </GreenButton>
                         </form>
                     </div>
                 </Grid>
@@ -57,3 +65,15 @@ export default function OfferAddComponent() {
         </div>
     );
 }
+
+
+export interface OfferAddValues {
+    basicInfoValues: BasicInfoValues | undefined,
+}
+
+export interface OfferAddProps {
+    offerAddValues: OfferAddValues | undefined,
+    onSubmit: (values: OfferAddValues) => void,
+}
+
+export default OfferAddComponent;
