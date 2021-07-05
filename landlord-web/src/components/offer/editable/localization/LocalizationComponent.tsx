@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {Divider, Grid, InputLabel, MenuItem, Paper, Typography} from '@material-ui/core';
+import {Divider, Grid, InputLabel, Paper, Typography} from '@material-ui/core';
 import {OrangeSelect} from "../../../../ui/OrangeComponents";
 import clsx from "clsx";
 
@@ -121,12 +121,12 @@ export default function LocalizationComponent() {
                             className={clsx(classes.margin, classes.selectField)}
                             label="Województwo"
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {/*<MenuItem value="">*/}
+                            {/*    <em>None</em>*/}
+                            {/*</MenuItem>*/}
+                            {/*<MenuItem value={10}>Ten</MenuItem>*/}
+                            {/*<MenuItem value={20}>Twenty</MenuItem>*/}
+                            {/*<MenuItem value={30}>Thirty</MenuItem>*/}
                         </OrangeSelect>
                     </Grid>
 
@@ -140,12 +140,12 @@ export default function LocalizationComponent() {
                             className={clsx(classes.margin, classes.selectField)}
                             label="Powiat"
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {/*<MenuItem value="">*/}
+                            {/*    <em>None</em>*/}
+                            {/*</MenuItem>*/}
+                            {/*<MenuItem value={10}>Ten</MenuItem>*/}
+                            {/*<MenuItem value={20}>Twenty</MenuItem>*/}
+                            {/*<MenuItem value={30}>Thirty</MenuItem>*/}
                         </OrangeSelect>
                     </Grid>
 
@@ -159,12 +159,12 @@ export default function LocalizationComponent() {
                             className={clsx(classes.margin, classes.selectField)}
                             label="Gmina"
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {/*<MenuItem value="">*/}
+                            {/*    <em>None</em>*/}
+                            {/*</MenuItem>*/}
+                            {/*<MenuItem value={10}>Ten</MenuItem>*/}
+                            {/*<MenuItem value={20}>Twenty</MenuItem>*/}
+                            {/*<MenuItem value={30}>Thirty</MenuItem>*/}
                         </OrangeSelect>
                     </Grid>
                 </Grid>

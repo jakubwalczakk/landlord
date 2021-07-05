@@ -64,7 +64,7 @@ const MediaInfoComponent = (props: Props & FormikProps<MediaInfoValues>) => {
                           justify="flex-start"
                           alignItems="baseline"
                     >
-                        <Grid xs={4}>
+                        <Grid item xs={4}>
                             <FormControlLabel
                                 control={<OrangeCheckbox
                                     id={'internet'}
@@ -74,7 +74,7 @@ const MediaInfoComponent = (props: Props & FormikProps<MediaInfoValues>) => {
                                 label="internet"
                             />
                         </Grid>
-                        <Grid xs={4}>
+                        <Grid item xs={4}>
                             <FormControlLabel
                                 control={<OrangeCheckbox
                                     id={'tv'}
@@ -84,7 +84,7 @@ const MediaInfoComponent = (props: Props & FormikProps<MediaInfoValues>) => {
                                 label="telewizja kablowa"
                             />
                         </Grid>
-                        <Grid xs={4}>
+                        <Grid item xs={4}>
                             <FormControlLabel
                                 control={<OrangeCheckbox
                                     id={'phone'}

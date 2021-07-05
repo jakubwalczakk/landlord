@@ -199,7 +199,8 @@ const BasicInfoComponent = (props: Props & FormikProps<BasicInfoValues>) => {
                                     className={classes.dispInlineBlock}>
                             {
                                 advertiserTypes.map(({key, value}) => {
-                                    return (<FormControlLabel value={value} control={<OrangeRadio/>} label={key}/>);
+                                    return (<FormControlLabel value={value} key={key} control={<OrangeRadio/>}
+                                                              label={key}/>);
                                 })
                             }
                         </RadioGroup>

@@ -85,194 +85,192 @@ const DetailedInformationComponent = (props: Props & FormikProps<DetailedInforma
 
     return (
         <Paper className={classes.paper}>
-            <form onSubmit={handleSubmit}>
-                <Typography variant={'h6'} className={classes.typography}>
-                    Informacje szczegółowe
-                </Typography>
-                <Divider/>
+            <Typography variant={'h6'} className={classes.typography}>
+                Informacje szczegółowe
+            </Typography>
+            <Divider/>
 
-                <div className={classes.formControl}>
-                    <Grid container
-                          spacing={2}
-                          direction="row"
-                          justify="flex-start"
-                          alignItems="baseline"
-                    >
-                        <Grid item xs={12}>
-                            {/*FIXME: Should be text area*/}
-                            <InputLabel htmlFor="description">Opis</InputLabel>
-                            <OrangeTextField
-                                id={'description'}
-                                fullWidth
-                                multiline
-                                rowsMax={5}
-                                className={clsx(classes.margin, classes.textField)}
-                                variant={'outlined'}
-                                value={values.description}
-                                onChange={(e) => setFieldValue('description', e.target.value)}
-                            />
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InputLabel htmlFor="buildingType">Rodzaj zabudowy</InputLabel>
-                            <OrangeSelect
-                                id={'buildingType'}
-                                native
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.selectField)}
-                                value={values.buildingType}
-                                onChange={(e) => setFieldValue('buildingType', e.target.value)}
-                            >
-                                <option value=""/>
-                                {
-                                    buildingTypes.map(({key, value}) => {
-                                        return (<option value={value}>{key}</option>);
-                                    })
-                                }
-                            </OrangeSelect>
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InputLabel htmlFor="level">Piętro</InputLabel>
-                            <OrangeTextField
-                                id={'level'}
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.textField)}
-                                value={values.level}
-                                onChange={(e) => setFieldValue('level', e.target.value)}
-                            />
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InputLabel htmlFor="buildingLevels">Liczba pięter</InputLabel>
-                            <OrangeTextField
-                                id={'buildingLevels'}
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.textField)}
-                                value={values.buildingLevels}
-                                onChange={(e) => setFieldValue('buildingLevels', e.target.value)}
-                            />
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InputLabel htmlFor="buildingMaterial">Materiał budynku</InputLabel>
-                            <OrangeSelect
-                                id="buildingMaterial"
-                                native
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.selectField)}
-                                value={values.buildingMaterial}
-                                onChange={(e) => setFieldValue('buildingMaterial', e.target.value)}
-                            >
-                                <option value=""/>
-                                {
-                                    buildingMaterials.map(({key, value}) => {
-                                        return (<option value={value}>{key}</option>);
-                                    })
-                                }
-                            </OrangeSelect>
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InputLabel htmlFor="windowsType">Okna</InputLabel>
-                            <OrangeSelect
-                                id="windowsType"
-                                native
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.selectField)}
-                                value={values.windowsType}
-                                onChange={(e) => setFieldValue('windowsType', e.target.value)}
-                            >
-                                <option value=""/>
-                                {
-                                    windowsTypes.map(({key, value}) => {
-                                        return (<option value={value}>{key}</option>);
-                                    })
-                                }
-                            </OrangeSelect>
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InputLabel htmlFor="heatingType">Ogrzewanie</InputLabel>
-                            <OrangeSelect
-                                id="heatingType"
-                                native
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.selectField)}
-                                value={values.heatingType}
-                                onChange={(e) => setFieldValue('heatingType', e.target.value)}
-                            >
-                                <option value=""/>
-                                {
-                                    heatingTypes.map(({key, value}) => {
-                                        return (<option value={value}>{key}</option>);
-                                    })
-                                }
-                            </OrangeSelect>
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InputLabel htmlFor={'buildYear'}>Rok budowy</InputLabel>
-                            <OrangeTextField
-                                id={'buildYear'}
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.textField)}
-                                value={values.buildYear}
-                                onChange={(e) => setFieldValue('buildYear', e.target.value)}
-                            />
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InputLabel htmlFor={'flatStatus'}>Stan wykończenia</InputLabel>
-                            <OrangeSelect
-                                id="flatStatus"
-                                native
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.selectField)}
-                                value={values.flatStatus}
-                                onChange={(e) => setFieldValue('flatStatus', e.target.value)}
-                            >
-                                <option value=""/>
-                                {
-                                    flatStatuses.map(({key, value}) => {
-                                        return (<option value={value}>{key}</option>);
-                                    })
-                                }
-                            </OrangeSelect>
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InputLabel htmlFor={'availableFrom'}>Dostępne od</InputLabel>
-                            <KeyboardDatePicker
-                                id={'availableFrom'}
-                                className={clsx(classes.margin, classes.textField)}
-                                okLabel={'OK'}
-                                cancelLabel={'Anuluj'}
-                                clearLabel={'Wyczyść'}
-                                format={'dd-MM-yyyy'}
-                                inputVariant={'outlined'}
-                                invalidDateMessage={'Niepoprawny format daty'}
-                                clearable
-                                autoOk
-                                value={values.availableFrom}
-                                onChange={(value) => setFieldValue('availableFrom', value)}
-                            />
-                        </Grid>
-
-                        {/*<Grid item xs={4}>*/}
-                        {/*    <FormControlLabel*/}
-                        {/*        control={<OrangeCheckbox checked={values.availableForStudents} onChange={handleChange}*/}
-                        {/*                                 name="Dostępne również dla studentów"/>}*/}
-                        {/*        label="Oferta dostępna dla studentów"*/}
-                        {/*    />*/}
-                        {/*</Grid>*/}
+            <div className={classes.formControl}>
+                <Grid container
+                      spacing={2}
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="baseline"
+                >
+                    <Grid item xs={12}>
+                        {/*FIXME: Should be text area*/}
+                        <InputLabel htmlFor="description">Opis</InputLabel>
+                        <OrangeTextField
+                            id={'description'}
+                            fullWidth
+                            multiline
+                            rowsMax={5}
+                            className={clsx(classes.margin, classes.textField)}
+                            variant={'outlined'}
+                            value={values.description}
+                            onChange={(e) => setFieldValue('description', e.target.value)}
+                        />
                     </Grid>
 
-                    <GreenButton onClick={() => console.log(values)}>
-                        Submit
-                    </GreenButton>
-                </div>
-            </form>
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor="buildingType">Rodzaj zabudowy</InputLabel>
+                        <OrangeSelect
+                            id={'buildingType'}
+                            native
+                            variant={'outlined'}
+                            className={clsx(classes.margin, classes.selectField)}
+                            value={values.buildingType}
+                            onChange={(e) => setFieldValue('buildingType', e.target.value)}
+                        >
+                            <option value=""/>
+                            {
+                                buildingTypes.map(({key, value}) => {
+                                    return (<option value={value} key={key}>{key}</option>);
+                                })
+                            }
+                        </OrangeSelect>
+                    </Grid>
+
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor="level">Piętro</InputLabel>
+                        <OrangeTextField
+                            id={'level'}
+                            variant={'outlined'}
+                            className={clsx(classes.margin, classes.textField)}
+                            value={values.level}
+                            onChange={(e) => setFieldValue('level', e.target.value)}
+                        />
+                    </Grid>
+
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor="buildingLevels">Liczba pięter</InputLabel>
+                        <OrangeTextField
+                            id={'buildingLevels'}
+                            variant={'outlined'}
+                            className={clsx(classes.margin, classes.textField)}
+                            value={values.buildingLevels}
+                            onChange={(e) => setFieldValue('buildingLevels', e.target.value)}
+                        />
+                    </Grid>
+
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor="buildingMaterial">Materiał budynku</InputLabel>
+                        <OrangeSelect
+                            id="buildingMaterial"
+                            native
+                            variant={'outlined'}
+                            className={clsx(classes.margin, classes.selectField)}
+                            value={values.buildingMaterial}
+                            onChange={(e) => setFieldValue('buildingMaterial', e.target.value)}
+                        >
+                            <option value=""/>
+                            {
+                                buildingMaterials.map(({key, value}) => {
+                                    return (<option value={value} key={key}>{key}</option>);
+                                })
+                            }
+                        </OrangeSelect>
+                    </Grid>
+
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor="windowsType">Okna</InputLabel>
+                        <OrangeSelect
+                            id="windowsType"
+                            native
+                            variant={'outlined'}
+                            className={clsx(classes.margin, classes.selectField)}
+                            value={values.windowsType}
+                            onChange={(e) => setFieldValue('windowsType', e.target.value)}
+                        >
+                            <option value=""/>
+                            {
+                                windowsTypes.map(({key, value}) => {
+                                    return (<option value={value} key={key}>{key}</option>);
+                                })
+                            }
+                        </OrangeSelect>
+                    </Grid>
+
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor="heatingType">Ogrzewanie</InputLabel>
+                        <OrangeSelect
+                            id="heatingType"
+                            native
+                            variant={'outlined'}
+                            className={clsx(classes.margin, classes.selectField)}
+                            value={values.heatingType}
+                            onChange={(e) => setFieldValue('heatingType', e.target.value)}
+                        >
+                            <option value=""/>
+                            {
+                                heatingTypes.map(({key, value}) => {
+                                    return (<option value={value} key={key}>{key}</option>);
+                                })
+                            }
+                        </OrangeSelect>
+                    </Grid>
+
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor={'buildYear'}>Rok budowy</InputLabel>
+                        <OrangeTextField
+                            id={'buildYear'}
+                            variant={'outlined'}
+                            className={clsx(classes.margin, classes.textField)}
+                            value={values.buildYear}
+                            onChange={(e) => setFieldValue('buildYear', e.target.value)}
+                        />
+                    </Grid>
+
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor={'flatStatus'}>Stan wykończenia</InputLabel>
+                        <OrangeSelect
+                            id="flatStatus"
+                            native
+                            variant={'outlined'}
+                            className={clsx(classes.margin, classes.selectField)}
+                            value={values.flatStatus}
+                            onChange={(e) => setFieldValue('flatStatus', e.target.value)}
+                        >
+                            <option value=""/>
+                            {
+                                flatStatuses.map(({key, value}) => {
+                                    return (<option value={value} key={key}>{key}</option>);
+                                })
+                            }
+                        </OrangeSelect>
+                    </Grid>
+
+                    <Grid item xs={4}>
+                        <InputLabel htmlFor={'availableFrom'}>Dostępne od</InputLabel>
+                        <KeyboardDatePicker
+                            id={'availableFrom'}
+                            className={clsx(classes.margin, classes.textField)}
+                            okLabel={'OK'}
+                            cancelLabel={'Anuluj'}
+                            clearLabel={'Wyczyść'}
+                            format={'dd-MM-yyyy'}
+                            inputVariant={'outlined'}
+                            invalidDateMessage={'Niepoprawny format daty'}
+                            clearable
+                            autoOk
+                            value={values.availableFrom}
+                            onChange={(value) => setFieldValue('availableFrom', value)}
+                        />
+                    </Grid>
+
+                    {/*<Grid item xs={4}>*/}
+                    {/*    <FormControlLabel*/}
+                    {/*        control={<OrangeCheckbox checked={values.availableForStudents} onChange={handleChange}*/}
+                    {/*                                 name="Dostępne również dla studentów"/>}*/}
+                    {/*        label="Oferta dostępna dla studentów"*/}
+                    {/*    />*/}
+                    {/*</Grid>*/}
+                </Grid>
+
+                <GreenButton onClick={() => console.log(values)}>
+                    Submit
+                </GreenButton>
+            </div>
         </Paper>
     );
 }

@@ -43,7 +43,7 @@ const OfferAddComponent = (props: OfferAddProps) => {
                 Wynajem mieszkania
             </Typography>
             <Container maxWidth={false} className={classes.container}>
-                <Grid container xs={7}>
+                <Grid item xs={7}>
                     <div className={classes.formControl}>
                         <form>
                             <BasicInfoContainer basicInfoValues={offerAddValues?.basicInfoValues}/>

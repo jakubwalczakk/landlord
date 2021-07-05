@@ -6,7 +6,7 @@ const OfferAddContainer = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [mode, setMode] = useState<Mode>('BROWSE');
-    const [offerAddValues, setOfferAddValues] = useState<OfferAddValues | undefined>();
+    const [offerAddValues, setOfferAddValues] = useState<OfferAddValues>();
 
     const onSubmit = (values: OfferAddValues) => {
         console.log(values)
