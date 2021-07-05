@@ -1,7 +1,6 @@
 import React, {createContext, FC, useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {useSnackbar} from "notistack";
-import {checkSession} from "../api/auth";
 import {clearSessionStorage} from "../util/methods";
 
 export interface AuthContextProps {
@@ -26,11 +25,11 @@ const AuthProvider: FC = (props) => {
     const {pathname} = useLocation();
 
     useEffect(() => {
-        handleFetchUserData();
+        // handleFetchUserData();
     }, []);
 
     useEffect(() => {
-        checkSession();
+        // checkSession();
     }, [pathname]);
 
     const handleLogout = () => {

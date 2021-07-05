@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import pl.jakub.walczak.offerservice.dto.AddressDto;
 import pl.jakub.walczak.offerservice.model.AddressDictionary;
 import pl.jakub.walczak.offerservice.repository.AddressDictionaryRepository;
 
@@ -78,5 +79,20 @@ public class AddressDictionaryService {
         } catch (IOException | ParserConfigurationException | SAXException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<AddressDto> getVoivodeships() {
+        return List.of(AddressDto.builder()
+                .voivodeshipCode("02")
+                .name("Dolnośląskie")
+                .build());
+    }
+
+    public List<AddressDto> getDistricts(String voivodeshipCode) {
+        return new ArrayList<>();
+    }
+
+    public List<AddressDto> getCities(String voivodeshipCode, String districtCode) {
+        return new ArrayList<>();
     }
 }

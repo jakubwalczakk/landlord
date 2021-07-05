@@ -28,17 +28,17 @@ const withFormikValidation = withFormik<Props, UserProfileValues>({
                 accountCreateDate: props.userProfileValues.accountCreateDate,
                 phoneNumber: props.userProfileValues.phoneNumber,
                 email: props.userProfileValues.email,
-                password: props.userProfileValues.password,
+                password: '',
                 confirmedPassword: '',
             } :
             {
-                firstName: null,
-                lastName: null,
+                firstName: '',
+                lastName: '',
                 accountCreateDate: null,
-                phoneNumber: null,
-                email: null,
-                password: null,
-                confirmedPassword: null,
+                phoneNumber: '',
+                email: '',
+                password: '',
+                confirmedPassword: '',
             };
     },
     handleSubmit: (values: UserProfileValues, formikBag: FormikBag<Props, UserProfileValues>): void => {
@@ -153,13 +153,14 @@ const UserProfileComponent = (props: Props & FormikProps<UserProfileValues>) => 
 
                                     <Grid item xs={4}>
                                         <InputLabel>Data utworzenia konta</InputLabel>
-                                        <OrangeTextField
-                                            id={'accountCreateDate'}
-                                            variant="outlined"
-                                            className={clsx(classes.margin, classes.textField)}
-                                            disabled
-                                            value={values.accountCreateDate}
-                                        />
+                                        <p>{values.accountCreateDate}</p>
+                                        {/*<OrangeTextField*/}
+                                        {/*    id={'accountCreateDate'}*/}
+                                        {/*    variant="outlined"*/}
+                                        {/*    className={clsx(classes.margin, classes.textField)}*/}
+                                        {/*    disabled*/}
+                                        {/*    value={values.accountCreateDate}*/}
+                                        {/*/>*/}
                                     </Grid>
 
                                     <Grid item xs={4}>

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Data
@@ -32,9 +33,35 @@ public class SearchCriteria {
     private BigDecimal priceMax;
     private BigDecimal surfaceMin;
     private BigDecimal surfaceMax;
+    @NotNull
     private int[] numberOfRooms;
+    @NotNull
     private String[] buildingTypes;
+    @NotNull
     private String[] heatingTypes;
+    @NotNull
     private int[] level;
     private int buildingLevels;
+    @NotNull
+    private boolean balcony;
+    @NotNull
+    private boolean utilityRoom;
+    @NotNull
+    private boolean garage;
+    @NotNull
+    private boolean cellar;
+    @NotNull
+    private boolean garden;
+    @NotNull
+    private boolean terrace;
+    @NotNull
+    private boolean elevator;
+    @NotNull
+    private boolean twoLevelsFlat;
+    @NotNull
+    private boolean separateKitchen;
+    @NotNull
+    private boolean airConditioning;
+    @NotNull
+    private boolean onlyForNonSmokers;
 }

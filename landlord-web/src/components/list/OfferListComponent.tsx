@@ -4,7 +4,6 @@ import {
     Box,
     Container,
     Grid,
-    Paper,
     Table,
     TableBody,
     TableCell,
@@ -161,15 +160,13 @@ export default function OfferListComponent() {
         <div className='single-page'>
             {isLoading && <Spinner/>}
             <Container maxWidth={false} className={classes.container}>
-                <Grid container xs={7}>
+                <Grid container item xs={7}>
                     <TableContainer>
                         <SearchContainer/>
                         <Table aria-label="collapsible table">
                             <TableBody>
                                 {rows.map((row) => (
-                                    <Paper className={classes.paper}>
-                                        <Row key={row.id} row={row}/>
-                                    </Paper>
+                                    <Row key={row.id} row={row}/>
                                 ))}
                             </TableBody>
                         </Table>
