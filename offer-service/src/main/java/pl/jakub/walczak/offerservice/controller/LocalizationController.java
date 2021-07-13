@@ -29,11 +29,11 @@ public class LocalizationController {
 
     @GetMapping(value = "/{voivodeshipCode}/districts")
     public ResponseEntity<List<AddressDto>> getDistricts(@PathVariable String voivodeshipCode) {
-        return ResponseEntity.ok(addressDictionaryService.getDistricts(voivodeshipCode));
+        return ResponseEntity.ok(addressDictionaryService.getDistrictsByVoivodeshipCode(voivodeshipCode));
     }
 
     @GetMapping(value = "/{voivodeshipCode}/{districtCode}/cities")
     public ResponseEntity<List<AddressDto>> getCities(@PathVariable String voivodeshipCode, @PathVariable String districtCode) {
-        return ResponseEntity.ok(addressDictionaryService.getCities(voivodeshipCode, districtCode));
+        return ResponseEntity.ok(addressDictionaryService.getCitiesByVoivodeshipAndDistrictCodes(voivodeshipCode, districtCode));
     }
 }

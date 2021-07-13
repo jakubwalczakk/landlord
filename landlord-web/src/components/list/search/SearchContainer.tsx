@@ -35,8 +35,6 @@ export default function SearchContainer() {
     const [districts, setDistricts] = useState<AddressDto[]>([]);
     const [cities, setCities] = useState<AddressDto[]>([]);
 
-    const [levels, setLevels] = useState<number[]>([]);
-
     useEffect(() => {
         loadVoivodeships()
             .then((response) => {
@@ -56,9 +54,10 @@ export default function SearchContainer() {
             });
     }, [])
 
-    useEffect(() => {
-        if (searchCriteria.voivodeshipCode !== null && searchCriteria.voivodeshipCode !== "") {
-            loadDistricts(searchCriteria.voivodeshipCode)
+    const reloadDistricts = (vvCode: string) => {
+        console.log("Something!!! = ", vvCode)
+        if (vvCode !== null && vvCode !== "") {
+            loadDistricts(vvCode)
                 .then((response) => {
                     if ((response as ApiResponseMessage).message !== undefined && !(response as ApiResponseMessage).success) {
                         // setIsError(true);
@@ -75,12 +74,12 @@ export default function SearchContainer() {
                     // setIsLoading(false);
                 });
         }
-    }, [searchCriteria.voivodeshipCode]);
+    }
 
-    useEffect(() => {
-        if (searchCriteria.voivodeshipCode !== null && searchCriteria.voivodeshipCode !== ''
-            && searchCriteria.districtCode !== null && searchCriteria.districtCode !== '') {
-            loadCities(searchCriteria.voivodeshipCode, searchCriteria.districtCode)
+    const reloadCities = (vvCode: string, districtCode: string) => {
+        console.log("District code changeeeed!! = ", districtCode)
+        if (vvCode !== null && vvCode !== '' && districtCode !== null && districtCode !== '') {
+            loadCities(vvCode, districtCode)
                 .then((response) => {
                     if ((response as ApiResponseMessage).message !== undefined && !(response as ApiResponseMessage).success) {
                         // setIsError(true);
@@ -97,30 +96,10 @@ export default function SearchContainer() {
                     // setIsLoading(false);
                 });
         }
-    }, [searchCriteria.districtCode]);
-
+    }
 
     const onSubmit = (criteria: SearchCriteria) => {
         console.log(criteria);
-    }
-
-    const handleChangeLevel = (event: React.ChangeEvent<{ value: unknown }>) => {
-        const coptyOfCriteria = {...searchCriteria};
-        coptyOfCriteria.level = event.target.value as number[];
-        setSearchCriteria(coptyOfCriteria);
-    }
-
-    const handleChangeHeatingTypes = (event: React.ChangeEvent<{ value: unknown }>) => {
-        // event.target.value as string[]);
-    }
-
-    const handleChangeBuildingTypes = (event: React.ChangeEvent<{ value: unknown }>) => {
-        // event.target.value as string[]);
-    }
-
-    const handleChangeNumberOfRooms = (event: React.ChangeEvent<{ value: unknown }>) => {
-        // setLevel(event.target.value as number[]);
-        // event.target.value as number[]);
     }
 
     return (
@@ -130,11 +109,8 @@ export default function SearchContainer() {
             voivodeships={voivodeships}
             districts={districts}
             cities={cities}
-            levels={levels}
-            handleChangeLevel={handleChangeLevel}
-            handleChangeHeatingTypes={handleChangeHeatingTypes}
-            handleChangeBuildingTypes={handleChangeBuildingTypes}
-            handleChangeNumberOfRooms={handleChangeNumberOfRooms}
+            reloadDistricts={reloadDistricts}
+            reloadCities={reloadCities}
         />
     );
 }

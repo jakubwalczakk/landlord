@@ -11,15 +11,16 @@ const UserProfileContainer: FC<Props & NavigationLockContextProps> = (props) => 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
     const [mode, setMode] = useState<Mode>('BROWSE');
-    const [userProfileValues, setUserProfileValues] = useState<UserDto | undefined>(undefined);
+    const [user, setUser] = useState<UserDto>();
     const {enqueueSnackbar} = useSnackbar();
 
     useEffect(() => {
         if (mode !== 'ADD') {
             setIsLoading(true);
             getCurrentUserData()
-                .then(response => {
-                    if ((response as ApiResponseMessage).message !== undefined && !(response as ApiResponseMessage).success) {
+                .then((response) => {
+                    if ((response as ApiResponseMessage).success === false) {
+                        // if ((response as ApiResponseMessage).message !== undefined && !(response as ApiResponseMessage).success) {
                         setIsError(true);
                         response = response as ApiResponseMessage;
                         enqueueSnackbar(response.message, {
@@ -27,8 +28,8 @@ const UserProfileContainer: FC<Props & NavigationLockContextProps> = (props) => 
                             persist: true
                         });
                     } else {
-                        setUserProfileValues(response as UserDto);
                         console.log("RRR => ", response)
+                        setUser(response as UserDto);
                     }
                     setIsLoading(false);
                 });
@@ -49,7 +50,7 @@ const UserProfileContainer: FC<Props & NavigationLockContextProps> = (props) => 
             setIsLoading={setIsLoading}
             mode={mode}
             setMode={setMode}
-            userProfileValues={userProfileValues as UserDto}
+            user={user as UserDto}
             onSubmit={onSubmit}
         />
     );

@@ -28,7 +28,6 @@ const OfferDetailsContainer: FC<NavigationLockContextProps> = (props) => {
                         persist: true,
                     });
                 } else {
-                    console.log('XXXX =', response as OfferDetailsValues)
                     setOfferDetailsValues(response as OfferDetailsValues);
                 }
                 setIsLoading(false);

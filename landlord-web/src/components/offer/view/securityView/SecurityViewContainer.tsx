@@ -46,7 +46,7 @@ const SecurityViewContainer = (props: SecurityToolsProps) => {
 
             <div className={classes.formControl}>
                 {securityToolsValues &&
-                <Grid container xs={12}>
+                <Grid>
                     {securityToolsValues.antiBurglaryBlinds &&
                     <Grid item xs={4}>
                         <li key={'antiBurglaryBlinds'}>{'rolety antywłamaniowe'}</li>

@@ -87,7 +87,7 @@ const DetailsComponent = (props: DetailsProps & FormikProps<DetailsValues>) => {
             <Divider/>
 
             <div className={classes.formControl}>
-                <Grid container xs={12}>
+                <Grid container>
                     <Grid item xs={4}>
                         Czynsz - dodatkowo: <b>{values.rentPrice} zł</b>
                     </Grid>

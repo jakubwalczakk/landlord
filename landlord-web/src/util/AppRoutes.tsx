@@ -1,23 +1,22 @@
-import React, {FC, useContext, useEffect} from "react";
+import React, {FC} from "react";
 
-import {Route, Switch, useLocation} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import OfferListContainer from "../components/list/OfferListContainer";
 import UserProfileContainer from "../components/user/UserProfileContainer";
 import OfferAddContainer from "../components/offer/editable/OfferAddContainer";
 import OfferDetailsContainer from "../components/offer/view/OfferDetailsContainer";
 import SignUpContainer from "../components/signup/SignUpContainer";
 import SignInContainer from "../components/signin/SignInContainer";
-import {AuthContext, AuthContextProps} from "../ui/AuthProvider";
 
 const AppRoutes: FC = () => {
 
-    const {logout}: AuthContextProps = useContext(AuthContext);
-
-    const {pathname} = useLocation();
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [pathname]);
+    // const {logout}: AuthContextProps = useContext(AuthContext);
+    //
+    // const {pathname} = useLocation();
+    //
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // }, [pathname]);
 
     return (
         <Switch>
@@ -48,7 +47,7 @@ const AppRoutes: FC = () => {
             <Route
                 exact
                 path={'' +
-                '/details/:id'}
+                '/offer-details/:id'}
                 component={OfferDetailsContainer}
             />
 

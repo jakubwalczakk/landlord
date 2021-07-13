@@ -77,9 +77,9 @@ const OfferDetailsComponent: FC<Props & FormikProps<OfferDetailsValues>> = (prop
                 Szczegóły oferty
             </Typography>
             <Container maxWidth={false} className={classes.container}>
-                <Grid container xs={9}>
+                <Grid container item xs={9}>
                     <div className={classes.formControl}>
-                        <Grid container xs={12}>
+                        <Grid container>
                             <Grid item xs={9}>
                                 {values.title}
                             </Grid>
@@ -92,13 +92,6 @@ const OfferDetailsComponent: FC<Props & FormikProps<OfferDetailsValues>> = (prop
                             <Grid item xs={3}>
                                 <ShortContactContainer
                                     contactValues={values.contact}
-                                />
-                                <ShortContactContainer
-                                    contactValues={{
-                                        email: 'jwalczak@gmail.com',
-                                        name: "Jakub Walczak",
-                                        phoneNumber: '1123123123'
-                                    }}
                                 />
                             </Grid>
                             <Grid item xs={9}>

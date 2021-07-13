@@ -1,5 +1,7 @@
 package pl.jakub.walczak.offerservice.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +15,11 @@ import java.util.Date;
 @RequestMapping(value = "/current-user")
 public class CurrentUserController {
 
+    private final static Logger log = LoggerFactory.getLogger(CurrentUserController.class);
+
     @GetMapping
     public ResponseEntity<UserDto> getCurrentUser() {
+        log.info("Getting current user data");
         return ResponseEntity.ok(
                 UserDto.builder()
                         .accountCreateDate(new Date())

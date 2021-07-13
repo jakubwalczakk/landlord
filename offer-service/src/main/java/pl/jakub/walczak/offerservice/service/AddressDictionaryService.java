@@ -9,6 +9,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import pl.jakub.walczak.offerservice.dto.AddressDto;
+import pl.jakub.walczak.offerservice.mapper.AddressMapper;
 import pl.jakub.walczak.offerservice.model.AddressDictionary;
 import pl.jakub.walczak.offerservice.repository.AddressDictionaryRepository;
 
@@ -23,11 +24,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AddressDictionaryService {
 
     private AddressDictionaryRepository addressDictionaryRepository;
+    private AddressMapper addressMapper = AddressMapper.INSTANCE;
 
     private final static List<AddressDictionary> ADDRESS_DICTIONARY = new ArrayList<>();
 
@@ -62,6 +65,10 @@ public class AddressDictionaryService {
                 String cityType = element.getElementsByTagName("RODZ").item(0).getTextContent();
                 String name = element.getElementsByTagName("NAZWA").item(0).getTextContent();
                 String additionalName = element.getElementsByTagName("NAZWA_DOD").item(0).getTextContent();
+                int localizationLevel =
+                        (city != null && !city.equals("")) ? LocalizationLevel.CITY.getLevel() :
+                                ((district != null && !district.equals("")) ? LocalizationLevel.DISTRICT.getLevel() :
+                                        LocalizationLevel.VOIVODESHIP.getLevel());
 
                 AddressDictionary td =
                         AddressDictionary.builder()
@@ -71,6 +78,7 @@ public class AddressDictionaryService {
                                 .cityType(cityType)
                                 .name(name)
                                 .additionalName(additionalName)
+                                .localizationLevel(localizationLevel)
                                 .build();
 
                 ADDRESS_DICTIONARY.add(td);
@@ -82,17 +90,33 @@ public class AddressDictionaryService {
     }
 
     public List<AddressDto> getVoivodeships() {
-        return List.of(AddressDto.builder()
-                .voivodeshipCode("02")
-                .name("Dolnośląskie")
-                .build());
+        return addressDictionaryRepository.findAllByLocalizationLevelOrderByVoivodeshipCode(1)
+                .stream().map(ad -> addressMapper.mapEntityToDto(ad)).collect(Collectors.toList());
     }
 
-    public List<AddressDto> getDistricts(String voivodeshipCode) {
-        return new ArrayList<>();
+    public List<AddressDto> getDistrictsByVoivodeshipCode(String voivodeshipCode) {
+        return addressDictionaryRepository.findAllByLocalizationLevelAndVoivodeshipCodeOrderByDistrictCode(2, voivodeshipCode)
+                .stream().map(ad -> addressMapper.mapEntityToDto(ad)).collect(Collectors.toList());
     }
 
-    public List<AddressDto> getCities(String voivodeshipCode, String districtCode) {
-        return new ArrayList<>();
+    public List<AddressDto> getCitiesByVoivodeshipAndDistrictCodes(String voivodeshipCode, String districtCode) {
+        return addressDictionaryRepository.findAllByLocalizationLevelAndVoivodeshipCodeAndDistrictCodeOrderByCityCode(3, voivodeshipCode, districtCode)
+                .stream().map(ad -> addressMapper.mapEntityToDto(ad)).collect(Collectors.toList());
+    }
+}
+
+enum LocalizationLevel {
+    VOIVODESHIP(1),
+    DISTRICT(2),
+    CITY(3);
+
+    private int level;
+
+    LocalizationLevel(int level) {
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

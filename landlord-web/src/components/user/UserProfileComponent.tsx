@@ -22,12 +22,12 @@ import {UserDto} from "../../dto/dto";
 
 const withFormikValidation = withFormik<Props, UserProfileValues>({
     mapPropsToValues: (props): UserProfileValues => {
-        return props.userProfileValues !== undefined ? {
-                firstName: props.userProfileValues.firstName,
-                lastName: props.userProfileValues.lastName,
-                accountCreateDate: props.userProfileValues.accountCreateDate,
-                phoneNumber: props.userProfileValues.phoneNumber,
-                email: props.userProfileValues.email,
+        return props.user !== undefined ? {
+                firstName: props.user.firstName,
+                lastName: props.user.lastName,
+                accountCreateDate: props.user.accountCreateDate,
+                phoneNumber: props.user.phoneNumber,
+                email: props.user.email,
                 password: '',
                 confirmedPassword: '',
             } :
@@ -282,7 +282,7 @@ interface Props {
     setIsLoading: (isLoading: boolean) => void,
     mode: Mode,
     setMode: (mode: Mode) => void,
-    userProfileValues: UserDto | undefined,
+    user: UserDto,
     onSubmit: (values: UserProfileValues) => void,
 }
 

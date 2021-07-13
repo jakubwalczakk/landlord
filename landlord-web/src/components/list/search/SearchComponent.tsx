@@ -8,13 +8,12 @@ import {
     Checkbox,
     FormControl,
     FormControlLabel,
-    Grid,
+    FormGroup,
+    FormLabel,
     InputAdornment,
-    InputLabel,
     ListItemText,
     MenuItem,
-    Paper,
-    Typography
+    Paper
 } from '@material-ui/core';
 import clsx from "clsx";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -22,8 +21,8 @@ import {OrangeButton, OrangeCheckbox, OrangeSelect, OrangeTextField} from "../..
 import {Clear, Search} from "@material-ui/icons";
 import {AddressDto, SearchCriteria} from "../../../dto/dto";
 import {FormikBag, FormikProps, withFormik} from "formik";
-import {HEATING_TYPES} from "../../../api/heatingType";
 import {BUILDING_TYPES} from "../../../api/buildingType";
+import {HEATING_TYPES} from "../../../api/heatingType";
 
 const withFormikValidation = withFormik<Props, SearchCriteria>({
     mapPropsToValues: (props): SearchCriteria => {
@@ -107,7 +106,10 @@ const useStyles = makeStyles((theme: Theme) =>
         textField: {
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
-            maxWidth: 120
+            maxWidth: 100
+        },
+        column: {
+            width: '33%'
         },
         paper: {
             padding: theme.spacing(1),
@@ -124,19 +126,28 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         clearButton: {
             backgroundColor: '#d41c0f',
+            margin: theme.spacing(1),
             color: 'white',
+            width: 180,
         },
         selectField: {
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
-            minWidth: 200,
+            minWidth: 180,
+            maxWidth: 260,
         },
         button: {
             margin: theme.spacing(1),
+            width: 180,
         },
         heading: {
             fontSize: theme.typography.pxToRem(15),
             fontWeight: theme.typography.fontWeightRegular,
+        },
+        helper: {
+            borderLeft: `2px solid ${theme.palette.divider}`,
+            padding: theme.spacing(1, 1),
+            width: 200
         },
     }),
 );
@@ -162,415 +173,427 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
         voivodeships,
         districts,
         cities,
-        levels,
         setFieldValue,
         handleChange,
-        handleChangeLevel,
-        handleChangeHeatingTypes,
-        handleChangeBuildingTypes,
-        handleChangeNumberOfRooms,
+        reloadDistricts,
+        reloadCities
     } = props;
-
-
-    const [personName, setPersonName] = React.useState<string[]>([]);
 
     return (
         <div className={classes.root}>
             <form onSubmit={props.handleSubmit}>
                 <Paper className={classes.paper}>
-                    <Grid
-                        container
-                        spacing={2}
-                        direction="row"
-                        justify="center"
-                        alignItems="stretch"
-                        className={classes.container}
-                    >
-                        <Grid item xs>
-                            <InputLabel>Województwo</InputLabel>
-                            <OrangeSelect
-                                id={'voivodeshipCode'}
-                                value={values.voivodeshipCode}
-                                onChange={(e) => setFieldValue('voivodeshipCode', e.target.value)}
-                                label="Województwo"
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.selectField)}
-                            >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </OrangeSelect>
-                        </Grid>
-                        <Grid item xs>
-                            <InputLabel>Powiat</InputLabel>
-                            <OrangeSelect
-                                disabled={values.voivodeshipCode === null || values.voivodeshipCode === ''}
-                                id={'districtCode'}
-                                value={values.districtCode}
-                                onChange={(e) => setFieldValue('districtCode', e.target.value)}
-                                label="Powiat"
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.selectField)}
-                            >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </OrangeSelect>
-                        </Grid>
-                        <Grid item xs>
-                            <InputLabel htmlFor="cityCode">Gmina</InputLabel>
-                            <OrangeSelect
-                                disabled={values.districtCode === null || values.districtCode === ''}
-                                id={'cityCode'}
-                                value={values.cityCode}
-                                onChange={(e) => setFieldValue('cityCode', e.target.value)}
-                                label="Gmina"
-                                variant={'outlined'}
-                                className={clsx(classes.margin, classes.selectField)}
-                            >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </OrangeSelect>
-                        </Grid>
-                        <Grid item xs>
-                            <OrangeButton
-                                size={'large'}
-                                variant="contained"
-                                color="secondary"
-                                className={classes.button}
-                                endIcon={<Search/>}
-                                type={'submit'}
-                            >
-                                Szukaj
-                            </OrangeButton>
-
-                            <Button
-                                size={'large'}
-                                className={classes.clearButton}
-                                type={"button"}
-                                endIcon={<Clear/>}
-                                variant={'contained'}>
-                                Wyczyść filtry
-                            </Button>
-                        </Grid>
-                    </Grid>
                     <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon/>}
                         >
-                            <Typography className={classes.heading}>Wiecej filtrów</Typography>
+                            <FormControl fullWidth>
+                                <div className="wrapper" style={{
+                                    display: 'grid',
+                                }}>
+                                    <div style={{
+                                        gridColumnStart: 1,
+                                        gridColumnEnd: 2,
+                                    }}>
+                                        <FormControl className={classes.formControl}>
+                                            <FormLabel component="legend">Województwo</FormLabel>
+                                            <OrangeSelect
+                                                id={'voivodeshipCode'}
+                                                value={values.voivodeshipCode}
+                                                onChange={(e) => {
+                                                    setFieldValue('voivodeshipCode', e.target.value);
+                                                    reloadDistricts(e.target.value as string);
+                                                    setFieldValue('districtCode', null);
+                                                }}
+                                                label="Województwo"
+                                                variant={'outlined'}
+                                                className={clsx(classes.margin, classes.selectField)}
+                                            >
+                                                {voivodeships.map((vv) => (
+                                                    <MenuItem key={vv.voivodeshipCode as string}
+                                                              value={vv.voivodeshipCode as string}>
+                                                        {vv.name}
+                                                    </MenuItem>
+                                                ))}
+                                            </OrangeSelect>
+                                        </FormControl>
+                                    </div>
+
+                                    <div style={{
+                                        gridColumnStart: 2,
+                                        gridColumnEnd: 3,
+                                    }}>
+                                        <FormControl className={classes.formControl}>
+                                            <FormLabel component="legend">Powiat</FormLabel>
+                                            <OrangeSelect
+                                                disabled={values.voivodeshipCode === null || values.voivodeshipCode === ''}
+                                                id={'districtCode'}
+                                                value={values.districtCode}
+                                                onChange={(e) => {
+                                                    setFieldValue('districtCode', e.target.value);
+                                                    reloadCities(values.voivodeshipCode as string, e.target.value as string);
+                                                    setFieldValue('cityCode', null);
+                                                }}
+                                                label="Powiat"
+                                                variant={'outlined'}
+                                                className={clsx(classes.margin, classes.selectField)}
+                                            >
+                                                {districts.map((ds) => (
+                                                    <MenuItem key={ds.districtCode as string}
+                                                              value={ds.districtCode as string}>
+                                                        {ds.name}
+                                                    </MenuItem>
+                                                ))}
+                                            </OrangeSelect>
+                                        </FormControl>
+                                    </div>
+
+                                    <div style={{
+                                        gridColumnStart: 3,
+                                        gridColumnEnd: 4,
+                                    }}>
+                                        <FormControl className={classes.formControl}>
+                                            <FormLabel component="legend">Gmina</FormLabel>
+                                            <OrangeSelect
+                                                disabled={values.districtCode === null || values.districtCode === ''}
+                                                id={'cityCode'}
+                                                value={values.cityCode}
+                                                onChange={(e) => setFieldValue('cityCode', e.target.value)}
+                                                label="Gmina"
+                                                variant={'outlined'}
+                                                className={clsx(classes.margin, classes.selectField)}
+                                            >
+                                                {cities.map((c) => (
+                                                    <MenuItem key={c.cityCode as string} value={c.cityCode as string}>
+                                                        {c.name}
+                                                    </MenuItem>
+                                                ))}
+                                            </OrangeSelect>
+                                        </FormControl>
+                                    </div>
+                                    <div style={{
+                                        gridColumnStart: 4,
+                                        gridColumnEnd: 5,
+                                    }} className={classes.helper}>
+                                        <OrangeButton
+                                            size={'medium'}
+                                            variant="contained"
+                                            color="secondary"
+                                            className={classes.button}
+                                            endIcon={<Search/>}
+                                            type={'submit'}
+                                        >
+                                            Szukaj
+                                        </OrangeButton>
+                                        <Button
+                                            size={'medium'}
+                                            className={classes.clearButton}
+                                            type={"button"}
+                                            endIcon={<Clear/>}
+                                            variant={'contained'}
+                                        >
+                                            Wyczyść filtry
+                                        </Button>
+                                    </div>
+                                </div>
+                            </FormControl>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Grid
-                                container
-                                spacing={2}
-                                direction="row"
-                                justify="center"
-                                alignItems="stretch"
-                                className={classes.container}
-                            >
-                                <Grid item>
-                                    <InputLabel>Cena</InputLabel>
-                                    <OrangeTextField
-                                        id={'priceMin'}
-                                        size={'small'}
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        InputProps={{
-                                            endAdornment: <InputAdornment position="end">zł</InputAdornment>,
-                                        }}
-                                        value={values.priceMin}
-                                        onChange={handleChange}
-                                    />
-                                    -
-                                    <OrangeTextField
-                                        id={'priceMax'}
-                                        size={'small'}
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        InputProps={{
-                                            endAdornment: <InputAdornment position="end">zł</InputAdornment>,
-                                        }}
-                                        value={values.priceMax}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <InputLabel>Powierzchnia</InputLabel>
-                                    <OrangeTextField
-                                        id={'surfaceMin'}
-                                        size={'small'}
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        InputProps={{
-                                            endAdornment: <InputAdornment
-                                                position="end">m<sup>2</sup></InputAdornment>,
-                                        }}
-                                        value={values.surfaceMin}
-                                        onChange={handleChange}
-                                    />
-                                    -
-                                    <OrangeTextField
-                                        id={'surfaceMax'}
-                                        size={'small'}
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        InputProps={{
-                                            endAdornment: <InputAdornment
-                                                position="end">m<sup>2</sup></InputAdornment>,
-                                        }}
-                                        value={values.surfaceMax}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <FormControl className={classes.formControl}>
-                                        {/*<InputLabel htmlFor={'numberOfRooms'}>Liczba pokoi</InputLabel>*/}
-                                        {/*<OrangeSelect*/}
-                                        {/*    id="numberOfRooms"*/}
-                                        {/*    multiple*/}
-                                        {/*    onChange={handleChangeNumberOfRooms}*/}
-                                        {/*    input={<Input />}*/}
-                                        {/*    variant="outlined"*/}
-                                        {/*    value={values.numberOfRooms}*/}
-                                        {/*    renderValue={(selected) => (selected as string[]).join(', ')}*/}
-                                        {/*    MenuProps={MenuProps}*/}
-                                        {/*>*/}
-                                        {/*    {numbers.map((number) => (*/}
-                                        {/*        <MenuItem key={number} value={number}>*/}
-                                        {/*            <Checkbox checked={values.numberOfRooms.indexOf(number) > -1}/>*/}
-                                        {/*            <ListItemText primary={number}/>*/}
-                                        {/*        </MenuItem>*/}
-                                        {/*    ))}*/}
-                                        {/*</OrangeSelect>*/}
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <InputLabel htmlFor={'buildingTypes'}>Rodzaj zabudowy</InputLabel>
-                                    <OrangeSelect
-                                        id="buildingTypes"
-                                        multiple
-                                        value={values.buildingTypes}
-                                        onChange={handleChangeBuildingTypes}
-                                        variant="outlined"
-                                        renderValue={(selected) => (selected as string[]).join(', ')}
-                                        MenuProps={MenuProps}
+                            <FormControl fullWidth={true}>
+                                <div className="wrapper" style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(3, 33%)',
+                                }}>
+                                    <div style={{
+                                        gridColumnStart: 1,
+                                        gridColumnEnd: 2,
+                                        gridRowStart: 1,
+                                        gridRowEnd: 2,
+                                    }}
                                     >
-                                        {BUILDING_TYPES.map(({key, value}) => (
-                                            <MenuItem key={key} value={value}>
-                                                <Checkbox checked={values.buildingTypes.indexOf(key) > -1}/>
-                                                <ListItemText primary={key}/>
-                                            </MenuItem>
-                                        ))}
-                                    </OrangeSelect>
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <InputLabel htmlFor={'heatingTypes'}>Ogrzewanie</InputLabel>
-                                    <OrangeSelect
-                                        id="heatingTypes"
-                                        multiple
-                                        onChange={handleChangeHeatingTypes}
-                                        value={values.heatingTypes}
-                                        variant="outlined"
-                                        renderValue={(selected) => (selected as string[]).join(', ')}
-                                        MenuProps={MenuProps}
-                                    >
-                                        {HEATING_TYPES.map(({key, value}) => (
-                                            <MenuItem key={key} value={value}>
-                                                <Checkbox checked={values.heatingTypes.indexOf(key) > -1}/>
-                                                <ListItemText primary={key}/>
-                                            </MenuItem>
-                                        ))}
-                                    </OrangeSelect>
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <FormControl>
-                                        <InputLabel htmlFor={'level'}>Piętro</InputLabel>
-                                        <OrangeSelect
-                                            id="level"
-                                            multiple
-                                            value={values.level}
-                                            onChange={handleChangeLevel}
-                                            variant="outlined"
-                                            renderValue={(selected) => (selected as string[]).join(', ')}
-                                            MenuProps={MenuProps}
-                                        >
-                                            {numbers.map((number) => (
-                                                <MenuItem key={number} value={number}>
-                                                    <Checkbox checked={values.level.indexOf(number) > -1}/>
-                                                    <ListItemText primary={number}/>
-                                                </MenuItem>
-                                            ))}
-                                        </OrangeSelect>
+                                        <FormControl className={classes.formControl}>
+                                            <FormLabel component="legend">Cena</FormLabel>
+                                            <FormControlLabel control={
+                                                <OrangeTextField
+                                                    id={'priceMin'}
+                                                    size={'medium'}
+                                                    className={clsx(classes.margin, classes.textField)}
+                                                    variant="outlined"
+                                                    InputProps={{
+                                                        endAdornment: <InputAdornment
+                                                            position="end">zł</InputAdornment>,
+                                                    }}
+                                                    value={values.priceMin}
+                                                    onChange={handleChange}
+                                                />} label={'od'} labelPlacement={'start'}/>
+                                            <FormControlLabel control={
+                                                <OrangeTextField
+                                                    id={'priceMax'}
+                                                    size={'medium'}
+                                                    className={clsx(classes.margin, classes.textField)}
+                                                    variant="outlined"
+                                                    InputProps={{
+                                                        endAdornment: <InputAdornment
+                                                            position="end">zł</InputAdornment>,
+                                                    }}
+                                                    value={values.priceMax}
+                                                    onChange={handleChange}
+                                                />} label={'do'} labelPlacement={'start'}/>
+                                        </FormControl>
+                                    </div>
+                                    <div style={{
+                                        gridColumnStart: 2,
+                                        gridColumnEnd: 3,
+                                        gridRowStart: 1,
+                                        gridRowEnd: 2,
+                                        display: 'block'
+                                    }}>
+                                        <FormControl className={classes.formControl}>
+                                            <FormLabel component="legend">Powierzchnia</FormLabel>
+                                            <FormControlLabel control={
+                                                <OrangeTextField
+                                                    id={'surfaceMin'}
+                                                    size={'medium'}
+                                                    className={clsx(classes.margin, classes.textField)}
+                                                    variant="outlined"
+                                                    InputProps={{
+                                                        endAdornment: <InputAdornment
+                                                            position="end">m<sup>2</sup></InputAdornment>,
+                                                    }}
+                                                    value={values.surfaceMin}
+                                                    onChange={handleChange}
+                                                />} label={'od'} labelPlacement={'start'}/>
+                                            <FormControlLabel control={
+                                                <OrangeTextField
+                                                    id={'surfaceMax'}
+                                                    size={'medium'}
+                                                    className={clsx(classes.margin, classes.textField)}
+                                                    variant="outlined"
+                                                    InputProps={{
+                                                        endAdornment: <InputAdornment
+                                                            position="end">m<sup>2</sup></InputAdornment>,
+                                                    }}
+                                                    value={values.surfaceMax}
+                                                    onChange={handleChange}
+                                                />} label={'do'} labelPlacement={'start'}/>
+                                        </FormControl>
+                                    </div>
+                                    <div style={{
+                                        gridColumnStart: 3,
+                                        gridColumnEnd: 4,
+                                        gridRowStart: 1,
+                                        gridRowEnd: 4,
+                                    }}>
+                                        <FormControl component="fieldset" className={classes.formControl}>
+                                            <FormLabel component="legend">Informacje dodatkowe</FormLabel>
+                                            <FormGroup>
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'balcony'}
+                                                        name={'balcony'}
+                                                        checked={values.balcony}
+                                                        onChange={handleChange}/>}
+                                                    label="balkon"
+                                                />
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'utilityRoom'}
+                                                        name={'utilityRoom'}
+                                                        checked={values.utilityRoom}
+                                                        onChange={handleChange}/>}
+                                                    label="pom. użytkowe"
+                                                />
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'garage'}
+                                                        name={'garage'}
+                                                        checked={values.garage}
+                                                        onChange={handleChange}/>}
+                                                    label="garaż/miejsce parkingowe"
+                                                />
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'cellar'}
+                                                        name={'cellar'}
+                                                        checked={values.cellar}
+                                                        onChange={handleChange}/>}
+                                                    label="piwnica"
+                                                />
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'garden'}
+                                                        name={'garden'}
+                                                        checked={values.garden}
+                                                        onChange={handleChange}/>}
+                                                    label="ogródek"
+                                                />
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'terrace'}
+                                                        name={'terrace'}
+                                                        checked={values.terrace}
+                                                        onChange={handleChange}/>}
+                                                    label="taras"
+                                                />
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'elevator'}
+                                                        name={'elevator'}
+                                                        checked={values.elevator}
+                                                        onChange={handleChange}/>}
+                                                    label="winda"
+                                                />
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'twoLevelsFlat'}
+                                                        name={'twoLevelsFlat'}
+                                                        checked={values.twoLevelsFlat}
+                                                        onChange={handleChange}/>}
+                                                    label="dwupoziomowe"
+                                                />
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'separateKitchen'}
+                                                        name={'separateKitchen'}
+                                                        checked={values.separateKitchen}
+                                                        onChange={handleChange}/>}
+                                                    label="oddzielna kuchnia"
+                                                />
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'airConditioning'}
+                                                        name={'airConditioning'}
+                                                        checked={values.airConditioning}
+                                                        onChange={handleChange}/>}
+                                                    label="klimatyzacja"
+                                                />
+                                                <FormControlLabel
+                                                    control={<OrangeCheckbox
+                                                        id={'onlyForNonSmokers'}
+                                                        name={'onlyForNonSmokers'}
+                                                        checked={values.onlyForNonSmokers}
+                                                        onChange={handleChange}/>}
+                                                    label="tylko dla niepalących"
+                                                />
+                                            </FormGroup>
+                                        </FormControl>
+                                    </div>
+                                    <div style={{
+                                        gridColumnStart: 1,
+                                        gridColumnEnd: 2,
+                                        gridRowStart: 2,
+                                        gridRowEnd: 3,
+                                    }}>
+                                        <FormControl className={classes.formControl} fullWidth={true}>
+                                            <FormLabel component="legend">Rodzaj zabudowy</FormLabel>
+                                            <OrangeSelect
+                                                id="buildingTypes"
+                                                className={clsx(classes.margin, classes.selectField)}
+                                                multiple
+                                                value={values.buildingTypes}
+                                                onChange={(e) => setFieldValue('buildingTypes', e.target.value)}
+                                                variant="outlined"
+                                                renderValue={(selected) => (selected as string[]).join(', ')}
+                                                MenuProps={MenuProps}
+                                            >
+                                                {BUILDING_TYPES.map(({key, value}) => (
+                                                    <MenuItem key={key} value={value}>
+                                                        <Checkbox checked={values.buildingTypes.indexOf(value) > -1}/>
+                                                        <ListItemText primary={key}/>
+                                                    </MenuItem>
+                                                ))}
+                                            </OrangeSelect>
+                                        </FormControl>
 
-                                        {/*<OrangeSelect*/}
-                                        {/*    id="level"*/}
-                                        {/*    multiple*/}
-                                        {/*    value={levels}*/}
-                                        {/*    onChange={handleChangeLevel}*/}
-                                        {/*    variant="outlined"*/}
-                                        {/*    renderValue={(selected) => (selected as string[]).join(', ')}*/}
-                                        {/*    MenuProps={MenuProps}*/}
-                                        {/*>*/}
-                                        {/*    {numbers.map((number) => (*/}
-                                        {/*        <MenuItem key={number} value={number}>*/}
-                                        {/*            <Checkbox checked={levels.indexOf(number) > -1}/>*/}
-                                        {/*            <ListItemText primary={number}/>*/}
-                                        {/*        </MenuItem>*/}
-                                        {/*    ))}*/}
-                                        {/*</OrangeSelect>*/}
+                                    </div>
 
-                                        {/*<InputLabel id="demo-mutiple-checkbox-label">Tag</InputLabel>*/}
-                                        {/*<Select*/}
-                                        {/*    labelId="demo-mutiple-checkbox-label"*/}
-                                        {/*    id="demo-mutiple-checkbox"*/}
-                                        {/*    multiple*/}
-                                        {/*    value={personName}*/}
-                                        {/*    onChange={handleChange}*/}
-                                        {/*    input={<Input />}*/}
-                                        {/*    renderValue={(selected) => (selected as string[]).join(', ')}*/}
-                                        {/*    MenuProps={MenuProps}*/}
-                                        {/*>*/}
-                                        {/*    {names.map((name) => (*/}
-                                        {/*        <MenuItem key={name} value={name}>*/}
-                                        {/*            <Checkbox checked={personName.indexOf(name) > -1} />*/}
-                                        {/*            <ListItemText primary={name} />*/}
-                                        {/*        </MenuItem>*/}
-                                        {/*    ))}*/}
-                                        {/*</Select>*/}
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <InputLabel>Liczba pięter</InputLabel>
-                                    <OrangeTextField
-                                        id={'buildingLevels'}
-                                        size={'small'}
-                                        className={clsx(classes.margin, classes.textField)}
-                                        variant="outlined"
-                                        value={values.buildingLevels}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid
-                                    container
-                                    direction="row"
-                                    justify="flex-start"
-                                    alignItems="baseline"
-                                    item xs={4}>
-                                    Informacje dodatkowe
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'balcony'}
-                                                name={'balcony'}
-                                                checked={values.balcony}
-                                                onChange={handleChange}/>}
-                                            label="balkon"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'utilityRoom'}
-                                                name={'utilityRoom'}
-                                                checked={values.utilityRoom}
-                                                onChange={handleChange}/>}
-                                            label="pom. użytkowe"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'garage'}
-                                                name={'garage'}
-                                                checked={values.garage}
-                                                onChange={handleChange}/>}
-                                            label="garaż/miejsce parkingowe"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'cellar'}
-                                                name={'cellar'}
-                                                checked={values.cellar}
-                                                onChange={handleChange}/>}
-                                            label="piwnica"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'garden'}
-                                                name={'garden'}
-                                                checked={values.garden}
-                                                onChange={handleChange}/>}
-                                            label="ogródek"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'terrace'}
-                                                name={'terrace'}
-                                                checked={values.terrace}
-                                                onChange={handleChange}/>}
-                                            label="taras"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'elevator'}
-                                                name={'elevator'}
-                                                checked={values.elevator}
-                                                onChange={handleChange}/>}
-                                            label="winda"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'twoLevelsFlat'}
-                                                name={'twoLevelsFlat'}
-                                                checked={values.twoLevelsFlat}
-                                                onChange={handleChange}/>}
-                                            label="dwupoziomowe"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'separateKitchen'}
-                                                name={'separateKitchen'}
-                                                checked={values.separateKitchen}
-                                                onChange={handleChange}/>}
-                                            label="oddzielna kuchnia"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'airConditioning'}
-                                                name={'airConditioning'}
-                                                checked={values.airConditioning}
-                                                onChange={handleChange}/>}
-                                            label="klimatyzacja"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            control={<OrangeCheckbox
-                                                id={'onlyForNonSmokers'}
-                                                name={'onlyForNonSmokers'}
-                                                checked={values.onlyForNonSmokers}
-                                                onChange={handleChange}/>}
-                                            label="tylko dla niepalących"
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                                    <div style={{
+                                        gridColumnStart: 2,
+                                        gridColumnEnd: 3,
+                                        gridRowStart: 2,
+                                        gridRowEnd: 3,
+                                    }}>
+
+                                        <FormControl className={classes.formControl} fullWidth={true}>
+                                            <FormLabel component="legend">Ogrzewanie</FormLabel>
+                                            <OrangeSelect
+                                                id="heatingTypes"
+                                                multiple
+                                                className={clsx(classes.margin, classes.selectField)}
+                                                value={values.heatingTypes}
+                                                onChange={(e) => setFieldValue('heatingTypes', e.target.value)}
+                                                variant="outlined"
+                                                renderValue={(selected) => (selected as string[]).join(', ')}
+                                                MenuProps={MenuProps}
+                                            >
+                                                {HEATING_TYPES.map(({key, value}) => (
+                                                    <MenuItem key={key} value={value}>
+                                                        <Checkbox checked={values.heatingTypes.indexOf(value) > -1}/>
+                                                        <ListItemText primary={key}/>
+                                                    </MenuItem>
+                                                ))}
+                                            </OrangeSelect>
+                                        </FormControl>
+                                    </div>
+
+                                    <div style={{
+                                        gridColumnStart: 1,
+                                        gridColumnEnd: 2,
+                                        gridRowStart: 3,
+                                        gridRowEnd: 4,
+                                    }}>
+                                        <FormControl className={classes.formControl} fullWidth={true}>
+                                            <FormLabel component="legend">Liczba pokoi</FormLabel>
+                                            <OrangeSelect
+                                                id="numberOfRooms"
+                                                multiple
+                                                className={clsx(classes.margin, classes.selectField)}
+                                                variant="outlined"
+                                                value={values.numberOfRooms}
+                                                onChange={(e) => setFieldValue('numberOfRooms', e.target.value)}
+                                                renderValue={(selected) => (selected as string[]).sort().join(', ')}
+                                                MenuProps={MenuProps}
+                                            >
+                                                {numbers.map((number) => (
+                                                    <MenuItem key={number} value={number}>
+                                                        <Checkbox checked={values.numberOfRooms.indexOf(number) > -1}/>
+                                                        <ListItemText primary={number}/>
+                                                    </MenuItem>
+                                                ))}
+                                            </OrangeSelect>
+                                        </FormControl>
+                                    </div>
+
+                                    <div style={{
+                                        gridColumnStart: 2,
+                                        gridColumnEnd: 3,
+                                        gridRowStart: 3,
+                                        gridRowEnd: 4,
+                                    }}>
+
+                                        <FormControl className={classes.formControl} fullWidth={true}>
+                                            <FormLabel component="legend">Piętro</FormLabel>
+                                            <OrangeSelect
+                                                id="level"
+                                                multiple
+                                                className={clsx(classes.margin, classes.selectField)}
+                                                value={values.level}
+                                                onChange={(e) => setFieldValue('level', e.target.value)}
+                                                variant="outlined"
+                                                renderValue={(selected) => (selected as string[]).sort().join(', ')}
+                                                MenuProps={MenuProps}
+                                            >
+                                                {numbers.map((number) => (
+                                                    <MenuItem key={number} value={number}>
+                                                        <Checkbox checked={values.level.indexOf(number) > -1}/>
+                                                        <ListItemText primary={number}/>
+                                                    </MenuItem>
+                                                ))}
+                                            </OrangeSelect>
+                                        </FormControl>
+                                    </div>
+                                </div>
+                            </FormControl>
                         </AccordionDetails>
                     </Accordion>
                 </Paper>
@@ -585,11 +608,8 @@ interface Props {
     voivodeships: AddressDto[],
     districts: AddressDto[],
     cities: AddressDto[],
-    levels: number[],
-    handleChangeLevel: (event: React.ChangeEvent<{ value: unknown }>) => void,
-    handleChangeHeatingTypes: (event: React.ChangeEvent<{ value: unknown }>) => void,
-    handleChangeBuildingTypes: (event: React.ChangeEvent<{ value: unknown }>) => void,
-    handleChangeNumberOfRooms: (event: React.ChangeEvent<{ value: unknown }>) => void,
+    reloadDistricts: (vvCode: string) => void,
+    reloadCities: (vvCode: string, districtCode: string) => void,
 }
 
 export default withFormikValidation(SearchComponent);

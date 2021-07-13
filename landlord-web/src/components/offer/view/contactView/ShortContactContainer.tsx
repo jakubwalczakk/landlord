@@ -1,6 +1,35 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Divider, Grid, Paper, Typography} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import {FormikBag, FormikProps, withFormik} from "formik";
+
+
+const withFormikValidation = withFormik<ContactProps, ContactValues>({
+    mapPropsToValues: (props): ContactValues => {
+        const {
+            contactValues
+        } = props;
+
+        return {
+            name: contactValues !== undefined ? contactValues.name : '',
+            phoneNumber: contactValues !== undefined ? contactValues.phoneNumber : '',
+            email: contactValues !== undefined ? contactValues.email : '',
+        };
+        return contactValues !== undefined ? {
+                name: 'AAA',
+                phoneNumber: 'BBB',
+                email: 'CCC',
+            } :
+            {
+                name: '',
+                phoneNumber: '',
+                email: '',
+            };
+    },
+    handleSubmit: (values: ContactValues, formikBag: FormikBag<ContactProps, ContactValues>): void => {
+        console.log(values);
+    }
+});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,7 +60,8 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const ShortContactContainer = (props: ContactProps) => {
+
+const ShortContactContainer: FC<ContactProps & FormikProps<ContactValues>> = (props) => {
     const classes = useStyles();
 
     const {contactValues} = props;
@@ -76,4 +106,4 @@ export interface ContactProps {
 }
 
 
-export default ShortContactContainer;
+export default withFormikValidation(ShortContactContainer);

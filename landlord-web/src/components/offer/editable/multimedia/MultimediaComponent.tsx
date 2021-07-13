@@ -52,15 +52,10 @@ export default function MultimediaComponent() {
                 <FormControl fullWidth className={clsx(classes.margin, classes.dispInlineBlock)}>
                     <Grid container spacing={2}>
                         <Grid item xs={7}>
-                            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                         </Grid>
                         <Grid item xs={5}>
                             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-                            BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                            BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBnpm i
                             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
                             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
                         </Grid>

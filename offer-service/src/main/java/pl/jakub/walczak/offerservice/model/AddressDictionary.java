@@ -19,6 +19,7 @@ public class AddressDictionary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Integer localizationLevel;
     private String voivodeshipCode;
     private String districtCode;
     private String cityCode;

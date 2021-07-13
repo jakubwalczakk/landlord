@@ -46,7 +46,7 @@ const AdditionalViewContainer = (props: AdditionalInfoProps) => {
 
             <div className={classes.formControl}>
                 {additionalInfoValues &&
-                <Grid container xs={12}>
+                <Grid container>
                     {additionalInfoValues.balcony &&
                     <Grid item xs={4}>
                         <li key={'balcony'}>{'balkon'}</li>

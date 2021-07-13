@@ -90,7 +90,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 
     const handleOfferDetailsClick = () => {
         var x = 1;
-        history.push('/details/' + x);
+        history.push('/offer-details/' + x);
     };
 
     return (

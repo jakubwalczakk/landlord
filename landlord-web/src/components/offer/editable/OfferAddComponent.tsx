@@ -14,6 +14,19 @@ import ContactContainer from './contact/ContactContainer';
 import MultimediaContainer from "./multimedia/MultimediaContainer";
 import {GreenButton} from "../../../ui/GreenComponents";
 import {BasicInfoValues} from "./basic/BasicInfoComponent";
+import {FormikBag, FormikProps, withFormik} from "formik";
+
+
+const withFormikValidation = withFormik<OfferAddProps, OfferAddValues>({
+    mapPropsToValues: (props): OfferAddValues => {
+        return {
+            basicInfoValues: props.offerAddValues !== undefined ? props.offerAddValues.basicInfoValues : undefined,
+        };
+    },
+    handleSubmit: (values: OfferAddValues, formikBag: FormikBag<OfferAddProps, OfferAddValues>): void => {
+        formikBag.props.onSubmit(values);
+    },
+});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -30,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const OfferAddComponent = (props: OfferAddProps) => {
+const OfferAddComponent = (props: OfferAddProps & FormikProps<OfferAddValues>) => {
     const isLoading = false;
 
     const {offerAddValues} = props;
@@ -76,4 +89,4 @@ export interface OfferAddProps {
     onSubmit: (values: OfferAddValues) => void,
 }
 
-export default OfferAddComponent;
+export default withFormikValidation(OfferAddComponent);

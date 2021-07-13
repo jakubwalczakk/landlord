@@ -70,7 +70,7 @@ const EquipmentViewComponent = (props: EquipmentProps & FormikProps<EquipmentVal
             <Divider/>
 
             <div className={classes.formControl}>
-                <Grid container xs={12}>
+                <Grid container>
                     {values.furniture &&
                     <Grid item xs={4}>
                         <li key={'furniture'}>{'meble'}</li>

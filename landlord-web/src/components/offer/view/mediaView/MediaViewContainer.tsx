@@ -45,7 +45,7 @@ const MediaViewContainer = (props: MediaProps) => {
 
             <div className={classes.formControl}>
                 {mediaValues &&
-                <Grid container xs={12}>
+                <Grid container>
                     {mediaValues.tv &&
                     <Grid item xs={4}>
                         <li key={'tv'}>{'telewizja'}</li>
