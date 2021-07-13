@@ -201,10 +201,12 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                 id={'voivodeshipCode'}
                                                 value={values.voivodeshipCode}
                                                 onChange={(e) => {
+                                                    e.stopPropagation();
                                                     setFieldValue('voivodeshipCode', e.target.value);
                                                     reloadDistricts(e.target.value as string);
                                                     setFieldValue('districtCode', null);
                                                 }}
+                                                onClick={(e) => e.stopPropagation()}
                                                 label="Województwo"
                                                 variant={'outlined'}
                                                 className={clsx(classes.margin, classes.selectField)}
@@ -230,10 +232,12 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                 id={'districtCode'}
                                                 value={values.districtCode}
                                                 onChange={(e) => {
+                                                    e.stopPropagation();
                                                     setFieldValue('districtCode', e.target.value);
                                                     reloadCities(values.voivodeshipCode as string, e.target.value as string);
                                                     setFieldValue('cityCode', null);
                                                 }}
+                                                onClick={(e) => e.stopPropagation()}
                                                 label="Powiat"
                                                 variant={'outlined'}
                                                 className={clsx(classes.margin, classes.selectField)}
@@ -258,7 +262,11 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                 disabled={values.districtCode === null || values.districtCode === ''}
                                                 id={'cityCode'}
                                                 value={values.cityCode}
-                                                onChange={(e) => setFieldValue('cityCode', e.target.value)}
+                                                onChange={(e) => {
+                                                    e.stopPropagation();
+                                                    setFieldValue('cityCode', e.target.value)
+                                                }}
+                                                onClick={(e) => e.stopPropagation()}
                                                 label="Gmina"
                                                 variant={'outlined'}
                                                 className={clsx(classes.margin, classes.selectField)}
@@ -282,6 +290,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                             className={classes.button}
                                             endIcon={<Search/>}
                                             type={'submit'}
+                                            onClick={(e) => e.stopPropagation()}
                                         >
                                             Szukaj
                                         </OrangeButton>
@@ -291,6 +300,10 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                             type={"button"}
                                             endIcon={<Clear/>}
                                             variant={'contained'}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                console.log("Wyczyść filtry")
+                                            }}
                                         >
                                             Wyczyść filtry
                                         </Button>
