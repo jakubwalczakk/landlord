@@ -1,11 +1,9 @@
-# pull official base image
-FROM node:16-alpine3.11 as build-step
-
-RUN mkdir /app
-WORKDIR /app
-COPY package.json /app
+FROM node:10
+RUN mkdir -p /my-app
+WORKDIR /my-app
+COPY ./src ./src
+COPY ./public ./public
+COPY ./package.json ./package.json
 RUN npm install
-COPY . /app
-RUN npm run build
-
-
+EXPOSE 3000
+CMD npm run start
