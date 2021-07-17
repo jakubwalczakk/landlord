@@ -10,6 +10,7 @@ import {
     Grid,
     InputAdornment,
     InputLabel,
+    MenuItem,
     Paper,
     Radio,
     RadioGroup,
@@ -19,7 +20,7 @@ import {
 import Spinner from '../../../ui/Spinner';
 import {GreenButton} from "../../../ui/GreenComponents";
 import {FormikBag, FormikProps, withFormik} from "formik";
-import {OfferDto} from "../../../dto/dto";
+import {AddressDto, OfferDto} from "../../../dto/dto";
 import {Mode} from "../../../util/customTypes";
 import {OrangeCheckbox, OrangeSelect, OrangeTextField} from "../../../ui/OrangeComponents";
 import clsx from "clsx";
@@ -96,6 +97,10 @@ const withFormikValidation = withFormik<Props, OfferFormProps>({
                 name: offer.owner !== null ? offer.owner.firstName + ' ' + offer.owner.lastName : null,
                 phoneNumber: offer.owner !== null ? offer.owner.phoneNumber : null,
                 email: offer.owner !== null ? offer.owner.email : null,
+
+                voivodeship: offer.flat !== null && offer.flat.address !== null ? offer.flat.address.voivodeshipCode : null,
+                district: offer.flat !== null && offer.flat.address !== null ? offer.flat.address.districtCode : null,
+                city: offer.flat !== null && offer.flat.address !== null ? offer.flat.address.cityCode : null,
             }
             : {
                 title: null,
@@ -145,6 +150,9 @@ const withFormikValidation = withFormik<Props, OfferFormProps>({
                 name: null,
                 phoneNumber: null,
                 email: null,
+                voivodeship: null,
+                district: null,
+                city: null,
             };
     },
     handleSubmit: (values: OfferFormProps, formikBag: FormikBag<Props, OfferFormProps>): void => {
@@ -202,10 +210,10 @@ const withFormikValidation = withFormik<Props, OfferFormProps>({
                     utilityRoom: values.utilityRoom
                 },
                 address: {
-                    voivodeshipCode: null,
+                    voivodeshipCode: values.voivodeship,
                     name: null,
-                    cityCode: null,
-                    districtCode: null,
+                    cityCode: values.city,
+                    districtCode: values.district,
                     additionalName: null,
                     cityType: null
                 }
@@ -294,6 +302,11 @@ const OfferAddComponent: FC<Props & FormikProps<OfferFormProps>> = (props) => {
         flatStatuses,
         heatingTypes,
         windowsTypes,
+        voivodeships,
+        districts,
+        cities,
+        reloadDistricts,
+        reloadCities
     } = props;
 
     const classes = useStyles();
@@ -454,57 +467,84 @@ const OfferAddComponent: FC<Props & FormikProps<OfferFormProps>> = (props) => {
                                           alignItems="baseline"
                                     >
                                         <Grid item xs={4}>
-                                            <InputLabel htmlFor="voivodeship">Województwo</InputLabel>
-                                            <OrangeSelect
-                                                id="voivodeship"
-                                                variant={'outlined'}
-                                                onChange={() => console.log("Województwo changed")}
-                                                className={clsx(classes.margin, classes.selectField)}
-                                                label="Województwo"
-                                            >
-                                                {/*<MenuItem value="">*/}
-                                                {/*    <em>None</em>*/}
-                                                {/*</MenuItem>*/}
-                                                {/*<MenuItem value={10}>Ten</MenuItem>*/}
-                                                {/*<MenuItem value={20}>Twenty</MenuItem>*/}
-                                                {/*<MenuItem value={30}>Thirty</MenuItem>*/}
-                                            </OrangeSelect>
+                                            <FormControl className={classes.formControl}>
+                                                <FormLabel component="legend">Województwo</FormLabel>
+                                                <OrangeSelect
+                                                    id={'voivodeship'}
+                                                    value={values.voivodeship}
+                                                    onChange={(e) => {
+                                                        e.stopPropagation();
+                                                        setFieldValue('voivodeship', e.target.value);
+                                                        reloadDistricts(e.target.value as string);
+                                                        setFieldValue('district', null);
+                                                    }}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    label="Województwo"
+                                                    variant={'outlined'}
+                                                    className={clsx(classes.margin, classes.selectField)}
+                                                >
+                                                    {voivodeships.map((vv) => (
+                                                        <MenuItem key={vv.voivodeshipCode as string}
+                                                                  value={vv.voivodeshipCode as string}>
+                                                            {vv.name}
+                                                        </MenuItem>
+                                                    ))}
+                                                </OrangeSelect>
+                                            </FormControl>
                                         </Grid>
 
                                         <Grid item xs={4}>
-                                            <InputLabel htmlFor="district">Powiat</InputLabel>
-                                            <OrangeSelect
-                                                id="district"
-                                                variant={'outlined'}
-                                                onChange={() => console.log("Województwo changed")}
-                                                className={clsx(classes.margin, classes.selectField)}
-                                                label="Powiat"
-                                            >
-                                                {/*<MenuItem value="">*/}
-                                                {/*    <em>None</em>*/}
-                                                {/*</MenuItem>*/}
-                                                {/*<MenuItem value={10}>Ten</MenuItem>*/}
-                                                {/*<MenuItem value={20}>Twenty</MenuItem>*/}
-                                                {/*<MenuItem value={30}>Thirty</MenuItem>*/}
-                                            </OrangeSelect>
+                                            <FormControl className={classes.formControl}>
+                                                <FormLabel component="legend">Powiat</FormLabel>
+                                                <OrangeSelect
+                                                    disabled={values.voivodeship === null || values.voivodeship === ''}
+                                                    id={'district'}
+                                                    value={values.district}
+                                                    onChange={(e) => {
+                                                        e.stopPropagation();
+                                                        setFieldValue('district', e.target.value);
+                                                        reloadCities(values.voivodeship as string, e.target.value as string);
+                                                        setFieldValue('city', null);
+                                                    }}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    label="Powiat"
+                                                    variant={'outlined'}
+                                                    className={clsx(classes.margin, classes.selectField)}
+                                                >
+                                                    {districts.map((ds) => (
+                                                        <MenuItem key={ds.districtCode as string}
+                                                                  value={ds.districtCode as string}>
+                                                            {ds.name}
+                                                        </MenuItem>
+                                                    ))}
+                                                </OrangeSelect>
+                                            </FormControl>
                                         </Grid>
 
                                         <Grid item xs={4}>
-                                            <InputLabel htmlFor="city">Gmina</InputLabel>
-                                            <OrangeSelect
-                                                id="city"
-                                                variant={'outlined'}
-                                                onChange={() => console.log("Województwo changed")}
-                                                className={clsx(classes.margin, classes.selectField)}
-                                                label="Gmina"
-                                            >
-                                                {/*<MenuItem value="">*/}
-                                                {/*    <em>None</em>*/}
-                                                {/*</MenuItem>*/}
-                                                {/*<MenuItem value={10}>Ten</MenuItem>*/}
-                                                {/*<MenuItem value={20}>Twenty</MenuItem>*/}
-                                                {/*<MenuItem value={30}>Thirty</MenuItem>*/}
-                                            </OrangeSelect>
+                                            <FormControl className={classes.formControl}>
+                                                <FormLabel component="legend">Gmina</FormLabel>
+                                                <OrangeSelect
+                                                    disabled={values.district === null || values.district === ''}
+                                                    id={'city'}
+                                                    value={values.city}
+                                                    onChange={(e) => {
+                                                        e.stopPropagation();
+                                                        setFieldValue('city', e.target.value)
+                                                    }}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    label="Gmina"
+                                                    variant={'outlined'}
+                                                    className={clsx(classes.margin, classes.selectField)}
+                                                >
+                                                    {cities.map((c) => (
+                                                        <MenuItem key={c.cityCode as string}
+                                                                  value={c.cityCode as string}>
+                                                            {c.name}
+                                                        </MenuItem>
+                                                    ))}
+                                                </OrangeSelect>
+                                            </FormControl>
                                         </Grid>
                                     </Grid>
                                 </div>
@@ -1155,7 +1195,9 @@ export interface OfferFormProps {
     name: string | null,
     phoneNumber: string | null,
     email: string | null,
-
+    voivodeship: string | null,
+    district: string | null,
+    city: string | null,
 }
 
 export interface Props {
@@ -1169,6 +1211,11 @@ export interface Props {
     flatStatuses: { key: string, value: string }[],
     heatingTypes: { key: string, value: string }[],
     windowsTypes: { key: string, value: string }[],
+    voivodeships: AddressDto[],
+    districts: AddressDto[],
+    cities: AddressDto[],
+    reloadDistricts: (vvCode: string) => void,
+    reloadCities: (vvCode: string, districtCode: string) => void,
 }
 
 export default withFormikValidation(OfferAddComponent);
