@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.jakub.walczak.offerservice.dto.EquipmentInfoDto;
 import pl.jakub.walczak.offerservice.dto.FlatDto;
 import pl.jakub.walczak.offerservice.dto.OfferDto;
 import pl.jakub.walczak.offerservice.model.*;
@@ -42,6 +43,13 @@ public class OfferController {
                                         .buildingMaterial(BuildingMaterial.BIG_PLATE.getValue())
                                         .heatingType(HeatingType.DISTRICT.getValue())
                                         .windowsType(WindowsType.PLASTIC.getValue())
+                                        .equipments(EquipmentInfoDto.builder()
+                                                .tv(true)
+                                                .washingMachine(true)
+                                                .dishwasher(true)
+                                                .fridge(true)
+                                                .cooker(false)
+                                                .build())
                                         .roomsNumber(4)
                                         .surfaceArea(76.40)
                                         .buildingLevels(4)

@@ -96,13 +96,13 @@ const SecurityViewContainer = (props: SecurityToolsProps) => {
 }
 
 export interface SecurityToolsValues {
-    antiBurglaryBlinds: boolean,
-    securityDoor: boolean,
-    antiBurglaryWindows: boolean,
-    intercom: boolean,
-    monitoring: boolean,
-    alarmSystem: boolean,
-    closedArea: boolean,
+    antiBurglaryBlinds: boolean | undefined,
+    securityDoor: boolean | undefined,
+    antiBurglaryWindows: boolean | undefined,
+    intercom: boolean | undefined,
+    monitoring: boolean | undefined,
+    alarmSystem: boolean | undefined,
+    closedArea: boolean | undefined,
 }
 
 export interface SecurityToolsProps {

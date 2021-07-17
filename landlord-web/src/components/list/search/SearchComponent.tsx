@@ -349,6 +349,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                         endAdornment: <InputAdornment
                                                             position="end">zł</InputAdornment>,
                                                     }}
+                                                    type={'number'}
                                                     value={values.priceMax}
                                                     onChange={handleChange}
                                                 />} label={'do'} labelPlacement={'start'}/>
@@ -373,7 +374,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                         endAdornment: <InputAdornment
                                                             position="end">m<sup>2</sup></InputAdornment>,
                                                     }}
-                                                    value={values.surfaceMin}
+                                                    value={values.surfaceMin === 0 ? '' : values.surfaceMin}
                                                     onChange={handleChange}
                                                 />} label={'od'} labelPlacement={'start'}/>
                                             <FormControlLabel control={

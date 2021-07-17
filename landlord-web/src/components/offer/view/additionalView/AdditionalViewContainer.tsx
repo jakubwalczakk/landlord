@@ -117,17 +117,17 @@ const AdditionalViewContainer = (props: AdditionalInfoProps) => {
 }
 
 export interface AdditionalInfoValues {
-    balcony: boolean,
-    utilityRoom: boolean,
-    garage: boolean,
-    cellar: boolean,
-    garden: boolean,
-    terrace: boolean,
-    elevator: boolean,
-    twoLevelsFlat: boolean,
-    separateKitchen: boolean,
-    airConditioning: boolean,
-    onlyForNonSmokers: boolean,
+    balcony: boolean | undefined,
+    utilityRoom: boolean | undefined,
+    garage: boolean | undefined,
+    cellar: boolean | undefined,
+    garden: boolean | undefined,
+    terrace: boolean | undefined,
+    elevator: boolean | undefined,
+    twoLevelsFlat: boolean | undefined,
+    separateKitchen: boolean | undefined,
+    airConditioning: boolean | undefined,
+    onlyForNonSmokers: boolean | undefined,
 }
 
 export interface AdditionalInfoProps {

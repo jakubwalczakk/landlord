@@ -66,7 +66,7 @@ export default function TopBarComponent() {
                 <Container className={classes.container}>
                     <ButtonBase className={classes.buttonBase} onClick={onHomeIconClick}>
                         <CardMedia>
-                            <img src="logo.png" alt="logo" className={classes.logo}/>
+                            <img src="/logo.png" alt="logo" className={classes.logo}/>
                         </CardMedia>
                         <CardContent className={classes.cardContent}>
                             Wynajmowaczka
@@ -75,9 +75,9 @@ export default function TopBarComponent() {
                 </Container>
                 <Button className={classes.menuButton}
                         startIcon={<PersonIcon/>}
-                        onClick={onMyAccountButtonClick}
+                    // onClick={onMyAccountButtonClick}
                 >
-                    Moje konto
+                    Witaj, [Jakub]!
                 </Button>
                 <OrangeButton className={classes.menuButton}
                               startIcon={<PersonIcon/>}

@@ -119,13 +119,13 @@ const EquipmentViewComponent = (props: EquipmentProps & FormikProps<EquipmentVal
 }
 
 export interface EquipmentValues {
-    washingMachine: boolean,
-    furniture: boolean,
-    dishwasher: boolean,
-    fridge: boolean,
-    cooker: boolean,
-    oven: boolean,
-    tv: boolean,
+    washingMachine: boolean | undefined,
+    furniture: boolean | undefined,
+    dishwasher: boolean | undefined,
+    fridge: boolean | undefined,
+    cooker: boolean | undefined,
+    oven: boolean | undefined,
+    tv: boolean | undefined,
 }
 
 export interface EquipmentProps {

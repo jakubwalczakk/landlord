@@ -1,13 +1,11 @@
 import React from 'react';
 import './App.css';
-import {Button, createMuiTheme} from '@material-ui/core';
+import {Button} from '@material-ui/core';
 import {SnackbarProvider, useSnackbar} from 'notistack';
 import FooterComponent from "./ui/FooterComponent";
 import AppRoutes from "./util/AppRoutes";
 import TopBarComponent from "./components/topbar/TopBarComponent";
 import {BrowserRouter} from "react-router-dom";
-
-const appTheme = createMuiTheme({});
 
 function App() {
 

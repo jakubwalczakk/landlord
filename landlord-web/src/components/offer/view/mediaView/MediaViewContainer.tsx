@@ -71,9 +71,9 @@ const MediaViewContainer = (props: MediaProps) => {
 }
 
 export interface MediaValues {
-    internet: boolean,
-    tv: boolean,
-    phone: boolean,
+    internet: boolean | undefined,
+    tv: boolean | undefined,
+    phone: boolean | undefined,
 }
 
 export interface MediaProps {

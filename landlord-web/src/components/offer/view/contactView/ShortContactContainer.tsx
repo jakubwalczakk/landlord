@@ -15,16 +15,6 @@ const withFormikValidation = withFormik<ContactProps, ContactValues>({
             phoneNumber: contactValues !== undefined ? contactValues.phoneNumber : '',
             email: contactValues !== undefined ? contactValues.email : '',
         };
-        return contactValues !== undefined ? {
-                name: 'AAA',
-                phoneNumber: 'BBB',
-                email: 'CCC',
-            } :
-            {
-                name: '',
-                phoneNumber: '',
-                email: '',
-            };
     },
     handleSubmit: (values: ContactValues, formikBag: FormikBag<ContactProps, ContactValues>): void => {
         console.log(values);
@@ -96,9 +86,9 @@ const ShortContactContainer: FC<ContactProps & FormikProps<ContactValues>> = (pr
 }
 
 export interface ContactValues {
-    name: string,
-    phoneNumber: string,
-    email: string,
+    name: string | undefined,
+    phoneNumber: string | undefined,
+    email: string | undefined,
 }
 
 export interface ContactProps {
