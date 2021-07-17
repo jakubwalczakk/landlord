@@ -18,13 +18,16 @@ public class Flat {
     private Long id;
 
     @Column(name = "ROOMS_NUMBER")
-    private int roomsNumber;
+    private Integer roomsNumber;
     @Column(name = "FLAT_SURFACE_AREA")
-    private double surfaceArea;
+    private Double surfaceArea;
 
-    private int level;
-    private int buildingLevels;
-    private int buildYear;
+    @Column(name = "LEVEL")
+    private Integer level;
+    @Column(name = "BUILDING_LEVELS")
+    private Integer buildingLevels;
+    @Column(name = "BUILD_YEAR")
+    private Integer buildYear;
 
     @Enumerated
     private FlatStatus flatStatus;
@@ -50,7 +53,7 @@ public class Flat {
     @JoinColumn(name = "AMENITIES_ID")
     private AmenitiesInfo amenitiesInfo;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ADDRESS_ID", nullable = false)
     private AddressDictionary addressDictionary;
 }

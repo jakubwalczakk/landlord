@@ -1,8 +1,11 @@
 package pl.jakub.walczak.offerservice.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
+import pl.jakub.walczak.offerservice.dto.ApiResponseMessage;
 import pl.jakub.walczak.offerservice.dto.OfferDto;
 import pl.jakub.walczak.offerservice.mapper.OfferMapper;
 import pl.jakub.walczak.offerservice.model.*;
@@ -20,6 +23,8 @@ import java.util.stream.Collectors;
 @Service
 @DependsOn("addressDictionaryService")
 public class OffersService {
+
+    private final static Logger log = LoggerFactory.getLogger(OffersService.class);
 
     private FlatRepository flatRepository;
     private OffersRepository offersRepository;
@@ -62,7 +67,6 @@ public class OffersService {
                     .price(new BigDecimal(i * r.nextInt(100) + 1000))
                     .createDate(Instant.now())
                     .expirationDate(Instant.now().plusMillis(30L * 24 * 60 * 60 * 1000)) // 30 dni
-                    .premiumOffer(i % 3 == 0)
                     .description("#" + (i + 1) +
                             " XXXXXXXXXXXXXXXXXXXXXXXX")
                     .title("Super extra flat #" + i)
@@ -83,5 +87,16 @@ public class OffersService {
 
     public List<OfferDto> getAllOffers() {
         return offersRepository.findAll().stream().map(offerMapper::mapEntityToDto).collect(Collectors.toList());
+    }
+
+    public ApiResponseMessage addOffer(OfferDto offer) {
+        log.info("Addding new offer into db");
+        Offer entity = offerMapper.mapDtoToEntity(offer);
+        Offer saved = offersRepository.save(entity);
+        return ApiResponseMessage.builder()
+                .data(saved.getId().toString())
+                .message("Offer added!")
+                .success(true)
+                .build();
     }
 }

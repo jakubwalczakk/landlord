@@ -28,8 +28,8 @@ public class Offer {
     @JoinColumn(name = "MAIN_ATTACHMENT_ID")
     private OfferAttachment mainPhoto;
 
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "FLAT_ID")
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "FLAT_ID", nullable = false)
     private Flat flat;
 
     private BigDecimal price;
@@ -38,16 +38,13 @@ public class Offer {
     @Column(name = "OFFER_CREATE_DAE")
     private Instant createDate;
     private Instant expirationDate;
-    private boolean premiumOffer;
     private String title;
     private String description;
     @Enumerated(EnumType.STRING)
     private AdvertiserType advertiserType;
     private LocalDate availableFrom;
-    @Column(name = "STUDENTS_ALLOWED")
-    private boolean availableForStudents;
 
     @ManyToOne
-    @JoinColumn(name = "OWNER_ID", nullable = false)
+    @JoinColumn(name = "OWNER_ID") //, nullable = false)
     private User owner;
 }

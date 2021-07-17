@@ -8,6 +8,7 @@ import {FLAT_STATUSES} from "../../../api/flatStatus";
 import {BUILDING_MATERIALS} from "../../../api/buildingMaterial";
 import {WINDOWS_TYPES} from "../../../api/windowsType";
 import {HEATING_TYPES} from "../../../api/heatingType";
+import {saveOffer} from "../../../api/addOffer";
 
 const OfferAddContainer = () => {
 
@@ -15,8 +16,9 @@ const OfferAddContainer = () => {
     const [mode, setMode] = useState<Mode>('BROWSE');
     const [offer, setOffer] = useState<OfferDto>();
 
-    const onSubmit = (values: OfferDto) => {
-        console.log(values)
+    const onSubmit = (requestBody: OfferDto) => {
+        console.log(requestBody)
+        saveOffer(requestBody);
     }
 
     return (
