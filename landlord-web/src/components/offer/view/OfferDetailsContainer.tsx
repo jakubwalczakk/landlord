@@ -4,10 +4,11 @@ import {loadOfferDetails} from "../../../api/offerDetails";
 import {ApiResponseMessage, OfferDto} from "../../../dto/dto";
 import {useParams} from 'react-router-dom';
 import {useSnackbar} from "notistack";
-import {NavigationLockContextProps, withNavigationLockContext} from "../../../ui/NavigationLockContext";
+import {withNavigationLockContext} from "../../../ui/NavigationLockContext";
 
 
-const OfferDetailsContainer: FC<NavigationLockContextProps> = (props) => {
+// const OfferDetailsContainer: FC<NavigationLockContextProps> = (props) => {
+const OfferDetailsContainer: FC = (props) => {
     const {id} = useParams<ParamTypes>();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,9 +19,9 @@ const OfferDetailsContainer: FC<NavigationLockContextProps> = (props) => {
     useEffect(() => {
         console.log("ID = ", id)
         setIsLoading(true);
-        loadOfferDetails(parseInt(id))
+        loadOfferDetails(id)
             .then(response => {
-                if ((response as ApiResponseMessage).message !== undefined && !(response as ApiResponseMessage).success) {
+                if ((response as ApiResponseMessage).success === false) {
                     setIsError(true);
                     response = response as ApiResponseMessage;
                     enqueueSnackbar(response.message, {
@@ -38,7 +39,7 @@ const OfferDetailsContainer: FC<NavigationLockContextProps> = (props) => {
         <OfferDetailsComponent
             isLoading={isLoading}
             isError={isError}
-            offer={offer}
+            offer={offer as OfferDto}
         />
     );
 }

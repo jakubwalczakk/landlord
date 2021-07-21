@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import pl.jakub.walczak.offerservice.dto.ApiResponseMessage;
+import pl.jakub.walczak.offerservice.dto.EquipmentInfoDto;
+import pl.jakub.walczak.offerservice.dto.FlatDto;
 import pl.jakub.walczak.offerservice.dto.OfferDto;
 import pl.jakub.walczak.offerservice.mapper.OfferMapper;
 import pl.jakub.walczak.offerservice.model.*;
@@ -97,6 +99,41 @@ public class OffersService {
                 .data(saved.getId().toString())
                 .message("Offer added!")
                 .success(true)
+                .build();
+    }
+
+    public OfferDto getExampleOffer() {
+        log.info("Getting offer with id = X");
+        return OfferDto.builder()
+                .flat(
+                        FlatDto.builder()
+                                .flatStatus(FlatStatus.FOR_LIVING.getValue())
+                                .buildingMaterial(BuildingMaterial.BIG_PLATE.getValue())
+                                .heatingType(HeatingType.DISTRICT.getValue())
+                                .windowsType(WindowsType.PLASTIC.getValue())
+                                .equipments(EquipmentInfoDto.builder()
+                                        .tv(true)
+                                        .washingMachine(true)
+                                        .dishwasher(true)
+                                        .fridge(true)
+                                        .cooker(false)
+                                        .build())
+                                .roomsNumber(4)
+                                .surfaceArea(76.40)
+                                .buildingLevels(4)
+                                .level(2)
+                                .buildYear(1986)
+                                .build())
+                .price(BigDecimal.valueOf(999.00))
+                .rentPrice(BigDecimal.valueOf(350.00))
+                .bail(BigDecimal.valueOf(2000.00))
+                .createDate(Instant.now())
+                .expirationDate(Instant.now())
+                .premiumOffer(true)
+                .title("First test offer")
+                .description(" Description of first offffer")
+                .advertiserType(AdvertiserType.BROKER.getValue())
+                .availableForStudents(false)
                 .build();
     }
 }

@@ -32,10 +32,22 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-const AdditionalViewContainer = (props: AdditionalInfoProps) => {
+const AdditionalViewContainer = (props: AdditionalInfoValues) => {
     const classes = useStyles();
 
-    const {additionalInfoValues} = props;
+    const {
+        balcony,
+        utilityRoom,
+        garage,
+        cellar,
+        garden,
+        terrace,
+        elevator,
+        twoLevelsFlat,
+        separateKitchen,
+        airConditioning,
+        onlyForNonSmokers
+    } = props;
 
     return (
         <Paper className={classes.paper}>
@@ -45,72 +57,70 @@ const AdditionalViewContainer = (props: AdditionalInfoProps) => {
             <Divider/>
 
             <div className={classes.formControl}>
-                {additionalInfoValues &&
                 <Grid container>
-                    {additionalInfoValues.balcony &&
+                    {balcony &&
                     <Grid item xs={4}>
                         <li key={'balcony'}>{'balkon'}</li>
                     </Grid>
                     }
 
-                    {additionalInfoValues.utilityRoom &&
+                    {utilityRoom &&
                     <Grid item xs={4}>
                         <li key={'utilityRoom'}>{'pom. użytkowe'}</li>
                     </Grid>
                     }
 
-                    {additionalInfoValues.garage &&
+                    {garage &&
                     <Grid item xs={4}>
                         <li key={'garage'}>{'garaż'}</li>
                     </Grid>
                     }
-                    {additionalInfoValues.cellar &&
+                    {cellar &&
                     <Grid item xs={4}>
                         <li key={'cellar'}>{'piwnica'}</li>
                     </Grid>
                     }
 
-                    {additionalInfoValues.garden &&
+                    {garden &&
                     <Grid item xs={4}>
                         <li key={'garden'}>{'ogród'}</li>
                     </Grid>
                     }
 
-                    {additionalInfoValues.terrace &&
+                    {terrace &&
                     <Grid item xs={4}>
                         <li key={'terrace'}>{'taras'}</li>
                     </Grid>
                     }
 
-                    {additionalInfoValues.elevator &&
+                    {elevator &&
                     <Grid item xs={4}>
                         <li key={'elevator'}>{'winda'}</li>
                     </Grid>
                     }
 
-                    {additionalInfoValues.twoLevelsFlat &&
+                    {twoLevelsFlat &&
                     <Grid item xs={4}>
                         <li key={'twoLevelsFlat'}>{'dwupokojowe'}</li>
                     </Grid>
                     }
-                    {additionalInfoValues.separateKitchen &&
+                    {separateKitchen &&
                     <Grid item xs={4}>
                         <li key={'separateKitchen'}>{'oddzielna kuchnia'}</li>
                     </Grid>
                     }
-                    {additionalInfoValues.airConditioning &&
+                    {airConditioning &&
                     <Grid item xs={4}>
                         <li key={'airConditioning'}>{'klimatyzacja'}</li>
                     </Grid>
                     }
 
-                    {additionalInfoValues.onlyForNonSmokers &&
+                    {onlyForNonSmokers &&
                     <Grid item xs={4}>
                         <li key={'onlyForNonSmokers'}>{'wyłącznie dla niepalących'}</li>
                     </Grid>
                     }
                 </Grid>
-                }
             </div>
         </Paper>
     );
@@ -128,10 +138,6 @@ export interface AdditionalInfoValues {
     separateKitchen: boolean | undefined,
     airConditioning: boolean | undefined,
     onlyForNonSmokers: boolean | undefined,
-}
-
-export interface AdditionalInfoProps {
-    additionalInfoValues: AdditionalInfoValues
 }
 
 export default AdditionalViewContainer;

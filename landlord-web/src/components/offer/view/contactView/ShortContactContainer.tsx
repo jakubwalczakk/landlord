@@ -1,25 +1,6 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {Divider, Grid, Paper, Typography} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-import {FormikBag, FormikProps, withFormik} from "formik";
-
-
-const withFormikValidation = withFormik<ContactProps, ContactValues>({
-    mapPropsToValues: (props): ContactValues => {
-        const {
-            contactValues
-        } = props;
-
-        return {
-            name: contactValues !== undefined ? contactValues.name : '',
-            phoneNumber: contactValues !== undefined ? contactValues.phoneNumber : '',
-            email: contactValues !== undefined ? contactValues.email : '',
-        };
-    },
-    handleSubmit: (values: ContactValues, formikBag: FormikBag<ContactProps, ContactValues>): void => {
-        console.log(values);
-    }
-});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -50,11 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-
-const ShortContactContainer: FC<ContactProps & FormikProps<ContactValues>> = (props) => {
+const ShortContactContainer = (props: ContactValues) => {
     const classes = useStyles();
 
-    const {contactValues} = props;
+    const {name, phoneNumber, email} = props;
 
     return (
         <Paper className={classes.paper}>
@@ -64,22 +44,22 @@ const ShortContactContainer: FC<ContactProps & FormikProps<ContactValues>> = (pr
             <Divider/>
 
             <div className={classes.formControl}>
-                {contactValues && <Grid
+                <Grid
                     container
                     direction="column"
                     justify="center"
                     alignItems="center"
                 >
                     <Grid item>
-                        {contactValues.name}
+                        {name}
                     </Grid>
                     <Grid item>
-                        {contactValues.phoneNumber}
+                        {phoneNumber}
                     </Grid>
                     <Grid item>
-                        {contactValues.email}
+                        {email}
                     </Grid>
-                </Grid>}
+                </Grid>
             </div>
         </Paper>
     );
@@ -91,9 +71,4 @@ export interface ContactValues {
     email: string | undefined,
 }
 
-export interface ContactProps {
-    contactValues: ContactValues | undefined,
-}
-
-
-export default withFormikValidation(ShortContactContainer);
+export default ShortContactContainer;

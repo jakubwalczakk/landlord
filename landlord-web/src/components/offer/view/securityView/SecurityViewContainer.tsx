@@ -32,10 +32,18 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const SecurityViewContainer = (props: SecurityToolsProps) => {
+const SecurityViewContainer = (props: SecurityToolsValues) => {
     const classes = useStyles();
 
-    const {securityToolsValues} = props;
+    const {
+        antiBurglaryBlinds,
+        securityDoor,
+        antiBurglaryWindows,
+        intercom,
+        monitoring,
+        alarmSystem,
+        closedArea
+    } = props;
 
     return (
         <Paper className={classes.paper}>
@@ -45,51 +53,49 @@ const SecurityViewContainer = (props: SecurityToolsProps) => {
             <Divider/>
 
             <div className={classes.formControl}>
-                {securityToolsValues &&
                 <Grid>
-                    {securityToolsValues.antiBurglaryBlinds &&
+                    {antiBurglaryBlinds &&
                     <Grid item xs={4}>
                         <li key={'antiBurglaryBlinds'}>{'rolety antywłamaniowe'}</li>
                     </Grid>
                     }
 
-                    {securityToolsValues.securityDoor &&
+                    {securityDoor &&
                     <Grid item xs={4}>
                         <li key={'securityDoor'}>{'drzwi antywłamaniowe'}</li>
                     </Grid>
                     }
 
-                    {securityToolsValues.antiBurglaryWindows &&
+                    {antiBurglaryWindows &&
                     <Grid item xs={4}>
                         <li key={'antiBurglaryWindows'}>{'okna antywłamaniowe'}</li>
                     </Grid>
                     }
 
-                    {securityToolsValues.intercom &&
+                    {intercom &&
                     <Grid item xs={4}>
                         <li key={'intercom'}>{'wideofon'}</li>
                     </Grid>
                     }
 
-                    {securityToolsValues.monitoring &&
+                    {monitoring &&
                     <Grid item xs={4}>
                         <li key={'monitoring'}>{'monitoring'}</li>
                     </Grid>
                     }
 
-                    {securityToolsValues.alarmSystem &&
+                    {alarmSystem &&
                     <Grid item xs={4}>
                         <li key={'alarmSystem'}>{'system alarmowy'}</li>
                     </Grid>
                     }
 
-                    {securityToolsValues.closedArea &&
+                    {closedArea &&
                     <Grid item xs={4}>
                         <li key={'closedArea'}>{'obsza zamknięty'}</li>
                     </Grid>
                     }
                 </Grid>
-                }
             </div>
         </Paper>
     );
@@ -103,10 +109,6 @@ export interface SecurityToolsValues {
     monitoring: boolean | undefined,
     alarmSystem: boolean | undefined,
     closedArea: boolean | undefined,
-}
-
-export interface SecurityToolsProps {
-    securityToolsValues: SecurityToolsValues
 }
 
 export default SecurityViewContainer;

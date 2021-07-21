@@ -8,7 +8,7 @@ export const redirectFetch = (originalFetch => {
                         window.location.href = '/';
                     }
                     resolve(response);
-                })
-        }))
+                });
+        }));
     };
 })(fetch);

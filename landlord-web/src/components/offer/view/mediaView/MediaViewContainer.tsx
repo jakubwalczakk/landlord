@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const MediaViewContainer = (props: MediaProps) => {
+const MediaViewContainer = (props: MediaValues) => {
     const classes = useStyles();
 
-    const {mediaValues} = props;
+    const {tv, internet, phone} = props;
 
     return (
         <Paper className={classes.paper}>
@@ -44,27 +44,25 @@ const MediaViewContainer = (props: MediaProps) => {
             <Divider/>
 
             <div className={classes.formControl}>
-                {mediaValues &&
                 <Grid container>
-                    {mediaValues.tv &&
+                    {tv &&
                     <Grid item xs={4}>
                         <li key={'tv'}>{'telewizja'}</li>
                     </Grid>
                     }
 
-                    {mediaValues.internet &&
+                    {internet &&
                     <Grid item xs={4}>
                         <li key={'internet'}>{'internet'}</li>
                     </Grid>
                     }
 
-                    {mediaValues.phone &&
+                    {phone &&
                     <Grid item xs={4}>
                         <li key={'phone'}>{'telefon'}</li>
                     </Grid>
                     }
                 </Grid>
-                }
             </div>
         </Paper>
     );
@@ -74,10 +72,6 @@ export interface MediaValues {
     internet: boolean | undefined,
     tv: boolean | undefined,
     phone: boolean | undefined,
-}
-
-export interface MediaProps {
-    mediaValues: MediaValues
 }
 
 export default MediaViewContainer;
