@@ -31,18 +31,17 @@ const withFormikValidation = withFormik<Props, SearchCriteria>({
         } = props;
 
         return (searchCriteria !== undefined ? {
-            voivodeshipCode: searchCriteria.voivodeshipCode !== null ? searchCriteria.voivodeshipCode : '',
-            districtCode: searchCriteria.districtCode !== null ? searchCriteria.districtCode : '',
-            cityCode: searchCriteria.cityCode !== null ? searchCriteria.cityCode : '',
-            priceMin: searchCriteria.priceMin !== null ? searchCriteria.priceMin : 0,
-            priceMax: searchCriteria.priceMax !== null ? searchCriteria.priceMax : 0,
-            surfaceMin: searchCriteria.surfaceMin !== null ? searchCriteria.surfaceMin : 0,
-            surfaceMax: searchCriteria.surfaceMax !== null ? searchCriteria.surfaceMax : 0,
-            numberOfRooms: searchCriteria.numberOfRooms !== null ? searchCriteria.numberOfRooms : [],
-            buildingTypes: searchCriteria.buildingTypes !== null ? searchCriteria.buildingTypes : [],
-            heatingTypes: searchCriteria.heatingTypes !== null ? searchCriteria.heatingTypes : [],
-            level: searchCriteria.level !== null ? searchCriteria.level : [],
-            buildingLevels: searchCriteria.buildingLevels !== null ? searchCriteria.buildingLevels : 0,
+            voivodeshipCode: searchCriteria.voivodeshipCode,
+            districtCode: searchCriteria.districtCode,
+            cityCode: searchCriteria.cityCode,
+            priceMin: searchCriteria.priceMin,
+            priceMax: searchCriteria.priceMax,
+            surfaceMin: searchCriteria.surfaceMin,
+            surfaceMax: searchCriteria.surfaceMax,
+            numberOfRooms: searchCriteria.numberOfRooms,
+            buildingTypes: searchCriteria.buildingTypes,
+            heatingTypes: searchCriteria.heatingTypes,
+            level: searchCriteria.level,
             balcony: searchCriteria.balcony,
             utilityRoom: searchCriteria.utilityRoom,
             garage: searchCriteria.garage,
@@ -66,18 +65,17 @@ const withFormikValidation = withFormik<Props, SearchCriteria>({
             buildingTypes: [],
             heatingTypes: [],
             level: [],
-            buildingLevels: null,
-            balcony: false,
-            utilityRoom: false,
-            garage: false,
-            cellar: false,
-            garden: false,
-            terrace: false,
-            elevator: false,
-            twoLevelsFlat: false,
-            separateKitchen: false,
-            airConditioning: false,
-            onlyForNonSmokers: false
+            balcony: null,
+            utilityRoom: null,
+            garage: null,
+            cellar: null,
+            garden: null,
+            terrace: null,
+            elevator: null,
+            twoLevelsFlat: null,
+            separateKitchen: null,
+            airConditioning: null,
+            onlyForNonSmokers: null
         });
     },
     handleSubmit: (values: SearchCriteria, formikBag: FormikBag<Props, SearchCriteria>): void => {
@@ -336,7 +334,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                         endAdornment: <InputAdornment
                                                             position="end">zł</InputAdornment>,
                                                     }}
-                                                    value={values.priceMin}
+                                                    value={values.priceMin === 0 ? '' : values.priceMin}
                                                     onChange={handleChange}
                                                 />} label={'od'} labelPlacement={'start'}/>
                                             <FormControlLabel control={
@@ -349,8 +347,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                         endAdornment: <InputAdornment
                                                             position="end">zł</InputAdornment>,
                                                     }}
-                                                    type={'number'}
-                                                    value={values.priceMax}
+                                                    value={values.priceMax === 0 ? '' : values.priceMax}
                                                     onChange={handleChange}
                                                 />} label={'do'} labelPlacement={'start'}/>
                                         </FormControl>
@@ -387,7 +384,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                         endAdornment: <InputAdornment
                                                             position="end">m<sup>2</sup></InputAdornment>,
                                                     }}
-                                                    value={values.surfaceMax}
+                                                    value={values.surfaceMax === 0 ? '' : values.surfaceMax}
                                                     onChange={handleChange}
                                                 />} label={'do'} labelPlacement={'start'}/>
                                         </FormControl>
@@ -405,7 +402,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'balcony'}
                                                         name={'balcony'}
-                                                        checked={values.balcony}
+                                                        checked={values.balcony as boolean}
                                                         onChange={handleChange}/>}
                                                     label="balkon"
                                                 />
@@ -413,7 +410,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'utilityRoom'}
                                                         name={'utilityRoom'}
-                                                        checked={values.utilityRoom}
+                                                        checked={values.utilityRoom as boolean}
                                                         onChange={handleChange}/>}
                                                     label="pom. użytkowe"
                                                 />
@@ -421,7 +418,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'garage'}
                                                         name={'garage'}
-                                                        checked={values.garage}
+                                                        checked={values.garage as boolean}
                                                         onChange={handleChange}/>}
                                                     label="garaż/miejsce parkingowe"
                                                 />
@@ -429,7 +426,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'cellar'}
                                                         name={'cellar'}
-                                                        checked={values.cellar}
+                                                        checked={values.cellar as boolean}
                                                         onChange={handleChange}/>}
                                                     label="piwnica"
                                                 />
@@ -437,7 +434,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'garden'}
                                                         name={'garden'}
-                                                        checked={values.garden}
+                                                        checked={values.garden as boolean}
                                                         onChange={handleChange}/>}
                                                     label="ogródek"
                                                 />
@@ -445,7 +442,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'terrace'}
                                                         name={'terrace'}
-                                                        checked={values.terrace}
+                                                        checked={values.terrace as boolean}
                                                         onChange={handleChange}/>}
                                                     label="taras"
                                                 />
@@ -453,7 +450,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'elevator'}
                                                         name={'elevator'}
-                                                        checked={values.elevator}
+                                                        checked={values.elevator as boolean}
                                                         onChange={handleChange}/>}
                                                     label="winda"
                                                 />
@@ -461,7 +458,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'twoLevelsFlat'}
                                                         name={'twoLevelsFlat'}
-                                                        checked={values.twoLevelsFlat}
+                                                        checked={values.twoLevelsFlat as boolean}
                                                         onChange={handleChange}/>}
                                                     label="dwupoziomowe"
                                                 />
@@ -469,7 +466,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'separateKitchen'}
                                                         name={'separateKitchen'}
-                                                        checked={values.separateKitchen}
+                                                        checked={values.separateKitchen as boolean}
                                                         onChange={handleChange}/>}
                                                     label="oddzielna kuchnia"
                                                 />
@@ -477,7 +474,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'airConditioning'}
                                                         name={'airConditioning'}
-                                                        checked={values.airConditioning}
+                                                        checked={values.airConditioning as boolean}
                                                         onChange={handleChange}/>}
                                                     label="klimatyzacja"
                                                 />
@@ -485,7 +482,7 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                                     control={<OrangeCheckbox
                                                         id={'onlyForNonSmokers'}
                                                         name={'onlyForNonSmokers'}
-                                                        checked={values.onlyForNonSmokers}
+                                                        checked={values.onlyForNonSmokers as boolean}
                                                         onChange={handleChange}/>}
                                                     label="tylko dla niepalących"
                                                 />
@@ -512,7 +509,8 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                             >
                                                 {BUILDING_TYPES.map(({key, value}) => (
                                                     <MenuItem key={key} value={value}>
-                                                        <Checkbox checked={values.buildingTypes.indexOf(value) > -1}/>
+                                                        <Checkbox
+                                                            checked={(values.buildingTypes as string[]).indexOf(value) > -1}/>
                                                         <ListItemText primary={key}/>
                                                     </MenuItem>
                                                 ))}
@@ -542,7 +540,8 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                             >
                                                 {HEATING_TYPES.map(({key, value}) => (
                                                     <MenuItem key={key} value={value}>
-                                                        <Checkbox checked={values.heatingTypes.indexOf(value) > -1}/>
+                                                        <Checkbox
+                                                            checked={(values.heatingTypes as string[]).indexOf(value) > -1}/>
                                                         <ListItemText primary={key}/>
                                                     </MenuItem>
                                                 ))}
@@ -570,7 +569,8 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                             >
                                                 {numbers.map((number) => (
                                                     <MenuItem key={number} value={number}>
-                                                        <Checkbox checked={values.numberOfRooms.indexOf(number) > -1}/>
+                                                        <Checkbox
+                                                            checked={(values.numberOfRooms as number[]).indexOf(number) > -1}/>
                                                         <ListItemText primary={number}/>
                                                     </MenuItem>
                                                 ))}
@@ -599,7 +599,8 @@ const SearchComponent: FC<Props & FormikProps<SearchCriteria>> = (props) => {
                                             >
                                                 {numbers.map((number) => (
                                                     <MenuItem key={number} value={number}>
-                                                        <Checkbox checked={values.level.indexOf(number) > -1}/>
+                                                        <Checkbox
+                                                            checked={(values.level as number[]).indexOf(number) > -1}/>
                                                         <ListItemText primary={number}/>
                                                     </MenuItem>
                                                 ))}

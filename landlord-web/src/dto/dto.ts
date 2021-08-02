@@ -123,22 +123,21 @@ export interface SearchCriteria {
     priceMax: number | null;
     surfaceMin: number | null;
     surfaceMax: number | null;
-    numberOfRooms: number[];
-    buildingTypes: string[];
-    heatingTypes: string[];
-    level: number[];
-    buildingLevels: number | null;
-    balcony: boolean;
-    utilityRoom: boolean;
-    garage: boolean;
-    cellar: boolean;
-    garden: boolean;
-    terrace: boolean;
-    elevator: boolean;
-    twoLevelsFlat: boolean;
-    separateKitchen: boolean;
-    airConditioning: boolean;
-    onlyForNonSmokers: boolean;
+    numberOfRooms: number[] | null;
+    buildingTypes: string[] | null;
+    heatingTypes: string[] | null;
+    level: number[] | null;
+    balcony: boolean | null;
+    utilityRoom: boolean | null;
+    garage: boolean | null;
+    cellar: boolean | null;
+    garden: boolean | null;
+    terrace: boolean | null;
+    elevator: boolean | null;
+    twoLevelsFlat: boolean | null;
+    separateKitchen: boolean | null;
+    airConditioning: boolean | null;
+    onlyForNonSmokers: boolean | null;
 }
 
 export interface SearchCriteriaBuilder {

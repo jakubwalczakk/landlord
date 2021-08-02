@@ -17,18 +17,17 @@ export default function SearchContainer() {
         buildingTypes: [],
         heatingTypes: [],
         level: [],
-        buildingLevels: null,
-        balcony: false,
-        utilityRoom: false,
-        garage: false,
-        cellar: false,
-        garden: false,
-        terrace: false,
-        elevator: false,
-        twoLevelsFlat: false,
-        separateKitchen: false,
-        airConditioning: false,
-        onlyForNonSmokers: false
+        balcony: null,
+        utilityRoom: null,
+        garage: null,
+        cellar: null,
+        garden: null,
+        terrace: null,
+        elevator: null,
+        twoLevelsFlat: null,
+        separateKitchen: null,
+        airConditioning: null,
+        onlyForNonSmokers: null
     });
 
     const [voivodeships, setVoivodeships] = useState<AddressDto[]>([]);

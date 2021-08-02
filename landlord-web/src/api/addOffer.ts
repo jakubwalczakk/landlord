@@ -7,5 +7,5 @@ export const saveOffer = (offer: OfferDto): Promise<OfferDto | ApiResponseMessag
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(offer),
     };
-    return redirectFetch('/offer', requestOptions).then(response => response.json());
+    return redirectFetch('/offers', requestOptions).then(response => response.json());
 }

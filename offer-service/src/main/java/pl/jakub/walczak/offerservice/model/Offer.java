@@ -29,7 +29,7 @@ public class Offer {
     private OfferAttachment mainPhoto;
 
     @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "FLAT_ID", nullable = false)
+    @JoinColumn(name = "FLAT_ID") //, nullable = false)
     private Flat flat;
 
     private BigDecimal price;

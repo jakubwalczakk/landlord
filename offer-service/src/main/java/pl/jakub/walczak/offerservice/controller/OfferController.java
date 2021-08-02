@@ -2,17 +2,16 @@ package pl.jakub.walczak.offerservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pl.jakub.walczak.offerservice.dto.ApiResponseMessage;
 import pl.jakub.walczak.offerservice.dto.OfferDto;
+import pl.jakub.walczak.offerservice.dto.SearchCriteria;
 import pl.jakub.walczak.offerservice.service.OffersService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/offer-details")
+@RequestMapping("/offers")
 public class OfferController {
 
     private OffersService offersService;
@@ -29,6 +28,16 @@ public class OfferController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<OfferDto> getOffer(@PathVariable Long id) {
-        return ResponseEntity.ok(offersService.getExampleOffer());
+        return ResponseEntity.ok(offersService.getById(id));
+    }
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<List<OfferDto>> getOffersByCriteria(SearchCriteria searchCriteria) {
+        return ResponseEntity.ok(offersService.getOffersByCriteria(searchCriteria));
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponseMessage> addOffer(@RequestBody OfferDto offer) {
+        return ResponseEntity.ok(offersService.addOffer(offer));
     }
 }

@@ -22,8 +22,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +33,7 @@ public class AddressDictionaryService {
     private AddressDictionaryRepository addressDictionaryRepository;
     private AddressMapper addressMapper = AddressMapper.INSTANCE;
 
-    private final static List<AddressDictionary> ADDRESS_DICTIONARY = new ArrayList<>();
+    private final static Map<String, AddressDictionary> ADDRESS_DICTIONARY = new HashMap<>();
 
     @Autowired
     public AddressDictionaryService(AddressDictionaryRepository addressDictionaryRepository) {
@@ -81,9 +82,10 @@ public class AddressDictionaryService {
                                 .localizationLevel(localizationLevel)
                                 .build();
 
-                ADDRESS_DICTIONARY.add(td);
+                String code = voivodeship + district + city;
+                ADDRESS_DICTIONARY.put(code, td);
             }
-            addressDictionaryRepository.saveAll(ADDRESS_DICTIONARY);
+            addressDictionaryRepository.saveAll(ADDRESS_DICTIONARY.values());
         } catch (IOException | ParserConfigurationException | SAXException e) {
             e.printStackTrace();
         }
