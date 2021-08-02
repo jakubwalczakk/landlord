@@ -2,15 +2,12 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import AddIcon from '@material-ui/icons/Add';
-import PersonIcon from '@material-ui/icons/Person';
 import {GreenButton} from "../../ui/GreenComponents";
 import {GRAY_COLOR} from "../../COLOR_CONSTANTS";
 import {ButtonBase, CardContent, CardMedia} from "@material-ui/core";
 import {useHistory} from 'react-router-dom';
-import {OrangeButton} from "../../ui/OrangeComponents";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -73,18 +70,18 @@ export default function TopBarComponent() {
                         </CardContent>
                     </ButtonBase>
                 </Container>
-                <Button className={classes.menuButton}
-                        startIcon={<PersonIcon/>}
-                    // onClick={onMyAccountButtonClick}
-                >
-                    Witaj, [Jakub]!
-                </Button>
-                <OrangeButton className={classes.menuButton}
-                              startIcon={<PersonIcon/>}
-                              onClick={onMyAccountButtonClick}
-                >
-                    Moje oferty
-                </OrangeButton>
+                {/*<Button className={classes.menuButton}*/}
+                {/*        startIcon={<PersonIcon/>}*/}
+                {/*    // onClick={onMyAccountButtonClick}*/}
+                {/*>*/}
+                {/*    Witaj, [Jakub]!*/}
+                {/*</Button>*/}
+                {/*<OrangeButton className={classes.menuButton}*/}
+                {/*              startIcon={<PersonIcon/>}*/}
+                {/*              onClick={onMyAccountButtonClick}*/}
+                {/*>*/}
+                {/*    Moje oferty*/}
+                {/*</OrangeButton>*/}
                 <GreenButton variant="contained"
                              className={classes.menuButton}
                              startIcon={<AddIcon/>}

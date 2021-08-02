@@ -13,7 +13,6 @@ import pl.jakub.walczak.offerservice.mapper.AddressMapper;
 import pl.jakub.walczak.offerservice.model.AddressDictionary;
 import pl.jakub.walczak.offerservice.repository.AddressDictionaryRepository;
 
-import javax.annotation.PostConstruct;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -40,7 +39,7 @@ public class AddressDictionaryService {
         this.addressDictionaryRepository = addressDictionaryRepository;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void loadDictionary() {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {

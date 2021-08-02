@@ -432,26 +432,26 @@ const OfferAddComponent: FC<Props & FormikProps<OfferFormProps>> = (props) => {
                                 </div>
                             </Paper>
 
-                            <Paper className={classes.paper}>
-                                <Typography variant={'h6'} className={classes.typography}>
-                                    Multimedia
-                                </Typography>
-                                <Divider/>
-                                <div className={classes.formControl}>
-                                    <FormControl fullWidth className={clsx(classes.margin, classes.dispInlineBlock)}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={7}>
-                                            </Grid>
-                                            <Grid item xs={5}>
-                                                BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-                                                BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBnpm i
-                                                BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-                                                BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-                                            </Grid>
-                                        </Grid>
-                                    </FormControl>
-                                </div>
-                            </Paper>
+                            {/*<Paper className={classes.paper}>*/}
+                            {/*    <Typography variant={'h6'} className={classes.typography}>*/}
+                            {/*        Multimedia*/}
+                            {/*    </Typography>*/}
+                            {/*    <Divider/>*/}
+                            {/*    <div className={classes.formControl}>*/}
+                            {/*        <FormControl fullWidth className={clsx(classes.margin, classes.dispInlineBlock)}>*/}
+                            {/*            <Grid container spacing={2}>*/}
+                            {/*                <Grid item xs={7}>*/}
+                            {/*                </Grid>*/}
+                            {/*                <Grid item xs={5}>*/}
+                            {/*                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB*/}
+                            {/*                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBnpm i*/}
+                            {/*                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB*/}
+                            {/*                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB*/}
+                            {/*                </Grid>*/}
+                            {/*            </Grid>*/}
+                            {/*        </FormControl>*/}
+                            {/*    </div>*/}
+                            {/*</Paper>*/}
 
                             <Paper className={classes.paper}>
                                 <Typography variant={'h6'} className={classes.typography}>
