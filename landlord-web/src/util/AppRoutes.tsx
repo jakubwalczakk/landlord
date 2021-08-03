@@ -47,7 +47,7 @@ const AppRoutes: FC = () => {
             <Route
                 exact
                 path={'' +
-                '/offer-details/:id'}
+                '/offers/:id'}
                 component={OfferDetailsContainer}
             />
 

@@ -78,7 +78,7 @@ function Row(props: { offer: OfferDto }) {
 
     const handleOfferDetailsClick = () => {
         var rowID = offer.id;
-        history.push('/offer-details/' + rowID);
+        history.push('/offers/' + rowID);
     };
 
     return (
@@ -136,7 +136,6 @@ const OfferListComponent: FC<Props> = (props) => {
     const {offers, isLoading, isError} = props;
 
     if (offers !== undefined) {
-
         return (
             <div className='single-page'>
                 {isLoading && <Spinner/>}
@@ -146,7 +145,7 @@ const OfferListComponent: FC<Props> = (props) => {
                             <SearchContainer/>
                             <Table aria-label="collapsible table">
                                 <TableBody>
-                                    {offers.map((offer) => (
+                                    {(offers as OfferDto[]).map((offer: OfferDto) => (
                                         <Row key={offer.id} offer={offer}/>
                                     ))}
                                 </TableBody>
@@ -165,7 +164,7 @@ const OfferListComponent: FC<Props> = (props) => {
 }
 
 interface Props {
-    offers: OfferDto[],
+    offers: OfferDto[] | undefined,
     isLoading: boolean,
     isError: boolean,
 }

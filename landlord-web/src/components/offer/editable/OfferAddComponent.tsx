@@ -89,9 +89,9 @@ const withFormikValidation = withFormik<Props, OfferFormProps>({
                 phoneNumber: offer.owner !== null ? offer.owner.phoneNumber : null,
                 email: offer.owner !== null ? offer.owner.email : null,
 
-                voivodeship: offer.flat !== null && offer.flat.address !== null ? offer.flat.address.voivodeshipCode : null,
-                district: offer.flat !== null && offer.flat.address !== null ? offer.flat.address.districtCode : null,
-                city: offer.flat !== null && offer.flat.address !== null ? offer.flat.address.cityCode : null,
+                voivodeship: offer.flat !== null ? offer.flat.voivodeshipCode : null,
+                district: offer.flat !== null ? offer.flat.districtCode : null,
+                city: offer.flat !== null ? offer.flat.cityCode : null,
             }
             : {
                 title: null,
@@ -200,14 +200,9 @@ const withFormikValidation = withFormik<Props, OfferFormProps>({
                     separateKitchen: values.separateKitchen,
                     utilityRoom: values.utilityRoom
                 },
-                address: {
-                    voivodeshipCode: values.voivodeship,
-                    name: null,
-                    cityCode: values.city,
-                    districtCode: values.district,
-                    additionalName: null,
-                    cityType: null
-                }
+                voivodeshipCode: values.voivodeship,
+                districtCode: values.district,
+                cityCode: values.city,
             },
             price: values.price,
             rentPrice: values.rentPrice,

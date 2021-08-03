@@ -31,7 +31,7 @@ const OfferListContainer: FC = (props) => {
     }, []);
 
     return (
-        <OfferListComponent offers={offers as OfferDto[]} isError={isError} isLoading={isLoading}/>
+        <OfferListComponent offers={offers} isError={isError} isLoading={isLoading}/>
     );
 }
 

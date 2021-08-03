@@ -6,7 +6,7 @@ export const loadOffers = (): Promise<OfferDto[] | ApiResponseMessage> => {
 }
 
 export const loadOfferDetails = (id: string): Promise<OfferDto | ApiResponseMessage> => {
-    return redirectFetch(`/offer-details/${id}`).then(response => response.json());
+    return redirectFetch(`/offers/${id}`).then(response => response.json());
 }
 
 export const saveOffer = (offer: OfferDto): Promise<OfferDto | ApiResponseMessage> => {

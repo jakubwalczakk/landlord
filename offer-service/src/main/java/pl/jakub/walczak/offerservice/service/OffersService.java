@@ -9,7 +9,7 @@ import pl.jakub.walczak.offerservice.dto.ApiResponseMessage;
 import pl.jakub.walczak.offerservice.dto.OfferDto;
 import pl.jakub.walczak.offerservice.dto.SearchCriteria;
 import pl.jakub.walczak.offerservice.mapper.OfferMapper;
-import pl.jakub.walczak.offerservice.model.Offer;
+import pl.jakub.walczak.offerservice.model.*;
 import pl.jakub.walczak.offerservice.repository.AddressDictionaryRepository;
 import pl.jakub.walczak.offerservice.repository.FlatRepository;
 import pl.jakub.walczak.offerservice.repository.OffersRepository;
@@ -46,24 +46,28 @@ public class OffersService {
     public void init() {
         Random r = new Random();
         for (var i = 0; i < 10; i++) {
-//            Flat flat = Flat.builder()
-//                    .flatStatus(FlatStatus.FOR_LIVING)
-//                    .buildingMaterial(BuildingMaterial.BIG_PLATE)
-//                    .heatingType(HeatingType.DISTRICT)
-//                    .windowsType(WindowsType.PLASTIC)
-//                    .roomsNumber(4)
-//                    .surfaceArea(76.40)
-//                    .buildingLevels(4)
-//                    .level(2)
-//                    .buildYear(1986)
-//                    .addressDictionary(addressDictionaryRepository.findById(1L).get())
-//                    .build();
-//            flatRepository.save(flat);
 
-//
-//            User user = User.builder().firstName("Janek")
-//                    .lastName("POŻYCZ").phoneNumber(String.valueOf(i)).build();
-//            userRepository.save(user);
+            AddressDictionary addressDictionary = addressDictionaryRepository.findById(1L).orElseThrow();
+
+            Flat flat = Flat.builder()
+                    .flatStatus(FlatStatus.FOR_LIVING)
+                    .buildingMaterial(BuildingMaterial.BIG_PLATE)
+                    .heatingType(HeatingType.DISTRICT)
+                    .windowsType(WindowsType.PLASTIC)
+                    .roomsNumber(4)
+                    .surfaceArea(76.40)
+                    .buildingLevels(4)
+                    .level(2)
+                    .buildYear(1986)
+                    .voivodeshipCode(addressDictionary.getVoivodeshipCode())
+                    .districtCode(addressDictionary.getDistrictCode())
+                    .cityCode(addressDictionary.getCityCode())
+                    .build();
+            flatRepository.save(flat);
+
+            User user = User.builder().firstName("Janek")
+                    .lastName("POŻYCZ").phoneNumber(String.valueOf(i)).build();
+            userRepository.save(user);
 
             Offer offer = Offer.builder()
                     .price(new BigDecimal(i * r.nextInt(100) + 1000))
@@ -72,8 +76,8 @@ public class OffersService {
                     .description("#" + (i + 1) +
                             " XXXXXXXXXXXXXXXXXXXXXXXX")
                     .title("Super extra flat #" + i)
-//                    .owner(user)
-//                    .flat(flat)
+                    .owner(user)
+                    .flat(flat)
                     .build();
             offersRepository.save(offer);
         }
@@ -95,6 +99,9 @@ public class OffersService {
     public ApiResponseMessage addOffer(OfferDto offer) {
         log.info("Addding new offer into db");
         Offer entity = offerMapper.mapDtoToEntity(offer);
+        Flat flat = entity.getFlat();
+        Flat savedFlat = flatRepository.saveAndFlush(flat);
+        entity.setFlat(savedFlat);
         Offer saved = offersRepository.save(entity);
         return ApiResponseMessage.builder()
                 .data(saved.getId().toString())

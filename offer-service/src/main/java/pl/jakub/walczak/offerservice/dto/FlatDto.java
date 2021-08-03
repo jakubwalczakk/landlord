@@ -25,5 +25,7 @@ public class FlatDto {
     private SecurityToolsDto securityTools;
     private MediaInfoDto mediaInfo;
     private AmenitiesInfoDto amenitiesInfo;
-    private AddressDto address;
+    private String voivodeshipCode;
+    private String districtCode;
+    private String cityCode;
 }

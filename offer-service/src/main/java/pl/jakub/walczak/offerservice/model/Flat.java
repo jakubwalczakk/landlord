@@ -52,8 +52,7 @@ public class Flat {
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "AMENITIES_ID")
     private AmenitiesInfo amenitiesInfo;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ADDRESS_ID", nullable = false)
-    private AddressDictionary addressDictionary;
+    private String voivodeshipCode;
+    private String districtCode;
+    private String cityCode;
 }

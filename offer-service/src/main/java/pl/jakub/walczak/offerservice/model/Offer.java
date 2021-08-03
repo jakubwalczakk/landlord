@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Data
@@ -20,15 +19,15 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+//
+//    @OneToMany(mappedBy = "offer", orphanRemoval = true)
+//    private Set<OfferAttachment> attachments;
+//
+//    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+//    @JoinColumn(name = "MAIN_ATTACHMENT_ID")
+//    private OfferAttachment mainPhoto;
 
-    @OneToMany(mappedBy = "offer", orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<OfferAttachment> attachments;
-
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "MAIN_ATTACHMENT_ID")
-    private OfferAttachment mainPhoto;
-
-    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "FLAT_ID") //, nullable = false)
     private Flat flat;
 

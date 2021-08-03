@@ -67,7 +67,9 @@ export interface FlatDto {
     securityTools: SecurityToolsDto | null;
     mediaInfo: MediaInfoDto | null;
     amenitiesInfo: AmenitiesInfoDto | null;
-    address: AddressDto | null;
+    voivodeshipCode: string | null;
+    districtCode: string | null;
+    cityCode: string | null;
 }
 
 export interface FlatDtoBuilder {

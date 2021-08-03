@@ -45,7 +45,7 @@ const withFormikValidation = withFormik<Props, OfferDetailsValues>({
                 buildingMaterial: ((offer.flat !== null) && (offer.flat.buildingMaterial !== null)) ? offer.flat.buildingMaterial : undefined,
                 windowsType: ((offer.flat !== null) && (offer.flat.windowsType !== null)) ? offer.flat.windowsType : undefined,
                 heatingType: ((offer.flat !== null) && (offer.flat.heatingType !== null)) ? offer.flat.heatingType : undefined,
-                buildYear: ((offer.flat !== null) && (offer.flat.buildingLevels !== null)) ? offer.flat.buildingLevels : undefined,
+                buildYear: ((offer.flat !== null) && (offer.flat.buildYear !== null)) ? offer.flat.buildYear : undefined,
                 flatStatus: ((offer.flat !== null) && (offer.flat.flatStatus !== null)) ? offer.flat.flatStatus : undefined,
                 availableFrom: undefined,
 
