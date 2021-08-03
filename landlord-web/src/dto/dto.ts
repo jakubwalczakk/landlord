@@ -95,6 +95,7 @@ export interface OfferAttachmentDtoBuilder {
 }
 
 export interface OfferDto {
+    id: number | null;
     attachments: OfferAttachmentDto[] | null;
     mainPhoto: OfferAttachmentDto | null;
     flat: FlatDto | null;

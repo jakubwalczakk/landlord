@@ -29,15 +29,6 @@ import {KeyboardDatePicker} from "@material-ui/pickers";
 
 
 const withFormikValidation = withFormik<Props, OfferFormProps>({
-    // enableReinitialize: true,
-    // validationSchema: Yup.object()
-    //     .shape({
-    //             login: Yup.string().required('Pole obowiązkowe').max(40, 'Przekroczono limit liczby znaków').matches(
-    //                 /^\S*$/,
-    //                 'Pole nie może zawierać białych znaków',
-    //             ),
-    //             imie: Yup.string().required('Pole obowiązkowe').max(40, 'Przekroczono limit liczby znaków'),
-    //     ),
     mapPropsToValues: (props): OfferFormProps => {
         const {
             offer
@@ -120,33 +111,33 @@ const withFormikValidation = withFormik<Props, OfferFormProps>({
                 buildYear: null,
                 flatStatus: null,
                 availableFrom: null,
-                washingMachine: false,
-                furniture: false,
-                dishwasher: false,
-                fridge: false,
-                cooker: false,
-                oven: false,
-                antiBurglaryBlinds: false,
-                securityDoor: false,
-                antiBurglaryWindows: false,
-                intercom: false,
-                monitoring: false,
-                alarmSystem: false,
-                closedArea: false,
-                internet: false,
-                tv: false,
-                phone: false,
-                balcony: false,
-                utilityRoom: false,
-                garage: false,
-                cellar: false,
-                garden: false,
-                terrace: false,
-                elevator: false,
-                twoLevelsFlat: false,
-                separateKitchen: false,
-                airConditioning: false,
-                onlyForNonSmokers: false,
+                washingMachine: null,
+                furniture: null,
+                dishwasher: null,
+                fridge: null,
+                cooker: null,
+                oven: null,
+                antiBurglaryBlinds: null,
+                securityDoor: null,
+                antiBurglaryWindows: null,
+                intercom: null,
+                monitoring: null,
+                alarmSystem: null,
+                closedArea: null,
+                internet: null,
+                tv: null,
+                phone: null,
+                balcony: null,
+                utilityRoom: null,
+                garage: null,
+                cellar: null,
+                garden: null,
+                terrace: null,
+                elevator: null,
+                twoLevelsFlat: null,
+                separateKitchen: null,
+                airConditioning: null,
+                onlyForNonSmokers: null,
                 name: null,
                 phoneNumber: null,
                 email: null,
@@ -159,7 +150,7 @@ const withFormikValidation = withFormik<Props, OfferFormProps>({
         const request: OfferDto = {
             // attachments: OfferAttachmentDto[] | null;
             // mainPhoto: OfferAttachmentDto | null;
-
+            id: 0,
             attachments: null,
             mainPhoto: null,
             flat: {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import Spinner from "../../ui/Spinner";
 import {
     Box,
@@ -16,6 +16,7 @@ import {GreenButton} from "../../ui/GreenComponents";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {useHistory} from "react-router-dom";
 import SearchContainer from "./search/SearchContainer";
+import {OfferDto} from "../../dto/dto";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -50,63 +51,51 @@ const useRowStyles = makeStyles({
     },
 });
 
-function createData(
-    id: number,
-    title: string,
-    photo: string,
-    price: number,
-    roomsNumber: number,
-    surfaceArea: number,
-) {
-    return {
-        id,
-        photo,
-        title,
-        roomsNumber,
-        surfaceArea,
-        price,
-    };
-}
-
-function Row(props: { row: ReturnType<typeof createData> }) {
-    const {row} = props;
+function Row(props: { offer: OfferDto }) {
+    const {offer} = props;
     const classes = useRowStyles();
 
+    var flat = offer.flat;
+
     function switchLabelByRoomsNumber() {
-        const roomsNumber = row.roomsNumber;
-        switch (row.roomsNumber) {
-            case 1:
-                return roomsNumber + ' pokój';
-            case 2:
-            case 3:
-            case 4:
-                return roomsNumber + ' pokoje';
-            default:
-                return roomsNumber + ' pokoji';
+        if (flat !== null && flat.roomsNumber !== undefined) {
+            var roomsNumber = flat.roomsNumber;
+            switch (roomsNumber) {
+                case 1:
+                    return roomsNumber + ' pokój';
+                case 2:
+                case 3:
+                case 4:
+                    return roomsNumber + ' pokoje';
+                default:
+                    return roomsNumber + ' pokoji';
+            }
         }
+        return '';
     }
 
     const history = useHistory();
 
     const handleOfferDetailsClick = () => {
-        var x = 1;
-        history.push('/offer-details/' + x);
+        var rowID = offer.id;
+        history.push('/offer-details/' + rowID);
     };
 
     return (
         <TableRow className={classes.root}>
             <TableCell>
-                <img src={row.photo} width={420} height={280}/>
+                {/*<img src={offer.photo} width={420} height={280}/>*/}
+                <img src={"https://picsum.photos/360/240"} width={420} height={280}/>
             </TableCell>
             <TableCell align="left" style={{verticalAlign: 'top'}}>
                 <Typography gutterBottom variant="h5">
                     <Box fontWeight="fontWeightBold">
-                        {row.title}
+                        {offer.title}
                     </Box>
                 </Typography>
                 {/*<Grid*/}
                 {/*    container*/}
-                {/*    direction="row"*/}
+                {/*    direction="offer"*/}
                 {/*    justify="space-around"*/}
                 {/*    alignItems="center"*/}
                 {/*>*/}
@@ -116,16 +105,16 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                     justify="space-between"
                     alignItems="flex-start"
                 >
-                    <Grid item>
+                    {flat && <Grid item>
                         <Typography variant="h6">
                             {switchLabelByRoomsNumber()}
                         </Typography>
                         <Typography variant="h6" color="textSecondary">
-                            {row.surfaceArea} m<sup>2</sup>
+                            {flat.surfaceArea} m<sup>2</sup>
                         </Typography>
-                    </Grid>
+                    </Grid>}
                     <Grid item style={{marginRight: 0, marginLeft: "auto"}}>
-                        <Typography variant="h4">{row.price} zł/mc</Typography>
+                        <Typography variant="h4">{offer.price} zł/mc</Typography>
                     </Grid>
                     <Grid item style={{marginRight: 0, marginLeft: "auto"}}>
                         <GreenButton variant={'contained'}
@@ -141,21 +130,10 @@ function Row(props: { row: ReturnType<typeof createData> }) {
     );
 }
 
-const rows = [
-    createData(1, "Największa Oferta #1 - dwa pokoje", "https://picsum.photos/360/240", 1900.00, 1, 48.5),
-    // createData(2, "Super Oferta #2 - dwa pokoje", "https://picsum.photos/360/240", 1600.00, 2, 42.0),
-    // createData(3, "Najtańsza Oferta #3 - dwa pokoje", "https://picsum.photos/360/240", 1500.00, 2, 36.0),
-    // createData(4, "Najlepsza Oferta #4 - trzy pokoje", "https://picsum.photos/360/240", 1800.00, 3, 40.5),
-    // createData(5, "Przystępna Oferta #5 - dwa pokoje", "https://picsum.photos/360/240", 1750.00, 2, 40.0),
-    // createData(6, "Droga Oferta #6 - trzy pokoje", "https://picsum.photos/360/240", 2000.00, 3, 44.0),
-    // createData(7, "Całkiem droga Oferta #7 - dwa pokoje", "https://picsum.photos/360/240", 1800.00, 5, 38.0),
-    // createData(8, "Fajna Oferta #8 - dwa pokoje", "https://picsum.photos/360/240", 1600.00, 2, 32.0),
-];
-
-export default function OfferListComponent() {
+const OfferListComponent: FC<Props> = (props) => {
     const classes = useStyles();
-    const isLoading = false;
 
+    const {offers, isLoading, isError} = props;
     return (
         <div className='single-page'>
             {isLoading && <Spinner/>}
@@ -165,8 +143,8 @@ export default function OfferListComponent() {
                         <SearchContainer/>
                         <Table aria-label="collapsible table">
                             <TableBody>
-                                {rows.map((row) => (
-                                    <Row key={row.id} row={row}/>
+                                {offers.map((offer) => (
+                                    <Row key={offer.id} offer={offer}/>
                                 ))}
                             </TableBody>
                         </Table>
@@ -176,3 +154,11 @@ export default function OfferListComponent() {
         </div>
     );
 }
+
+interface Props {
+    offers: OfferDto[],
+    isLoading: boolean,
+    isError: boolean,
+}
+
+export default OfferListComponent;

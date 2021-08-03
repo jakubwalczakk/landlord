@@ -18,6 +18,9 @@ import javax.persistence.Id;
 public class AddressDictionary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @SequenceGenerator(name="seq",sequenceName="oracle_seq")
+//    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
     private Long id;
     private Integer localizationLevel;
     private String voivodeshipCode;

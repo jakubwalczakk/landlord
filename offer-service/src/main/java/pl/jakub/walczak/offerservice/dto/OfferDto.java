@@ -15,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class OfferDto {
+    private Long id;
     private Set<OfferAttachmentDto> attachments;
     private OfferAttachmentDto mainPhoto;
     private FlatDto flat;

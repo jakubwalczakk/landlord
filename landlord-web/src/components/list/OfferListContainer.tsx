@@ -1,8 +1,38 @@
-import React from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import OfferListComponent from './OfferListComponent';
+import {ApiResponseMessage, OfferDto} from "../../dto/dto";
+import {loadOffers} from "../../api/offers";
+import {withNavigationLockContext} from "../../ui/NavigationLockContext";
+import {useSnackbar} from "notistack";
 
-export default function OfferListContainer() {
+const OfferListContainer: FC = (props) => {
+
+    const [offers, setOffers] = useState<OfferDto[]>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
+    const {enqueueSnackbar} = useSnackbar();
+
+    useEffect(() => {
+        loadOffers()
+            .then(response => {
+                setIsLoading(true);
+                if ((response as ApiResponseMessage).success === false) {
+                    response = response as ApiResponseMessage;
+                    setIsError(true);
+                    enqueueSnackbar(response.message, {
+                        variant: 'error',
+                        persist: true
+                    });
+                } else {
+                    setOffers(response as OfferDto[]);
+                }
+                setIsLoading(false);
+            });
+    }, []);
+
     return (
-        <OfferListComponent/>
+        <OfferListComponent offers={offers as OfferDto[]} isError={isError} isLoading={isLoading}/>
     );
 }
+
+export default withNavigationLockContext(OfferListContainer);
