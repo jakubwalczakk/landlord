@@ -134,25 +134,34 @@ const OfferListComponent: FC<Props> = (props) => {
     const classes = useStyles();
 
     const {offers, isLoading, isError} = props;
-    return (
-        <div className='single-page'>
-            {isLoading && <Spinner/>}
-            <Container maxWidth={false} className={classes.container}>
-                <Grid container item xs={7}>
-                    <TableContainer>
-                        <SearchContainer/>
-                        <Table aria-label="collapsible table">
-                            <TableBody>
-                                {offers.map((offer) => (
-                                    <Row key={offer.id} offer={offer}/>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Grid>
-            </Container>
-        </div>
-    );
+
+    if (offers !== undefined) {
+
+        return (
+            <div className='single-page'>
+                {isLoading && <Spinner/>}
+                <Container maxWidth={false} className={classes.container}>
+                    <Grid container item xs={7}>
+                        <TableContainer>
+                            <SearchContainer/>
+                            <Table aria-label="collapsible table">
+                                <TableBody>
+                                    {offers.map((offer) => (
+                                        <Row key={offer.id} offer={offer}/>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Grid>
+                </Container>
+            </div>
+        );
+    } else {
+        return (
+            <div className='single-page'>
+            </div>
+        );
+    }
 }
 
 interface Props {

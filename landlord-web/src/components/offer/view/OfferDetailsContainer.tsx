@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import OfferDetailsComponent from './OfferDetailsComponent';
-import {loadOfferDetails} from "../../../api/offerDetails";
+import {loadOfferDetails} from "../../../api/offers";
 import {ApiResponseMessage, OfferDto} from "../../../dto/dto";
 import {useParams} from 'react-router-dom';
 import {useSnackbar} from "notistack";

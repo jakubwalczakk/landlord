@@ -8,7 +8,7 @@ import {FLAT_STATUSES} from "../../../api/flatStatus";
 import {BUILDING_MATERIALS} from "../../../api/buildingMaterial";
 import {WINDOWS_TYPES} from "../../../api/windowsType";
 import {HEATING_TYPES} from "../../../api/heatingType";
-import {saveOffer} from "../../../api/addOffer";
+import {saveOffer} from "../../../api/offers";
 import {loadCities, loadDistricts, loadVoivodeships} from "../../../api/localization";
 
 const OfferAddContainer = () => {
