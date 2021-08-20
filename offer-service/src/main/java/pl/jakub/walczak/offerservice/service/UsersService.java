@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pl.jakub.walczak.offerservice.model.User;
 import pl.jakub.walczak.offerservice.repository.UsersRepository;
 
-import javax.annotation.PostConstruct;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,7 +24,7 @@ public class UsersService {
 
     private static final Random random = new Random();
 
-    @PostConstruct
+//    @PostConstruct
     public void initUsers() {
         List<User> users = new ArrayList<>();
 

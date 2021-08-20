@@ -2,13 +2,11 @@ package pl.jakub.walczak.offerservice.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.Instant;
 
-@Entity(name = "USERS")
+@Entity
+@Table(name = "USERS")
 @Data
 @Builder
 @NoArgsConstructor

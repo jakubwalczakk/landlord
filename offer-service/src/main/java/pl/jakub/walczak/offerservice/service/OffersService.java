@@ -18,7 +18,6 @@ import pl.jakub.walczak.offerservice.repository.FlatRepository;
 import pl.jakub.walczak.offerservice.repository.OffersRepository;
 import pl.jakub.walczak.offerservice.repository.UsersRepository;
 
-import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -52,7 +51,7 @@ public class OffersService {
         this.addressDictionaryRepository = addressDictionaryRepository;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         List<Offer> offers = new ArrayList<>();
         for (int i = 1; i <= 1_000; i++) {
