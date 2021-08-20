@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pl.jakub.walczak.offerservice.model.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UsersRepository extends JpaRepository<User, Long> {
 }

@@ -5,7 +5,7 @@ import org.mapstruct.factory.Mappers;
 import pl.jakub.walczak.offerservice.dto.OfferDto;
 import pl.jakub.walczak.offerservice.model.Offer;
 
-@Mapper(uses = {FlatMapper.class, OfferAttachmentMapper.class})
+@Mapper(uses = {FlatMapper.class})
 public interface OfferMapper {
     OfferMapper INSTANCE = Mappers.getMapper(OfferMapper.class);
 

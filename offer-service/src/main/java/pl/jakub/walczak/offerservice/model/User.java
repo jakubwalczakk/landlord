@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.Instant;
 
-@Entity
+@Entity(name = "USERS")
 @Data
 @Builder
 @NoArgsConstructor

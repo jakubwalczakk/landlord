@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,8 +15,6 @@ import java.util.Set;
 @Builder
 public class OfferDto {
     private Long id;
-    private Set<OfferAttachmentDto> attachments;
-    private OfferAttachmentDto mainPhoto;
     private FlatDto flat;
     private BigDecimal price;
     private BigDecimal rentPrice;

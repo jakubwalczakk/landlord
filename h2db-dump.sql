@@ -1,36 +1,31 @@
-CREATE TABLE IF NOT EXISTS "ADDRESS_DICTIONARY"
+;
+CREATE USER IF NOT EXISTS "SA" SALT 'bffaf2442d7e6b42' HASH '9d7922b865345c634cc7cd3e2110a8a87ded3da769a39bff81ebeb3c9ae0d17e' ADMIN;
+CREATE SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_7C017884_5126_4D75_B4BA_7C9DAFC88DD6" START WITH 2911 BELONGS_TO_TABLE;
+CREATE SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_17693CAA_27A0_4CD6_8142_08DD0E0BC6DF" START WITH 1 BELONGS_TO_TABLE;
+CREATE SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_B114A7C7_0F4A_4725_BC36_F236CD209D0F" START WITH 1 BELONGS_TO_TABLE;
+CREATE SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_519D0D30_CE03_4757_ACDC_0B7C8FFC7905" START WITH 1 BELONGS_TO_TABLE;
+CREATE SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_CA15F023_4EAF_47FB_AB03_00F5ACB39BC7" START WITH 1 BELONGS_TO_TABLE;
+CREATE SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_D3B5B006_A083_4F11_8865_49393BF2056F" START WITH 1 BELONGS_TO_TABLE;
+CREATE SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_599A1080_8D6B_4217_B20C_2F98C1CF94A4" START WITH 1 BELONGS_TO_TABLE;
+CREATE SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_30338D03_80E2_409C_A372_8D7C5C0CCD21" START WITH 1 BELONGS_TO_TABLE;
+CREATE SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_9436083B_2F67_43A4_ABD8_DAA23FF5DFAB" START WITH 1 BELONGS_TO_TABLE;
+CREATE
+MEMORY
+TABLE "PUBLIC"."ADDRESS_DICTIONARY"
 (
-    "ID"
-    BIGINT,
-    "ADDITIONAL_NAME"
-    VARCHAR
-(
-    255
-),
-    "CITY_CODE" VARCHAR
-(
-    255
-),
-    "CITY_TYPE" VARCHAR
-(
-    255
-),
-    "DISTRICT_CODE" VARCHAR
-(
-    255
-),
-    "LOCALIZATION_LEVEL" INTEGER,
-    "NAME" VARCHAR
-(
-    255
-),
-    "VOIVODESHIP_CODE" VARCHAR
-(
-    255
-)
-    );
-
-INSERT INTO "ADDRESS_DICTIONARY"
+    "ID" BIGINT DEFAULT NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_7C017884_5126_4D75_B4BA_7C9DAFC88DD6" NOT NULL NULL_TO_DEFAULT SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_7C017884_5126_4D75_B4BA_7C9DAFC88DD6" SELECTIVITY 100,
+    "ADDITIONAL_NAME" VARCHAR(255) SELECTIVITY 1,
+    "CITY_CODE" VARCHAR(255) SELECTIVITY 2,
+    "CITY_TYPE" VARCHAR(255) SELECTIVITY 1,
+    "DISTRICT_CODE" VARCHAR(255) SELECTIVITY 4,
+    "LOCALIZATION_LEVEL" INTEGER SELECTIVITY 1,
+    "NAME" VARCHAR(255) SELECTIVITY 91,
+    "VOIVODESHIP_CODE" VARCHAR(255) SELECTIVITY 1
+);
+ALTER TABLE "PUBLIC"."ADDRESS_DICTIONARY"
+    ADD CONSTRAINT "PUBLIC"."CONSTRAINT_3" PRIMARY KEY ("ID");
+-- 2910 +/- SELECT COUNT(*) FROM PUBLIC.ADDRESS_DICTIONARY;
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1, 'obszar wiejski', '04', '5', '04', 3, STRINGDECODE('Wo\u0142czyn'), '16'),
        (2, 'gmina wiejska', '03', '2', '04', 3, 'Lasowice Wielkie', '16'),
        (3, 'gmina wiejska', '02', '2', '11', 3, 'Brody', '26'),
@@ -88,7 +83,7 @@ VALUES (1, 'obszar wiejski', '04', '5', '04', 3, STRINGDECODE('Wo\u0142czyn'), '
        (55, 'powiat', '', '', '04', 2, STRINGDECODE('\u0142\u0119czycki'), '10'),
        (56, 'powiat', '', '', '03', 2, STRINGDECODE('\u0142aski'), '10'),
        (57, 'gmina wiejska', '06', '2', '01', 3, STRINGDECODE('Warta Boles\u0142awiecka'), '02');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (58, 'powiat', '', '', '02', 2, 'kutnowski', '10'),
        (59, 'gmina wiejska', '05', '2', '01', 3, 'Osiecznica', '02'),
        (60, 'powiat', '', '', '01', 2, STRINGDECODE('be\u0142chatowski'), '10'),
@@ -149,7 +144,7 @@ VALUES (58, 'powiat', '', '', '02', 2, 'kutnowski', '10'),
        (115, 'powiat', '', '', '08', 2, STRINGDECODE('ko\u0142obrzeski'), '32'),
        (116, 'powiat', '', '', '07', 2, STRINGDECODE('kamie\u0144ski'), '32'),
        (117, 'powiat', '', '', '06', 2, STRINGDECODE('gryfi\u0144ski'), '32');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (118, 'powiat', '', '', '05', 2, 'gryficki', '32'),
        (119, 'obszar wiejski', '05', '5', '10', 3, 'Szubin', '04'),
        (120, 'powiat', '', '', '04', 2, 'goleniowski', '32'),
@@ -207,7 +202,7 @@ VALUES (118, 'powiat', '', '', '05', 2, 'gryficki', '32'),
        (172, 'obszar wiejski', '03', '5', '08', 3, STRINGDECODE('Go\u015bcino'), '32'),
        (173, 'gmina wiejska', '04', '2', '08', 3, STRINGDECODE('Ko\u0142obrzeg'), '32'),
        (174, 'gmina miejska', '01', '1', '08', 3, STRINGDECODE('Ko\u0142obrzeg'), '32');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (175, 'gmina wiejska', '02', '2', '08', 3, 'Dygowo', '32'),
        (176, 'gmina miejska', '01', '1', '04', 3, 'Gostynin', '14'),
        (177, 'gmina wiejska', '01', '2', '30', 3, STRINGDECODE('Ko\u0142aczkowo'), '30'),
@@ -266,7 +261,7 @@ VALUES (175, 'gmina wiejska', '02', '2', '08', 3, 'Dygowo', '32'),
        (230, 'gmina wiejska', '05', '2', '06', 3, 'Zwierzyn', '08'),
        (231, 'obszar wiejski', '01', '5', '06', 3, 'Dobiegniew', '08'),
        (232, 'obszar wiejski', '03', '5', '21', 3, 'Buk', '30');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (233, 'gmina miejska', '02', '1', '21', 3, 'Puszczykowo', '30'),
        (234, 'gmina miejska', '01', '1', '21', 3, STRINGDECODE('Lubo\u0144'), '30'),
        (235, 'gmina wiejska', '07', '2', '21', 3, 'Komorniki', '30'),
@@ -322,7 +317,7 @@ VALUES (233, 'gmina miejska', '02', '1', '21', 3, 'Puszczykowo', '30'),
        (285, 'obszar wiejski', '05', '5', '08', 3, STRINGDECODE('Miech\u00f3w'), '12'),
        (286, 'gmina miejska', '02', '1', '17', 3, 'Otwock', '14'),
        (287, 'gmina wiejska', '06', '2', '08', 3, STRINGDECODE('Rac\u0142awice'), '12');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (288, 'gmina miejska', '01', '1', '17', 3, STRINGDECODE('J\u00f3zef\u00f3w'), '14'),
        (289, 'obszar wiejski', '04', '5', '17', 3, 'Karczew', '14'),
        (290, 'gmina wiejska', '03', '2', '17', 3, STRINGDECODE('Celestyn\u00f3w'), '14'),
@@ -380,7 +375,7 @@ VALUES (288, 'gmina miejska', '01', '1', '17', 3, STRINGDECODE('J\u00f3zef\u00f3
        (342, 'obszar wiejski', '12', '5', '02', 3, STRINGDECODE('Tarnogr\u00f3d'), '06'),
        (343, 'obszar wiejski', '04', '5', '16', 3, 'Ruciane-Nida', '28'),
        (344, 'obszar wiejski', '04', '5', '06', 3, STRINGDECODE('Radzy\u0144 Che\u0142mi\u0144ski'), '04');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (345, 'gmina wiejska', '13', '2', '02', 3, 'Tereszpol', '06'),
        (346, 'obszar wiejski', '01', '5', '16', 3, STRINGDECODE('Bia\u0142a Piska'), '28'),
        (347, 'gmina wiejska', '05', '2', '06', 3, STRINGDECODE('Rog\u00f3\u017ano'), '04'),
@@ -438,7 +433,7 @@ VALUES (345, 'gmina wiejska', '13', '2', '02', 3, 'Tereszpol', '06'),
        (399, 'obszar wiejski', '05', '5', '03', 3, 'Trzebinia', '12'),
        (400, 'powiat', '', '', '02', 2, STRINGDECODE('bi\u0142gorajski'), '06'),
        (401, 'powiat', '', '', '03', 2, STRINGDECODE('che\u0142mski'), '06');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (402, 'powiat', '', '', '11', 2, STRINGDECODE('\u0142ukowski'), '06'),
        (403, 'obszar wiejski', '02', '5', '07', 3, 'Drzewica', '10'),
        (404, 'powiat', '', '', '12', 2, 'opolski', '06'),
@@ -495,7 +490,7 @@ VALUES (402, 'powiat', '', '', '11', 2, STRINGDECODE('\u0142ukowski'), '06'),
        (455, 'gmina wiejska', '11', '2', '25', 3, 'Wierzbica', '14'),
        (456, 'powiat', '', '', '09', 2, 'lidzbarski', '28'),
        (457, 'gmina wiejska', '13', '2', '25', 3, 'Zakrzew', '14');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (458, 'powiat', '', '', '08', 2, STRINGDECODE('k\u0119trzy\u0144ski'), '28'),
        (459, 'powiat', '', '', '07', 2, STRINGDECODE('i\u0142awski'), '28'),
        (460, 'powiat', '', '', '06', 2, STRINGDECODE('gi\u017cycki'), '28'),
@@ -551,7 +546,7 @@ VALUES (458, 'powiat', '', '', '08', 2, STRINGDECODE('k\u0119trzy\u0144ski'), '2
        (510, 'powiat', '', '', '15', 2, STRINGDECODE('ostr\u00f3dzki'), '28'),
        (511, 'obszar wiejski', '05', '5', '16', 3, STRINGDECODE('Rad\u0142\u00f3w'), '12'),
        (512, 'powiat', '', '', '14', 2, STRINGDECODE('olszty\u0144ski'), '28');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (513, 'gmina wiejska', '04', '2', '16', 3, STRINGDECODE('Ple\u015bna'), '12'),
        (514, 'powiat', '', '', '13', 2, 'olecki', '28'),
        (515, 'obszar wiejski', '02', '5', '08', 3, STRINGDECODE('Gorz\u00f3w \u015al\u0105ski'), '16'),
@@ -607,7 +602,7 @@ VALUES (513, 'gmina wiejska', '04', '2', '16', 3, STRINGDECODE('Ple\u015bna'), '
        (565, 'dzielnica', '07', '8', '65', 3, STRINGDECODE('Praga-Po\u0142udnie'), '14'),
        (566, 'gmina wiejska', '07', '2', '11', 3, STRINGDECODE('Przew\u00f3z'), '08'),
        (567, 'dzielnica', '06', '8', '65', 3, 'Ochota', '14');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (568, 'gmina wiejska', '01', '2', '20', 3, STRINGDECODE('Adam\u00f3w'), '06'),
        (569, 'gmina miejska', '01', '1', '11', 3, STRINGDECODE('\u0141\u0119knica'), '08'),
        (570, 'gmina wiejska', '03', '2', '20', 3, STRINGDECODE('Komar\u00f3w-Osada'), '06'),
@@ -663,7 +658,7 @@ VALUES (568, 'gmina wiejska', '01', '2', '20', 3, STRINGDECODE('Adam\u00f3w'), '
        (620, 'dzielnica', '17', '8', '65', 3, STRINGDECODE('W\u0142ochy'), '14'),
        (621, 'gmina wiejska', '04', '2', '13', 3, 'Malechowo', '32'),
        (622, 'gmina miejska', '01', '1', '02', 3, 'Brodnica', '04');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (623, 'gmina miejska', '01', '1', '13', 3, STRINGDECODE('Dar\u0142owo'), '32'),
        (624, 'gmina miejska', '02', '1', '13', 3, STRINGDECODE('S\u0142awno'), '32'),
        (625, 'gmina miejska', '02', '1', '04', 3, 'Radymno', '18'),
@@ -722,7 +717,7 @@ VALUES (623, 'gmina miejska', '01', '1', '13', 3, STRINGDECODE('Dar\u0142owo'), 
        (678, 'obszar wiejski', '02', '5', '03', 3, STRINGDECODE('\u0141ask'), '10'),
        (679, 'gmina wiejska', '10', '2', '11', 3, STRINGDECODE('Wojcieszk\u00f3w'), '06'),
        (680, 'gmina wiejska', '03', '2', '03', 3, STRINGDECODE('S\u0119dziejowice'), '10');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (681, 'powiat', '', '', '17', 2, STRINGDECODE('strzeli\u0144ski'), '02'),
        (682, 'gmina wiejska', '11', '2', '11', 3, STRINGDECODE('Wola Mys\u0142owska'), '06'),
        (683, 'gmina wiejska', '04', '2', '03', 3, 'Widawa', '10'),
@@ -780,7 +775,7 @@ VALUES (681, 'powiat', '', '', '17', 2, STRINGDECODE('strzeli\u0144ski'), '02'),
        (735, 'gmina wiejska', '03', '2', '19', 3, 'Dobromierz', '02'),
        (736, 'gmina wiejska', '09', '2', '15', 3, STRINGDECODE('Z\u0142awie\u015b Wielka'), '04'),
        (737, 'obszar wiejski', '05', '5', '03', 3, 'Skalbmierz', '26');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (738, 'obszar wiejski', '04', '5', '19', 3, STRINGDECODE('Jaworzyna \u015al\u0105ska'), '02'),
        (739, 'gmina wiejska', '05', '2', '19', 3, 'Marcinowice', '02'),
        (740, 'obszar wiejski', '06', '5', '19', 3, 'Strzegom', '02'),
@@ -836,7 +831,7 @@ VALUES (738, 'obszar wiejski', '04', '5', '19', 3, STRINGDECODE('Jaworzyna \u015
        (790, 'gmina wiejska', '05', '2', '03', 3, 'Polska Cerekiew', '16'),
        (791, 'gmina wiejska', '01', '2', '12', 3, 'Harasiuki', '18'),
        (792, 'gmina wiejska', '04', '2', '03', 3, STRINGDECODE('Paw\u0142owiczki'), '16');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (793, 'gmina wiejska', '03', '2', '12', 3, STRINGDECODE('Je\u017cowe'), '18'),
        (794, 'gmina wiejska', '06', '2', '03', 3, STRINGDECODE('Re\u0144ska Wie\u015b'), '16'),
        (795, 'gmina wiejska', '02', '2', '12', 3, 'Jarocin', '18'),
@@ -892,7 +887,7 @@ VALUES (793, 'gmina wiejska', '03', '2', '12', 3, STRINGDECODE('Je\u017cowe'), '
        (845, 'obszar wiejski', '04', '5', '05', 3, STRINGDECODE('P\u0142oty'), '32'),
        (846, 'obszar wiejski', '02', '5', '05', 3, 'Gryfice', '32'),
        (847, 'gmina wiejska', '03', '2', '05', 3, 'Karnice', '32');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (848, 'gmina miejska', '01', '1', '02', 3, 'Kutno', '10'),
        (849, 'gmina wiejska', '02', '2', '02', 3, 'Bedlno', '10'),
        (850, 'gmina wiejska', '01', '2', '07', 3, 'Garbatka-Letnisko', '14'),
@@ -946,7 +941,7 @@ VALUES (848, 'gmina miejska', '01', '1', '02', 3, 'Kutno', '10'),
        (898, 'miasto na prawach powiatu', '', '', '77', 2, 'Tychy', '24'),
        (899, 'gmina wiejska', '03', '2', '04', 3, STRINGDECODE('Niechl\u00f3w'), '02'),
        (900, 'miasto na prawach powiatu', '', '', '76', 2, STRINGDECODE('\u015awi\u0119toch\u0142owice'), '24');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (901, 'gmina wiejska', '02', '2', '04', 3, 'Jemielno', '02'),
        (902, 'miasto na prawach powiatu', '', '', '75', 2, 'Sosnowiec', '24'),
        (903, 'obszar wiejski', '01', '5', '04', 3, STRINGDECODE('G\u00f3ra'), '02'),
@@ -1005,7 +1000,7 @@ VALUES (901, 'gmina wiejska', '02', '2', '04', 3, 'Jemielno', '02'),
        (956, 'gmina wiejska', '02', '2', '16', 3, 'Andrzejewo', '14'),
        (957, 'gmina wiejska', '05', '2', '16', 3, STRINGDECODE('Ma\u0142kinia G\u00f3rna'), '14'),
        (958, 'obszar wiejski', '04', '5', '16', 3, 'Brok', '14');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (959, 'gmina wiejska', '07', '2', '16', 3, STRINGDECODE('Ostr\u00f3w Mazowiecka'), '14'),
        (960, 'gmina miejska', '01', '1', '62', 3, STRINGDECODE('Grudzi\u0105dz'), '04'),
        (961, 'gmina wiejska', '06', '2', '16', 3, 'Nur', '14'),
@@ -1061,7 +1056,7 @@ VALUES (959, 'gmina wiejska', '07', '2', '16', 3, STRINGDECODE('Ostr\u00f3w Mazo
        (1011, 'gmina wiejska', '03', '2', '03', 3, 'Borowie', '14'),
        (1012, 'gmina wiejska', '04', '2', '03', 3, 'Garwolin', '14'),
        (1013, 'gmina wiejska', '05', '2', '03', 3, STRINGDECODE('G\u00f3rzno'), '14');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1014, 'gmina wiejska', '06', '2', '03', 3, STRINGDECODE('\u0141askarzew'), '14'),
        (1015, 'gmina wiejska', '04', '2', '31', 3, 'Lipka', '30'),
        (1016, 'gmina wiejska', '07', '2', '03', 3, 'Maciejowice', '14'),
@@ -1118,7 +1113,7 @@ VALUES (1014, 'gmina wiejska', '06', '2', '03', 3, STRINGDECODE('\u0141askarzew'
        (1067, 'gmina wiejska', '07', '2', '03', 3, 'Rzeczenica', '22'),
        (1068, 'obszar wiejski', '02', '5', '03', 3, 'Czarne', '22'),
        (1069, 'gmina miejska', '01', '1', '78', 3, 'Zabrze', '24');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1070, 'gmina miejska', '01', '1', '03', 3, STRINGDECODE('Cz\u0142uch\u00f3w'), '22'),
        (1071, 'obszar wiejski', '04', '5', '03', 3, 'Debrzno', '22'),
        (1072, 'gmina wiejska', '03', '2', '03', 3, STRINGDECODE('Cz\u0142uch\u00f3w'), '22'),
@@ -1173,7 +1168,7 @@ VALUES (1070, 'gmina miejska', '01', '1', '03', 3, STRINGDECODE('Cz\u0142uch\u00
        (1121, 'gmina wiejska', '19', '2', '01', 3, 'Zalesie', '06'),
        (1122, 'gmina miejska', '01', '1', '23', 3, STRINGDECODE('S\u0142upca'), '30'),
        (1123, 'gmina wiejska', '10', '2', '01', 3, STRINGDECODE('Mi\u0119dzyrzec Podlaski'), '06');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1124, 'gmina wiejska', '11', '2', '01', 3, 'Piszczac', '06'),
        (1125, STRINGDECODE('wojew\u00f3dztwo'), '', '', '', 1, STRINGDECODE('\u0141\u00d3DZKIE'), '10'),
        (1126, 'gmina wiejska', '05', '2', '23', 3, 'Powidz', '30'),
@@ -1227,7 +1222,7 @@ VALUES (1124, 'gmina wiejska', '11', '2', '01', 3, 'Piszczac', '06'),
        (1174, 'obszar wiejski', '14', '5', '06', 3, STRINGDECODE('\u015awi\u0105tniki G\u00f3rne'), '12'),
        (1175, 'gmina wiejska', '09', '2', '07', 3, STRINGDECODE('Wojasz\u00f3wka'), '18'),
        (1176, STRINGDECODE('wojew\u00f3dztwo'), '', '', '', 1, 'PODLASKIE', '20');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1177, 'gmina wiejska', '15', '2', '06', 3, STRINGDECODE('Wielka Wie\u015b'), '12'),
        (1178, 'obszar wiejski', '08', '5', '07', 3, STRINGDECODE('Ryman\u00f3w'), '18'),
        (1179, STRINGDECODE('wojew\u00f3dztwo'), '', '', '', 1, 'POMORSKIE', '22'),
@@ -1282,7 +1277,7 @@ VALUES (1177, 'gmina wiejska', '15', '2', '06', 3, STRINGDECODE('Wielka Wie\u015
        (1228, 'gmina wiejska', '01', '2', '14', 3, 'Chrzypsko Wielkie', '30'),
        (1229, 'gmina wiejska', '08', '2', '03', 3, 'Wyszki', '20'),
        (1230, 'gmina wiejska', '07', '2', '03', 3, 'Rudka', '20');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1231, 'obszar wiejski', '04', '5', '14', 3, STRINGDECODE('Sierak\u00f3w'), '30'),
        (1232, 'gmina wiejska', '07', '2', '14', 3, STRINGDECODE('Markusz\u00f3w'), '06'),
        (1233, 'gmina wiejska', '04', '2', '03', 3, STRINGDECODE('Bo\u0107ki'), '20'),
@@ -1338,7 +1333,7 @@ VALUES (1231, 'obszar wiejski', '04', '5', '14', 3, STRINGDECODE('Sierak\u00f3w'
        (1283, 'gmina wiejska', '05', '2', '02', 3, 'Grudusk', '14'),
        (1284, 'gmina wiejska', '09', '2', '15', 3, 'Zembrzyce', '12'),
        (1285, 'gmina wiejska', '06', '2', '02', 3, STRINGDECODE('Ojrze\u0144'), '14');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1286, 'gmina wiejska', '04', '2', '15', 3, 'Bystra-Sidzina', '12'),
        (1287, 'gmina wiejska', '07', '2', '02', 3, STRINGDECODE('Opinog\u00f3ra G\u00f3rna'), '14'),
        (1288, 'gmina wiejska', '03', '2', '15', 3, STRINGDECODE('Budz\u00f3w'), '12'),
@@ -1396,7 +1391,7 @@ VALUES (1286, 'gmina wiejska', '04', '2', '15', 3, 'Bystra-Sidzina', '12'),
        (1340, 'obszar wiejski', '11', '5', '06', 3, 'Tuszyn', '10'),
        (1341, 'gmina miejska', '01', '1', '27', 3, 'Turek', '30'),
        (1342, 'gmina miejska', '01', '1', '03', 3, STRINGDECODE('D\u0119bica'), '18');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1343, 'gmina wiejska', '03', '2', '03', 3, 'Czarna', '18'),
        (1344, 'gmina wiejska', '05', '2', '27', 3, STRINGDECODE('Malan\u00f3w'), '30'),
        (1345, 'obszar wiejski', '02', '5', '03', 3, 'Brzostek', '18'),
@@ -1452,7 +1447,7 @@ VALUES (1343, 'gmina wiejska', '03', '2', '03', 3, 'Czarna', '18'),
        (1395, 'gmina wiejska', '09', '2', '16', 3, 'Krasne', '18'),
        (1396, 'gmina wiejska', '06', '2', '02', 3, 'Iwkowa', '12'),
        (1397, 'gmina wiejska', '04', '2', '07', 3, STRINGDECODE('\u0141ambinowice'), '16');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1398, 'gmina wiejska', '08', '2', '16', 3, STRINGDECODE('Kamie\u0144'), '18'),
        (1399, 'gmina wiejska', '07', '2', '02', 3, 'Szczurowa', '12'),
        (1400, 'obszar wiejski', '07', '5', '07', 3, STRINGDECODE('Paczk\u00f3w'), '16'),
@@ -1508,7 +1503,7 @@ VALUES (1398, 'gmina wiejska', '08', '2', '16', 3, STRINGDECODE('Kamie\u0144'), 
        (1450, 'obszar wiejski', '03', '5', '10', 3, STRINGDECODE('\u0141\u0119czna'), '06'),
        (1451, 'gmina wiejska', '05', '2', '15', 3, 'Lipce Reymontowskie', '10'),
        (1452, 'gmina wiejska', '04', '2', '10', 3, STRINGDECODE('Milej\u00f3w'), '06');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1453, 'gmina wiejska', '06', '2', '15', 3, STRINGDECODE('Mak\u00f3w'), '10'),
        (1454, 'gmina wiejska', '14', '2', '11', 3, 'Szaflary', '12'),
        (1455, 'gmina wiejska', '05', '2', '10', 3, STRINGDECODE('Puchacz\u00f3w'), '06'),
@@ -1565,7 +1560,7 @@ VALUES (1453, 'gmina wiejska', '06', '2', '15', 3, STRINGDECODE('Mak\u00f3w'), '
        (1506, 'gmina wiejska', '06', '2', '11', 3, STRINGDECODE('Kro\u015bcienko nad Dunajcem'), '12'),
        (1507, 'gmina wiejska', '08', '2', '14', 3, 'Pruszcz', '04'),
        (1508, 'gmina wiejska', '05', '2', '11', 3, STRINGDECODE('Jab\u0142onka'), '12');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1509, 'gmina wiejska', '01', '2', '14', 3, 'Bukowiec', '04'),
        (1510, 'gmina wiejska', '02', '2', '14', 3, 'Dragacz', '04'),
        (1511, 'gmina wiejska', '03', '2', '14', 3, 'Drzycim', '04'),
@@ -1623,7 +1618,7 @@ VALUES (1509, 'gmina wiejska', '01', '2', '14', 3, 'Bukowiec', '04'),
        (1563, 'gmina wiejska', '04', '2', '04', 3, 'Kamienica Polska', '24'),
        (1564, 'powiat', '', '', '17', 2, STRINGDECODE('tatrza\u0144ski'), '12'),
        (1565, 'gmina miejska', '01', '1', '61', 3, STRINGDECODE('Gda\u0144sk'), '22');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1566, 'powiat', '', '', '16', 2, 'tarnowski', '12'),
        (1567, 'powiat', '', '', '15', 2, 'suski', '12'),
        (1568, 'powiat', '', '', '14', 2, 'proszowicki', '12'),
@@ -1679,7 +1674,7 @@ VALUES (1566, 'powiat', '', '', '16', 2, 'tarnowski', '12'),
        (1618, 'gmina wiejska', '06', '2', '14', 3, STRINGDECODE('Goszczan\u00f3w'), '10'),
        (1619, 'obszar wiejski', '16', '5', '10', 3, STRINGDECODE('Stary S\u0105cz'), '12'),
        (1620, 'gmina wiejska', '07', '2', '14', 3, 'Klonowa', '10');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1621, 'gmina wiejska', '15', '2', '10', 3, 'Rytro', '12'),
        (1622, 'gmina wiejska', '08', '2', '14', 3, 'Sieradz', '10'),
        (1623, 'obszar wiejski', '09', '5', '14', 3, 'Warta', '10'),
@@ -1733,7 +1728,7 @@ VALUES (1621, 'gmina wiejska', '15', '2', '10', 3, 'Rytro', '12'),
        (1671, 'gmina miejska', '01', '1', '13', 3, 'Kalety', '24'),
        (1672, 'gmina wiejska', '01', '2', '10', 3, STRINGDECODE('Aleksandr\u00f3w'), '10'),
        (1673, 'gmina wiejska', '08', '2', '13', 3, STRINGDECODE('Twor\u00f3g'), '24');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1674, 'gmina wiejska', '09', '2', '13', 3, STRINGDECODE('Zbros\u0142awice'), '24'),
        (1675, 'gmina wiejska', '06', '2', '13', 3, STRINGDECODE('O\u017carowice'), '24'),
        (1676, 'gmina wiejska', '07', '2', '13', 3, STRINGDECODE('\u015awierklaniec'), '24'),
@@ -1789,7 +1784,7 @@ VALUES (1674, 'gmina wiejska', '09', '2', '13', 3, STRINGDECODE('Zbros\u0142awic
        (1726, 'gmina miejska', '01', '1', '21', 3, STRINGDECODE('Bogusz\u00f3w-Gorce'), '02'),
        (1727, 'gmina miejska', '02', '1', '21', 3, STRINGDECODE('Jedlina-Zdr\u00f3j'), '02'),
        (1728, 'gmina miejska', '03', '1', '21', 3, STRINGDECODE('Szczawno-Zdr\u00f3j'), '02');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1729, 'gmina wiejska', '03', '2', '08', 3, STRINGDECODE('Ja\u015bwi\u0142y'), '20'),
        (1730, 'gmina wiejska', '04', '2', '21', 3, STRINGDECODE('Czarny B\u00f3r'), '02'),
        (1731, 'gmina wiejska', '10', '2', '10', 3, 'Wola Krzysztoporska', '10'),
@@ -1848,7 +1843,7 @@ VALUES (1729, 'gmina wiejska', '03', '2', '08', 3, STRINGDECODE('Ja\u015bwi\u014
        (1784, 'gmina wiejska', '02', '2', '11', 3, 'Jemielnica', '16'),
        (1785, 'obszar wiejski', '05', '5', '09', 3, 'Orneta', '28'),
        (1786, 'gmina wiejska', '01', '2', '11', 3, 'Izbicko', '16');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1787, 'gmina miejska', '01', '1', '04', 3, STRINGDECODE('Pruszcz Gda\u0144ski'), '22'),
        (1788, 'gmina wiejska', '03', '2', '09', 3, STRINGDECODE('Lidzbark Warmi\u0144ski'), '28'),
        (1789, 'powiat', '', '', '31', 2, STRINGDECODE('z\u0142otowski'), '30'),
@@ -1905,7 +1900,7 @@ VALUES (1787, 'gmina miejska', '01', '1', '04', 3, STRINGDECODE('Pruszcz Gda\u01
        (1840, 'obszar wiejski', '09', '5', '13', 3, 'Skarszewy', '22'),
        (1841, 'gmina wiejska', '08', '2', '13', 3, 'Osiek', '22'),
        (1842, 'gmina wiejska', '13', '2', '08', 3, STRINGDECODE('U\u015bcim\u00f3w'), '06');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1843, 'obszar wiejski', '01', '5', '13', 3, 'Czarna Woda', '22'),
        (1844, 'gmina miejska', '03', '1', '13', 3, STRINGDECODE('Starogard Gda\u0144ski'), '22'),
        (1845, 'miasto na prawach powiatu', '', '', '64', 2, STRINGDECODE('Pozna\u0144'), '30'),
@@ -1963,7 +1958,7 @@ VALUES (1843, 'obszar wiejski', '01', '5', '13', 3, 'Czarna Woda', '22'),
        (1897, 'powiat', '', '', '02', 2, STRINGDECODE('kro\u015bnie\u0144ski'), '08'),
        (1898, 'obszar wiejski', '02', '5', '05', 3, 'Biecz', '12'),
        (1899, 'powiat', '', '', '03', 2, STRINGDECODE('mi\u0119dzyrzecki'), '08');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1900, 'obszar wiejski', '03', '5', '05', 3, 'Bobowa', '12'),
        (1901, 'gmina wiejska', '05', '2', '19', 3, STRINGDECODE('Wi\u015bniowa'), '18'),
        (1902, 'gmina wiejska', '04', '2', '05', 3, 'Gorlice', '12'),
@@ -2019,7 +2014,7 @@ VALUES (1900, 'obszar wiejski', '03', '5', '05', 3, 'Bobowa', '12'),
        (1952, 'gmina wiejska', '08', '2', '18', 3, 'Tomice', '12'),
        (1953, 'obszar wiejski', '07', '5', '24', 3, STRINGDECODE('Szamotu\u0142y'), '30'),
        (1954, 'obszar wiejski', '06', '5', '24', 3, 'Pniewy', '30');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (1955, 'obszar wiejski', '05', '5', '24', 3, STRINGDECODE('Ostror\u00f3g'), '30'),
        (1956, 'gmina wiejska', '02', '2', '09', 3, 'Dwikozy', '26'),
        (1957, 'gmina wiejska', '05', '2', '05', 3, 'Stare Juchy', '28'),
@@ -2075,7 +2070,7 @@ VALUES (1955, 'obszar wiejski', '05', '5', '24', 3, STRINGDECODE('Ostror\u00f3g'
        (2007, 'obszar wiejski', '04', '5', '09', 3, 'Kargowa', '08'),
        (2008, 'obszar wiejski', '02', '5', '15', 3, STRINGDECODE('Lw\u00f3wek'), '30'),
        (2009, 'obszar wiejski', '05', '5', '09', 3, STRINGDECODE('Nowogr\u00f3d Bobrza\u0144ski'), '08');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2010, 'obszar wiejski', '06', '5', '09', 3, STRINGDECODE('Sulech\u00f3w'), '08'),
        (2011, 'obszar wiejski', '05', '5', '15', 3, 'Opalenica', '30'),
        (2012, 'obszar wiejski', '06', '5', '15', 3, STRINGDECODE('Zb\u0105szy\u0144'), '30'),
@@ -2131,7 +2126,7 @@ VALUES (2010, 'obszar wiejski', '06', '5', '09', 3, STRINGDECODE('Sulech\u00f3w'
        (2062, 'gmina miejska', '01', '1', '63', 3, STRINGDECODE('Rzesz\u00f3w'), '18'),
        (2063, 'obszar wiejski', '03', '5', '13', 3, STRINGDECODE('Czy\u017cew'), '20'),
        (2064, 'obszar wiejski', '02', '5', '13', 3, 'Ciechanowiec', '20');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2065, 'gmina wiejska', '10', '2', '05', 3, STRINGDECODE('U\u015bcie Gorlickie'), '12'),
        (2066, 'gmina wiejska', '10', '2', '13', 3, 'Wysokie Mazowieckie', '20'),
        (2067, 'gmina miejska', '01', '1', '04', 3, STRINGDECODE('Hrubiesz\u00f3w'), '06'),
@@ -2187,7 +2182,7 @@ VALUES (2065, 'gmina wiejska', '10', '2', '05', 3, STRINGDECODE('U\u015bcie Gorl
        (2117, 'gmina wiejska', '02', '2', '05', 3, 'Bielawy', '10'),
        (2118, 'powiat', '', '', '16', 2, 'tucholski', '04'),
        (2119, 'gmina wiejska', '03', '2', '05', 3, STRINGDECODE('Ch\u0105\u015bno'), '10');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2120, 'obszar wiejski', '02', '5', '09', 3, STRINGDECODE('Kozieg\u0142owy'), '24'),
        (2121, 'gmina miejska', '01', '1', '09', 3, STRINGDECODE('Myszk\u00f3w'), '24'),
        (2122, 'gmina wiejska', '04', '2', '09', 3, 'Poraj', '24'),
@@ -2244,7 +2239,7 @@ VALUES (2120, 'obszar wiejski', '02', '5', '09', 3, STRINGDECODE('Kozieg\u0142ow
        (2173, 'obszar wiejski', '04', '5', '01', 3, 'Bisztynek', '28'),
        (2174, 'obszar wiejski', '04', '5', '13', 3, STRINGDECODE('Wi\u0119cbork'), '04'),
        (2175, 'gmina miejska', '01', '1', '01', 3, 'Bartoszyce', '28');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2176, 'gmina miejska', '02', '1', '01', 3, STRINGDECODE('G\u00f3rowo I\u0142aweckie'), '28'),
        (2177, 'obszar wiejski', '01', '5', '13', 3, STRINGDECODE('Kamie\u0144 Kraje\u0144ski'), '04'),
        (2178, 'obszar wiejski', '05', '5', '14', 3, 'Proszowice', '12'),
@@ -2298,7 +2293,7 @@ VALUES (2176, 'gmina miejska', '02', '1', '01', 3, STRINGDECODE('G\u00f3rowo I\u
        (2226, 'gmina wiejska', '07', '2', '04', 3, STRINGDECODE('Unis\u0142aw'), '04'),
        (2227, 'miasto na prawach powiatu', '', '', '64', 2, STRINGDECODE('W\u0142oc\u0142awek'), '04'),
        (2228, 'gmina wiejska', '04', '2', '32', 3, 'Leszno', '14');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2229, 'gmina wiejska', '05', '2', '10', 3, 'Sorkwity', '28'),
        (2230, 'gmina wiejska', '06', '2', '04', 3, 'Stolno', '04'),
        (2231, 'obszar wiejski', '05', '5', '32', 3, STRINGDECODE('\u0141omianki'), '14'),
@@ -2353,7 +2348,7 @@ VALUES (2229, 'gmina wiejska', '05', '2', '10', 3, 'Sorkwity', '28'),
        (2280, 'gmina wiejska', '03', '2', '09', 3, 'Lichnowy', '22'),
        (2281, 'gmina wiejska', '06', '2', '09', 3, STRINGDECODE('Mi\u0142oradz'), '22'),
        (2282, 'obszar wiejski', '07', '5', '02', 3, 'Niemcza', '02');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2283, 'gmina wiejska', '06', '2', '02', 3, STRINGDECODE('\u0141agiewniki'), '02'),
        (2284, 'gmina wiejska', '05', '2', '02', 3, STRINGDECODE('Dzier\u017coni\u00f3w'), '02'),
        (2285, 'gmina miejska', '04', '1', '02', 3, STRINGDECODE('Pi\u0142awa G\u00f3rna'), '02'),
@@ -2413,7 +2408,7 @@ VALUES (2283, 'gmina wiejska', '06', '2', '02', 3, STRINGDECODE('\u0141agiewniki
        (2339, 'gmina wiejska', '03', '2', '10', 3, STRINGDECODE('\u0141\u0105czna'), '26'),
        (2340, 'gmina wiejska', '02', '2', '14', 3, STRINGDECODE('Adam\u00f3wka'), '18'),
        (2341, 'gmina wiejska', '04', '2', '10', 3, STRINGDECODE('Skar\u017cysko Ko\u015bcielne'), '26');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2342, 'obszar wiejski', '01', '5', '05', 3, 'Gogolin', '16'),
        (2343, 'obszar wiejski', '05', '5', '14', 3, STRINGDECODE('Ka\u0144czuga'), '18'),
        (2344, 'gmina miejska', '01', '1', '10', 3, STRINGDECODE('Skar\u017cysko-Kamienna'), '26'),
@@ -2466,7 +2461,7 @@ VALUES (2342, 'obszar wiejski', '01', '5', '05', 3, 'Gogolin', '16'),
        (2391, 'obszar wiejski', '01', '5', '12', 3, STRINGDECODE('S\u0142awa'), '08'),
        (2392, 'gmina wiejska', '02', '2', '09', 3, STRINGDECODE('Ciepiel\u00f3w'), '14'),
        (2393, 'obszar wiejski', '02', '5', '12', 3, 'Szlichtyngowa', '08');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2394, 'obszar wiejski', '03', '5', '09', 3, 'Lipsko', '14'),
        (2395, 'obszar wiejski', '01', '5', '20', 3, STRINGDECODE('Oborniki \u015al\u0105skie'), '02'),
        (2396, 'gmina wiejska', '05', '2', '09', 3, 'Sejny', '20'),
@@ -2524,7 +2519,7 @@ VALUES (2394, 'obszar wiejski', '03', '5', '09', 3, 'Lipsko', '14'),
        (2448, 'obszar wiejski', '04', '5', '07', 3, STRINGDECODE('Sul\u0119cin'), '08'),
        (2449, 'gmina wiejska', '06', '2', '01', 3, 'Psary', '24'),
        (2450, 'gmina wiejska', '05', '2', '01', 3, STRINGDECODE('Mierz\u0119cice'), '24');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2451, 'gmina miejska', '08', '1', '01', 3, STRINGDECODE('S\u0142awk\u00f3w'), '24'),
        (2452, 'obszar wiejski', '07', '5', '01', 3, 'Siewierz', '24'),
        (2453, 'gmina wiejska', '04', '2', '20', 3, STRINGDECODE('Giza\u0142ki'), '30'),
@@ -2581,7 +2576,7 @@ VALUES (2451, 'gmina miejska', '08', '1', '01', 3, STRINGDECODE('S\u0142awk\u00f
        (2504, 'gmina miejska', '01', '1', '10', 3, STRINGDECODE('\u0141a\u0144cut'), '18'),
        (2505, 'obszar wiejski', '05', '5', '10', 3, 'Pszczyna', '24'),
        (2506, 'gmina wiejska', '06', '2', '10', 3, 'Suszec', '24');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2507, 'gmina wiejska', '03', '2', '10', 3, STRINGDECODE('Mied\u017ana'), '24'),
        (2508, 'gmina miejska', '01', '1', '11', 3, 'Lubin', '02'),
        (2509, 'gmina wiejska', '04', '2', '10', 3, STRINGDECODE('Paw\u0142owice'), '24'),
@@ -2636,7 +2631,7 @@ VALUES (2507, 'gmina wiejska', '03', '2', '10', 3, STRINGDECODE('Mied\u017ana'),
        (2558, 'gmina wiejska', '08', '2', '01', 3, 'Studzienice', '22'),
        (2559, 'gmina wiejska', '07', '2', '01', 3, 'Parchowo', '22'),
        (2560, 'gmina wiejska', '09', '2', '01', 3, 'Trzebielino', '22');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2561, 'obszar wiejski', '02', '5', '01', 3, STRINGDECODE('Byt\u00f3w'), '22'),
        (2562, 'gmina miejska', '01', '1', '76', 3, STRINGDECODE('\u015awi\u0119toch\u0142owice'), '24'),
        (2563, 'gmina wiejska', '01', '2', '01', 3, 'Borzytuchom', '22'),
@@ -2693,7 +2688,7 @@ VALUES (2561, 'obszar wiejski', '02', '5', '01', 3, STRINGDECODE('Byt\u00f3w'), 
        (2614, 'gmina wiejska', '10', '2', '03', 3, 'Sawin', '06'),
        (2615, 'powiat', '', '', '11', 2, 'mielecki', '18'),
        (2616, 'gmina wiejska', '02', '2', '07', 3, STRINGDECODE('D\u0105browa Biskupia'), '04');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2617, 'obszar wiejski', '11', '5', '03', 3, 'Siedliszcze', '06'),
        (2618, 'powiat', '', '', '10', 2, STRINGDECODE('\u0142a\u0144cucki'), '18'),
        (2619, 'obszar wiejski', '03', '5', '07', 3, 'Gniewkowo', '04'),
@@ -2751,7 +2746,7 @@ VALUES (2617, 'obszar wiejski', '11', '5', '03', 3, 'Siedliszcze', '06'),
        (2671, 'obszar wiejski', '03', '5', '02', 3, 'Frombork', '28'),
        (2672, 'gmina wiejska', '05', '2', '03', 3, 'Dubienka', '06'),
        (2673, 'gmina wiejska', '06', '2', '03', 3, STRINGDECODE('Kamie\u0144'), '06');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2674, 'gmina miejska', '01', '1', '02', 3, 'Braniewo', '28'),
        (2675, 'gmina miejska', '01', '1', '09', 3, STRINGDECODE('Lubacz\u00f3w'), '18'),
        (2676, 'gmina wiejska', '03', '2', '09', 3, STRINGDECODE('Horyniec-Zdr\u00f3j'), '18'),
@@ -2805,7 +2800,7 @@ VALUES (2674, 'gmina miejska', '01', '1', '02', 3, 'Braniewo', '28'),
        (2724, 'gmina wiejska', '03', '2', '16', 3, STRINGDECODE('Ryczyw\u00f3\u0142'), '30'),
        (2725, 'gmina wiejska', '06', '2', '01', 3, STRINGDECODE('P\u0142aska'), '20'),
        (2726, 'gmina wiejska', '05', '2', '01', 3, 'Nowinka', '20');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2727, 'gmina wiejska', '07', '2', '01', 3, 'Sztabin', '20'),
        (2728, 'gmina wiejska', '02', '2', '01', 3, STRINGDECODE('August\u00f3w'), '20'),
        (2729, 'gmina miejska', '01', '1', '01', 3, STRINGDECODE('August\u00f3w'), '20'),
@@ -2861,7 +2856,7 @@ VALUES (2727, 'gmina wiejska', '07', '2', '01', 3, 'Sztabin', '20'),
        (2779, 'gmina wiejska', '13', '2', '09', 3, 'Turawa', '16'),
        (2780, 'gmina wiejska', '08', '2', '13', 3, STRINGDECODE('Przecisz\u00f3w'), '12'),
        (2781, 'gmina wiejska', '07', '2', '13', 3, 'Polanka Wielka', '12');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2782, 'gmina wiejska', '11', '2', '05', 3, 'Tarnowiec', '18'),
        (2783, 'powiat', '', '', '04', 2, STRINGDECODE('gostyni\u0144ski'), '14'),
        (2784, 'powiat', '', '', '03', 2, STRINGDECODE('garwoli\u0144ski'), '14'),
@@ -2920,7 +2915,7 @@ VALUES (2782, 'gmina wiejska', '11', '2', '05', 3, 'Tarnowiec', '18'),
        (2837, 'gmina wiejska', '04', '2', '02', 3, STRINGDECODE('Nag\u0142owice'), '26'),
        (2838, 'gmina wiejska', '04', '2', '10', 3, 'Grodzisk', '20'),
        (2839, 'gmina wiejska', '07', '2', '02', 3, STRINGDECODE('S\u0142upia'), '26');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2840, 'gmina wiejska', '03', '2', '10', 3, 'Dziadkowice', '20'),
        (2841, 'obszar wiejski', '06', '5', '02', 3, STRINGDECODE('S\u0119dzisz\u00f3w'), '26'),
        (2842, 'gmina wiejska', '06', '2', '10', 3, 'Milejczyce', '20'),
@@ -2977,7 +2972,7 @@ VALUES (2840, 'gmina wiejska', '03', '2', '10', 3, 'Dziadkowice', '20'),
        (2893, 'obszar wiejski', '09', '5', '07', 3, 'Stawiszyn', '30'),
        (2894, 'gmina wiejska', '05', '2', '04', 3, STRINGDECODE('\u0141\u0119czyca'), '10'),
        (2895, 'obszar wiejski', '06', '5', '04', 3, STRINGDECODE('Pi\u0105tek'), '10');
-INSERT INTO "ADDRESS_DICTIONARY"
+INSERT INTO "PUBLIC"."ADDRESS_DICTIONARY"
 VALUES (2896, 'gmina wiejska', '04', '2', '07', 3, STRINGDECODE('Marcisz\u00f3w'), '02'),
        (2897, 'gmina wiejska', '07', '2', '04', 3, STRINGDECODE('\u015awinice Warckie'), '10'),
        (2898, 'obszar wiejski', '03', '5', '07', 3, 'Lubawka', '02'),
@@ -2991,5 +2986,158 @@ VALUES (2896, 'gmina wiejska', '04', '2', '07', 3, STRINGDECODE('Marcisz\u00f3w'
        (2906, 'gmina miejska', '01', '1', '04', 3, STRINGDECODE('\u0141\u0119czyca'), '10'),
        (2907, 'gmina wiejska', '02', '2', '04', 3, 'Daszyna', '10'),
        (2908, 'obszar wiejski', '01', '5', '03', 3, 'Czaplinek', '32'),
-       (2909, 'gmina wiejska', '03', '2', '04', 3, STRINGDECODE('G\u00f3ra \u015awi\u0119tej Ma\u0142gorzaty'), '10'),
        (2910, 'gmina wiejska', '04', '2', '04', 3, STRINGDECODE('Grab\u00f3w'), '10');
+(2909, 'gmina wiejska', '03', '2', '04', 3, STRINGDECODE('G\u00f3ra \u015awi\u0119tej Ma\u0142gorzaty'), '10')
+,
+CREATE
+MEMORY
+TABLE "PUBLIC"."AMENITIES"
+(
+    "ID" BIGINT DEFAULT NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_9436083B_2F67_43A4_ABD8_DAA23FF5DFAB" NOT NULL NULL_TO_DEFAULT SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_9436083B_2F67_43A4_ABD8_DAA23FF5DFAB",
+    "AIR_CONDITIONING" BOOLEAN NOT NULL,
+    "BALCONY" BOOLEAN NOT NULL,
+    "CELLAR" BOOLEAN NOT NULL,
+    "ELEVATOR" BOOLEAN NOT NULL,
+    "GARAGE" BOOLEAN NOT NULL,
+    "GARDEN" BOOLEAN NOT NULL,
+    "ONLY_FOR_NON_SMOKERS" BOOLEAN NOT NULL,
+    "SEPARATE_KITCHEN" BOOLEAN NOT NULL,
+    "TERRACE" BOOLEAN NOT NULL,
+    "TWO_LEVELS_FLAT" BOOLEAN NOT NULL,
+    "UTILITY_ROOM" BOOLEAN NOT NULL
+);
+ALTER TABLE "PUBLIC"."AMENITIES"
+    ADD CONSTRAINT "PUBLIC"."CONSTRAINT_A" PRIMARY KEY ("ID");
+-- 0 +/- SELECT COUNT(*) FROM PUBLIC.AMENITIES;
+CREATE
+MEMORY
+TABLE "PUBLIC"."EQUIPMENT"
+(
+    "ID" BIGINT DEFAULT NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_17693CAA_27A0_4CD6_8142_08DD0E0BC6DF" NOT NULL NULL_TO_DEFAULT SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_17693CAA_27A0_4CD6_8142_08DD0E0BC6DF",
+    "COOKER" BOOLEAN NOT NULL,
+    "DISHWASHER" BOOLEAN NOT NULL,
+    "FRIDGE" BOOLEAN NOT NULL,
+    "FURNITURE" BOOLEAN NOT NULL,
+    "OVEN" BOOLEAN NOT NULL,
+    "TV" BOOLEAN NOT NULL,
+    "WASHING_MACHINE" BOOLEAN NOT NULL
+);
+ALTER TABLE "PUBLIC"."EQUIPMENT"
+    ADD CONSTRAINT "PUBLIC"."CONSTRAINT_E" PRIMARY KEY ("ID");
+-- 0 +/- SELECT COUNT(*) FROM PUBLIC.EQUIPMENT;
+CREATE
+MEMORY
+TABLE "PUBLIC"."FLAT"
+(
+    "ID" BIGINT DEFAULT NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_599A1080_8D6B_4217_B20C_2F98C1CF94A4" NOT NULL NULL_TO_DEFAULT SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_599A1080_8D6B_4217_B20C_2F98C1CF94A4",
+    "BUILD_YEAR" INTEGER,
+    "BUILDING_LEVELS" INTEGER,
+    "BUILDING_MATERIAL" VARCHAR(255),
+    "BUILDING_TYPE" VARCHAR(255),
+    "CITY_CODE" VARCHAR(255),
+    "DISTRICT_CODE" VARCHAR(255),
+    "FLAT_STATUS" INTEGER,
+    "HEATING_TYPE" VARCHAR(255),
+    "LEVEL" INTEGER,
+    "ROOMS_NUMBER" INTEGER,
+    "FLAT_SURFACE_AREA" DOUBLE,
+    "VOIVODESHIP_CODE" VARCHAR(255),
+    "WINDOWS_TYPE" VARCHAR(255),
+    "AMENITIES_ID" BIGINT,
+    "EQUIPMENT_ID" BIGINT,
+    "MEDIA_INFO_ID" BIGINT,
+    "SECURITY_TOOLS_ID" BIGINT
+);
+ALTER TABLE "PUBLIC"."FLAT"
+    ADD CONSTRAINT "PUBLIC"."CONSTRAINT_2" PRIMARY KEY ("ID");
+-- 0 +/- SELECT COUNT(*) FROM PUBLIC.FLAT;
+CREATE
+MEMORY
+TABLE "PUBLIC"."MEDIA_INFO"
+(
+    "ID" BIGINT DEFAULT NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_D3B5B006_A083_4F11_8865_49393BF2056F" NOT NULL NULL_TO_DEFAULT SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_D3B5B006_A083_4F11_8865_49393BF2056F",
+    "INTERNET" BOOLEAN NOT NULL,
+    "PHONE" BOOLEAN NOT NULL,
+    "TV" BOOLEAN NOT NULL
+);
+ALTER TABLE "PUBLIC"."MEDIA_INFO"
+    ADD CONSTRAINT "PUBLIC"."CONSTRAINT_9" PRIMARY KEY ("ID");
+-- 0 +/- SELECT COUNT(*) FROM PUBLIC.MEDIA_INFO;
+CREATE
+MEMORY
+TABLE "PUBLIC"."OFFER"
+(
+    "ID" BIGINT DEFAULT NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_CA15F023_4EAF_47FB_AB03_00F5ACB39BC7" NOT NULL NULL_TO_DEFAULT SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_CA15F023_4EAF_47FB_AB03_00F5ACB39BC7",
+    "ADVERTISER_TYPE" VARCHAR(255),
+    "AVAILABLE_FROM" DATE,
+    "BAIL" DECIMAL(19, 2),
+    "OFFER_CREATE_DAE" TIMESTAMP,
+    "DESCRIPTION" VARCHAR(255),
+    "EXPIRATION_DATE" TIMESTAMP,
+    "PRICE" DECIMAL(19, 2),
+    "RENT_PRICE" DECIMAL(19, 2),
+    "TITLE" VARCHAR(255),
+    "FLAT_ID" BIGINT,
+    "OWNER_ID" BIGINT
+);
+ALTER TABLE "PUBLIC"."OFFER"
+    ADD CONSTRAINT "PUBLIC"."CONSTRAINT_4" PRIMARY KEY ("ID");
+-- 0 +/- SELECT COUNT(*) FROM PUBLIC.OFFER;
+CREATE
+MEMORY
+TABLE "PUBLIC"."OFFER_ATTACHMENT"
+(
+    "ID" BIGINT DEFAULT NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_519D0D30_CE03_4757_ACDC_0B7C8FFC7905" NOT NULL NULL_TO_DEFAULT SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_519D0D30_CE03_4757_ACDC_0B7C8FFC7905",
+    "CONTENT" BINARY(255),
+    "FILENAME" VARCHAR(255),
+    "HEIGHT" INTEGER NOT NULL,
+    "INSERT_DATE" TIMESTAMP,
+    "SIZE" BIGINT NOT NULL,
+    "WIDTH" INTEGER NOT NULL
+);
+ALTER TABLE "PUBLIC"."OFFER_ATTACHMENT"
+    ADD CONSTRAINT "PUBLIC"."CONSTRAINT_99" PRIMARY KEY ("ID");
+-- 0 +/- SELECT COUNT(*) FROM PUBLIC.OFFER_ATTACHMENT;
+CREATE
+MEMORY
+TABLE "PUBLIC"."SECURITY_TOOLS"
+(
+    "ID" BIGINT DEFAULT NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_30338D03_80E2_409C_A372_8D7C5C0CCD21" NOT NULL NULL_TO_DEFAULT SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_30338D03_80E2_409C_A372_8D7C5C0CCD21",
+    "ALARM_SYSTEM" BOOLEAN NOT NULL,
+    "ANTI_BURGLARY_BLINDS" BOOLEAN NOT NULL,
+    "ANTI_BURGLARY_WINDOWS" BOOLEAN NOT NULL,
+    "CLOSED_AREA" BOOLEAN NOT NULL,
+    "INTERCOM" BOOLEAN NOT NULL,
+    "MONITORING" BOOLEAN NOT NULL,
+    "SECURITY_DOOR" BOOLEAN NOT NULL
+);
+ALTER TABLE "PUBLIC"."SECURITY_TOOLS"
+    ADD CONSTRAINT "PUBLIC"."CONSTRAINT_9F" PRIMARY KEY ("ID");
+-- 0 +/- SELECT COUNT(*) FROM PUBLIC.SECURITY_TOOLS;
+CREATE
+MEMORY
+TABLE "PUBLIC"."USER"
+(
+    "ID" BIGINT DEFAULT NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_B114A7C7_0F4A_4725_BC36_F236CD209D0F" NOT NULL NULL_TO_DEFAULT SEQUENCE "PUBLIC"."SYSTEM_SEQUENCE_B114A7C7_0F4A_4725_BC36_F236CD209D0F",
+    "ACCOUNT_CREATE_DATE" TIMESTAMP,
+    "EMAIL" VARCHAR(255),
+    "FIRST_NAME" VARCHAR(255),
+    "LAST_NAME" VARCHAR(255),
+    "PASSWORD" VARCHAR(255),
+    "PHONE_NUMBER" VARCHAR(255)
+);
+ALTER TABLE "PUBLIC"."USER"
+    ADD CONSTRAINT "PUBLIC"."CONSTRAINT_27" PRIMARY KEY ("ID");
+-- 0 +/- SELECT COUNT(*) FROM PUBLIC.USER;
+ALTER TABLE "PUBLIC"."FLAT"
+    ADD CONSTRAINT "PUBLIC"."FKF3TR7YVTQNO208V9GE8V1TM9T" FOREIGN KEY ("EQUIPMENT_ID") REFERENCES "PUBLIC"."EQUIPMENT" ("ID") NOCHECK;
+ALTER TABLE "PUBLIC"."OFFER"
+    ADD CONSTRAINT "PUBLIC"."FK7SF075QLBUWBYTHW4B71A21N9" FOREIGN KEY ("FLAT_ID") REFERENCES "PUBLIC"."FLAT" ("ID") NOCHECK;
+ALTER TABLE "PUBLIC"."FLAT"
+    ADD CONSTRAINT "PUBLIC"."FKM4WIB5IM73BO5BIVUDRUH91DV" FOREIGN KEY ("AMENITIES_ID") REFERENCES "PUBLIC"."AMENITIES" ("ID") NOCHECK;
+ALTER TABLE "PUBLIC"."FLAT"
+    ADD CONSTRAINT "PUBLIC"."FK8KJ87YOFLQQI9J3MQA3OFD6HF" FOREIGN KEY ("MEDIA_INFO_ID") REFERENCES "PUBLIC"."MEDIA_INFO" ("ID") NOCHECK;
+ALTER TABLE "PUBLIC"."FLAT"
+    ADD CONSTRAINT "PUBLIC"."FKHA5MKVM985HO8LBXHMV3AGVJP" FOREIGN KEY ("SECURITY_TOOLS_ID") REFERENCES "PUBLIC"."SECURITY_TOOLS" ("ID") NOCHECK;
+ALTER TABLE "PUBLIC"."OFFER"
+    ADD CONSTRAINT "PUBLIC"."FKH5YVW5HBRYDYY71H3HBT7XNNT" FOREIGN KEY ("OWNER_ID") REFERENCES "PUBLIC"."USER" ("ID") NOCHECK;
