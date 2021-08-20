@@ -7,7 +7,6 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/landlord
       - SPRING_DATASOURCE_USERNAME=offer-service
       - SPRING_DATASOURCE_PASSWORD=!QAZ2wsx
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     build:
       context: ./offer-service
     depends_on:
@@ -30,5 +29,9 @@ services:
       - POSTGRES_USER=offer-service
       - POSTGRES_PASSWORD=!QAZ2wsx
       - POSTGRES_DB=landlord
-#    volumes:
-#      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    volumes:
+      - ./db/001_address-structure.sql:/docker-entrypoint-initdb.d/001_address-structure.sql
+      - ./db/003_users-inits.sql:/docker-entrypoint-initdb.d/003_users-inits.sql
+      - ./db/002_model-structure.sql:/docker-entrypoint-initdb.d/002_model-structure.sql
+      - ./db/004_init-flats.sql:/docker-entrypoint-initdb.d/004_init-flats.sql
+      - ./db/005_init-offers.sql:/docker-entrypoint-initdb.d/005_init-offers.sql
