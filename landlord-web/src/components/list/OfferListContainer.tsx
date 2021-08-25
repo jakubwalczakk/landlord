@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/ban-types */
+
 import React, {FC, useEffect, useState} from 'react';
 import OfferListComponent from './OfferListComponent';
 import {ApiResponseMessage, OfferDto} from "../../dto/dto";

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import SearchComponent from "./SearchComponent";
 import {AddressDto, ApiResponseMessage, SearchCriteria} from "../../../dto/dto";
 import {loadCities, loadDistricts, loadVoivodeships} from "../../../api/localization";
+import {searchOffers} from "../../../api/offers";
 
 export default function SearchContainer() {
 
@@ -98,7 +99,7 @@ export default function SearchContainer() {
     }
 
     const onSubmit = (criteria: SearchCriteria) => {
-        console.log(criteria);
+        searchOffers(criteria).then((response => console.log(response)));
     }
 
     return (
