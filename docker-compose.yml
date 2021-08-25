@@ -15,15 +15,15 @@ services:
       - 'db'
     ports:
       - "8080:8080"
-  landlord-web:
-    image: 'landlord-web:latest'
-    container_name: 'landlord-web'
-    build:
-      context: ./landlord-web
-    depends_on:
-      - offer-service
-    ports:
-      - "3000:3000"
+  #  landlord-web:
+  #    image: 'landlord-web:latest'
+  #    container_name: 'landlord-web'
+  #    build:
+  #      context: ./landlord-web
+  #    depends_on:
+  #      - offer-service
+  #    ports:
+  #      - "3000:3000"
   db:
     image: 'postgres:13.1-alpine'
     container_name: 'db'
@@ -31,10 +31,10 @@ services:
       - POSTGRES_USER=offer-service
       - POSTGRES_PASSWORD=!QAZ2wsx
       - POSTGRES_DB=landlord
+    volumes:
+      - ./db/001_address-structure.sql:/docker-entrypoint-initdb.d/001_address-structure.sql
+      - ./db/002_model-structure.sql:/docker-entrypoint-initdb.d/002_model-structure.sql
+      - ./db/003_users-inits.sql:/docker-entrypoint-initdb.d/003_users-inits.sql
+      - ./db/004_init-flats.sql:/docker-entrypoint-initdb.d/004_init-flats.sql
+      - ./db/005_init-offers.sql:/docker-entrypoint-initdb.d/005_init-offers.sql
 # FIXME: Dodanie wolumenów powoduje problem z połączeniem do bazy!!!
-#    volumes:
-#      - ./db/001_address-structure.sql:/docker-entrypoint-initdb.d/001_address-structure.sql
-#      - ./db/003_users-inits.sql:/docker-entrypoint-initdb.d/003_users-inits.sql
-#      - ./db/002_model-structure.sql:/docker-entrypoint-initdb.d/002_model-structure.sql
-#      - ./db/004_init-flats.sql:/docker-entrypoint-initdb.d/004_init-flats.sql
-#      - ./db/005_init-offers.sql:/docker-entrypoint-initdb.d/005_init-offers.sql
