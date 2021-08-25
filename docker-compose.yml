@@ -13,17 +13,24 @@ services:
       - SPRING_JPA_GENERATE_DDL=false
     depends_on:
       - 'db'
+    restart: on-failure
+    #    deploy:
+    #      restart_policy:
+    #        condition: on-failure
+    #        delay: 5s
+    #        max_attempts: 3
+    #        window: 60s
     ports:
       - "8080:8080"
-  #  landlord-web:
-  #    image: 'landlord-web:latest'
-  #    container_name: 'landlord-web'
-  #    build:
-  #      context: ./landlord-web
-  #    depends_on:
-  #      - offer-service
-  #    ports:
-  #      - "3000:3000"
+  landlord-web:
+    image: 'landlord-web:latest'
+    container_name: 'landlord-web'
+    build:
+      context: ./landlord-web
+    depends_on:
+      - offer-service
+    ports:
+      - "3000:3000"
   db:
     image: 'postgres:13.1-alpine'
     container_name: 'db'
@@ -37,4 +44,3 @@ services:
       - ./db/003_users-inits.sql:/docker-entrypoint-initdb.d/003_users-inits.sql
       - ./db/004_init-flats.sql:/docker-entrypoint-initdb.d/004_init-flats.sql
       - ./db/005_init-offers.sql:/docker-entrypoint-initdb.d/005_init-offers.sql
-# FIXME: Dodanie wolumenów powoduje problem z połączeniem do bazy!!!
