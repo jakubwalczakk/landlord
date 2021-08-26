@@ -11,36 +11,33 @@ import java.util.List;
 @Repository
 public interface OffersRepository extends JpaRepository<Offer, Long> {
 
-    @Query(value = "SELECT o.* FROM offer o" +
-            " LEFT JOIN flat f" +
-            " ON o.flat_id = f.id" +
-            " LEFT JOIN amenities a" +
-            " ON f.amenities_id=a.id" +
-            " LEFT JOIN address_dictionary ad" +
-            " ON f.address_id= ad.id" +
-            " WHERE (:voivodeshipCode IS NULL or ad.voivodeship_Code = :voivodeshipCode)" +
-            " AND (:districtCode IS NULL or ad.district_Code = :districtCode)" +
-            " AND (:cityCode IS NULL or ad.city_Code = :cityCode)" +
+    @Query(value = "SELECT o FROM Offer o" +
+            " JOIN o.flat f" +
+            " JOIN f.amenitiesInfo a" +
+            " WHERE 1=1" +
+            " AND (:voivodeshipCode IS NULL or f.voivodeshipCode = :voivodeshipCode)" +
+            " AND (:districtCode IS NULL or f.districtCode = :districtCode)" +
+            " AND (:cityCode IS NULL or f.cityCode = :cityCode)" +
             " AND (:priceMin IS NULL or o.price >= :priceMin)" +
             " AND (:priceMax IS NULL or o.price <= :priceMax)" +
-            " AND (:surfaceMin IS NULL or f.flat_surface_area >= :surfaceMin)" +
-            " AND (:surfaceMax IS NULL or f.flat_surface_area <= :surfaceMax)" +
-            " AND (:numberOfRooms IS NULL or f.rooms_number in (:numberOfRooms))" +
-            " AND (:buildingTypes IS NULL or f.building_type in (:buildingTypes))" +
-            " AND (:heatingTypes IS NULL or f.heating_type in (:heatingTypes))" +
+            " AND (:surfaceMin IS NULL or f.surfaceArea >= :surfaceMin)" +
+            " AND (:surfaceMax IS NULL or f.surfaceArea <= :surfaceMax)" +
+            " AND (:numberOfRooms IS NULL or f.roomsNumber in (:numberOfRooms))" +
+            " AND (:buildingTypes IS NULL or f.buildingType in (:buildingTypes))" +
+            " AND (:heatingTypes IS NULL or f.heatingType in (:heatingTypes))" +
             " AND (:level IS NULL or f.level in (:level))" +
             " AND (:balcony IS NULL or a.balcony = :balcony)" +
-            " AND (:utilityRoom IS NULL or a.utility_Room = :utilityRoom)" +
+            " AND (:utilityRoom IS NULL or a.utilityRoom = :utilityRoom)" +
             " AND (:garage IS NULL or a.garage = :garage)" +
             " AND (:cellar IS NULL or a.cellar = :cellar)" +
             " AND (:garden IS NULL or a.garden = :garden)" +
             " AND (:terrace IS NULL or a.terrace = :terrace)" +
             " AND (:elevator IS NULL or a.elevator = :elevator)" +
-            " AND (:twoLevelsFlat IS NULL or a.two_Levels_Flat = :twoLevelsFlat)" +
-            " AND (:separateKitchen IS NULL or a.separate_Kitchen = :separateKitchen)" +
-            " AND (:airConditioning IS NULL or a.air_Conditioning = :airConditioning)" +
-            " AND (:onlyForNonSmokers IS NULL or a.only_For_Non_Smokers = :onlyForNonSmokers)"
-            , nativeQuery = true)
+            " AND (:twoLevelsFlat IS NULL or a.twoLevelsFlat = :twoLevelsFlat)" +
+            " AND (:separateKitchen IS NULL or a.separateKitchen = :separateKitchen)" +
+            " AND (:airConditioning IS NULL or a.airConditioning = :airConditioning)" +
+            " AND (:onlyForNonSmokers IS NULL or a.onlyForNonSmokers = :onlyForNonSmokers)"
+    )
     List<Offer> findAllBySearchCriteria(
             String voivodeshipCode,
             String districtCode,

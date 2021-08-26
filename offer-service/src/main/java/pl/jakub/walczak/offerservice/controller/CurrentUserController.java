@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.jakub.walczak.offerservice.dto.UserDto;
 
-import java.util.Collections;
 import java.util.Date;
 
 @RestController
@@ -28,7 +27,6 @@ public class CurrentUserController {
                         .password("PASSWORD")
                         .email("example@email.com")
                         .phoneNumber("123123123")
-                        .userOffers(Collections.emptySet())
                         .build()
         );
     }
