@@ -178,8 +178,6 @@ public class OffersService {
                 criteria.getOnlyForNonSmokers()
         );
 
-        log.info("OFFERS COUNT = {}", (long) offers.size());
-        return Collections.emptyList();
-//        return offers.stream().map(offerMapper::mapEntityToDto).collect(Collectors.toList());
+        return offers.stream().map(offerMapper::mapEntityToDto).collect(Collectors.toList());
     }
 }
