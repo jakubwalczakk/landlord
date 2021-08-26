@@ -31,8 +31,8 @@ public class OfferController {
         return ResponseEntity.ok(offersService.getById(id));
     }
 
-    @GetMapping(value = "/search")
-    public ResponseEntity<List<OfferDto>> getOffersByCriteria(SearchCriteria searchCriteria) {
+    @PostMapping(value = "/search")
+    public ResponseEntity<List<OfferDto>> getOffersByCriteria(@RequestBody SearchCriteria searchCriteria) {
         return ResponseEntity.ok(offersService.getOffersByCriteria(searchCriteria));
     }
 
