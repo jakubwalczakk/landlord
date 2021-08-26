@@ -1,9 +1,8 @@
 FROM node:10
-RUN mkdir -p /my-app
+EXPOSE 3000
 WORKDIR /my-app
-COPY ./src ./src
-COPY ./public ./public
 COPY ./package.json ./package.json
 RUN npm install
-EXPOSE 3000
-CMD npm run start
+COPY ./src ./src
+COPY ./public ./public
+CMD ["npm", "start"]

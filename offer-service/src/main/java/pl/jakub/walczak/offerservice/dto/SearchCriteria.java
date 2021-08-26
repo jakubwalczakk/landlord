@@ -18,8 +18,8 @@ public class SearchCriteria {
     private String cityCode;
     private BigDecimal priceMin;
     private BigDecimal priceMax;
-    private BigDecimal surfaceMin;
-    private BigDecimal surfaceMax;
+    private Double surfaceMin;
+    private Double surfaceMax;
     private int[] numberOfRooms;
     private String[] buildingTypes;
     private String[] heatingTypes;
