@@ -1,5 +1,6 @@
 package pl.jakub.walczak.offerservice.service;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,6 +144,7 @@ public class OffersService {
     }
 
     public List<OfferDto> getOffersByCriteria(SearchCriteria criteria) {
+        log.info("SEARCH CRITERIA = {}", criteria);
         List<Offer> offers = offersRepository.findAllBySearchCriteria(
                 criteria.getVoivodeshipCode(),
                 criteria.getDistrictCode(),
@@ -153,17 +155,17 @@ public class OffersService {
                 criteria.getSurfaceMin(),
                 criteria.getSurfaceMax(),
 
-                (criteria.getNumberOfRooms() != null)
+                (criteria.getNumberOfRooms() != null && ArrayUtils.isNotEmpty(criteria.getNumberOfRooms()))
                         ? Arrays.stream(criteria.getNumberOfRooms()).boxed().collect(Collectors.toList()) : null,
-                (criteria.getBuildingTypes() != null)
+                (criteria.getBuildingTypes() != null && ArrayUtils.isNotEmpty(criteria.getBuildingTypes()))
                         ? Arrays.stream(criteria.getBuildingTypes())
                         .map(BuildingType::valueOf)
                         .collect(Collectors.toList()) : null,
-                (criteria.getHeatingTypes() != null)
+                (criteria.getHeatingTypes() != null && ArrayUtils.isNotEmpty(criteria.getHeatingTypes()))
                         ? Arrays.stream(criteria.getHeatingTypes())
                         .map(HeatingType::valueOf)
                         .collect(Collectors.toList()) : null,
-                (criteria.getLevel() != null)
+                (criteria.getLevel() != null && ArrayUtils.isNotEmpty(criteria.getLevel()))
                         ? Arrays.stream(criteria.getLevel()).boxed().collect(Collectors.toList()) : null,
                 criteria.getBalcony(),
                 criteria.getUtilityRoom(),
@@ -178,6 +180,7 @@ public class OffersService {
                 criteria.getOnlyForNonSmokers()
         );
 
+        log.info("OFFERS COUNT = {}", offers.size());
         return offers.stream().map(offerMapper::mapEntityToDto).collect(Collectors.toList());
     }
 }

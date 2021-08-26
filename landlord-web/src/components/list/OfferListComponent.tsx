@@ -22,7 +22,7 @@ import {GreenButton} from "../../ui/GreenComponents";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {useHistory} from "react-router-dom";
 import SearchContainer from "./search/SearchContainer";
-import {OfferDto} from "../../dto/dto";
+import {OfferDto, SearchCriteria} from "../../dto/dto";
 import {FirstPage, KeyboardArrowLeft, KeyboardArrowRight, LastPage} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -208,7 +208,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 const OfferListComponent: FC<Props> = (props) => {
     const classes = useStyles();
 
-    const {offers, isLoading, isError} = props;
+    const {offers, isLoading, isError, searchOffersByQuery} = props;
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(20);
@@ -222,14 +222,14 @@ const OfferListComponent: FC<Props> = (props) => {
         setPage(0);
     };
 
-    if (offers !== undefined) {
+    if (offers !== undefined && offers.length > 0) {
         return (
             <div className='single-page'>
                 {isLoading && <Spinner/>}
                 <Container maxWidth={false} className={classes.container}>
                     <Grid container item xs={7}>
                         <TableContainer>
-                            <SearchContainer/>
+                            <SearchContainer searchOffersByQuery={searchOffersByQuery}/>
                             <Table aria-label="collapsible table">
                                 <TableBody>
                                     {(rowsPerPage > 0
@@ -275,6 +275,7 @@ interface Props {
     offers: OfferDto[] | undefined,
     isLoading: boolean,
     isError: boolean,
+    searchOffersByQuery: (searchCriteria: SearchCriteria) => void,
 }
 
 export default OfferListComponent;

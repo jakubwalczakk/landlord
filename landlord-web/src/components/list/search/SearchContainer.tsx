@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react';
 import SearchComponent from "./SearchComponent";
 import {AddressDto, ApiResponseMessage, SearchCriteria} from "../../../dto/dto";
 import {loadCities, loadDistricts, loadVoivodeships} from "../../../api/localization";
-import {searchOffers} from "../../../api/offers";
 
-export default function SearchContainer() {
+export default function SearchContainer(props: Props) {
 
     const [searchCriteria, setSearchCriteria] = useState<SearchCriteria>({
         voivodeshipCode: null,
@@ -34,6 +33,8 @@ export default function SearchContainer() {
     const [voivodeships, setVoivodeships] = useState<AddressDto[]>([]);
     const [districts, setDistricts] = useState<AddressDto[]>([]);
     const [cities, setCities] = useState<AddressDto[]>([]);
+
+    const {searchOffersByQuery} = props;
 
     useEffect(() => {
         loadVoivodeships()
@@ -99,7 +100,7 @@ export default function SearchContainer() {
     }
 
     const onSubmit = (criteria: SearchCriteria) => {
-        searchOffers(criteria).then((response => console.log(response)));
+        searchOffersByQuery(criteria);
     }
 
     return (
@@ -113,4 +114,9 @@ export default function SearchContainer() {
             reloadCities={reloadCities}
         />
     );
+}
+
+
+interface Props {
+    searchOffersByQuery: (searchCriteria: SearchCriteria) => void,
 }

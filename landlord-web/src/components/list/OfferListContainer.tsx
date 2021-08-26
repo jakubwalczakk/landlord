@@ -2,8 +2,8 @@
 
 import React, {FC, useEffect, useState} from 'react';
 import OfferListComponent from './OfferListComponent';
-import {ApiResponseMessage, OfferDto} from "../../dto/dto";
-import {loadOffers} from "../../api/offers";
+import {ApiResponseMessage, OfferDto, SearchCriteria} from "../../dto/dto";
+import {loadOffers, searchOffers} from "../../api/offers";
 import {withNavigationLockContext} from "../../ui/NavigationLockContext";
 import {useSnackbar} from "notistack";
 
@@ -32,8 +32,28 @@ const OfferListContainer: FC = (props) => {
             });
     }, []);
 
+    const searchOffersByQuery = (searchCriteria: SearchCriteria) => {
+        searchOffers(searchCriteria)
+            .then(response => {
+                setIsLoading(true);
+                if ((response as ApiResponseMessage).success === false) {
+                    response = response as ApiResponseMessage;
+                    setIsError(true);
+                    enqueueSnackbar(response.message, {
+                        variant: 'error',
+                        persist: true
+                    });
+                } else {
+                    console.log("RESPONSE => ", response)
+                    setOffers(response as OfferDto[]);
+                }
+                setIsLoading(false);
+            });
+    }
+
     return (
-        <OfferListComponent offers={offers} isError={isError} isLoading={isLoading}/>
+        <OfferListComponent offers={offers} searchOffersByQuery={searchOffersByQuery} isError={isError}
+                            isLoading={isLoading}/>
     );
 }
 
