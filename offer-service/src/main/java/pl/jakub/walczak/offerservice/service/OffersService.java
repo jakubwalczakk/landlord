@@ -125,7 +125,7 @@ public class OffersService {
     }
 
     public List<OfferDto> getAllOffers() {
-        return offersRepository.findAll().stream().map(offerMapper::mapEntityToDto).limit(10).collect(Collectors.toList());
+        return offersRepository.findAll().stream().map(offerMapper::mapEntityToDto).collect(Collectors.toList());
     }
 
     public ApiResponseMessage addOffer(OfferDto offer) {
