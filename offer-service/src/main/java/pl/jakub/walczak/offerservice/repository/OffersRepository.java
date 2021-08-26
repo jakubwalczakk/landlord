@@ -3,6 +3,8 @@ package pl.jakub.walczak.offerservice.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import pl.jakub.walczak.offerservice.model.BuildingType;
+import pl.jakub.walczak.offerservice.model.HeatingType;
 import pl.jakub.walczak.offerservice.model.Offer;
 
 import java.math.BigDecimal;
@@ -14,18 +16,17 @@ public interface OffersRepository extends JpaRepository<Offer, Long> {
     @Query(value = "SELECT o FROM Offer o" +
             " JOIN o.flat f" +
             " JOIN f.amenitiesInfo a" +
-            " WHERE 1=1" +
-            " AND (:voivodeshipCode IS NULL or f.voivodeshipCode = :voivodeshipCode)" +
+            " WHERE (:voivodeshipCode IS NULL or f.voivodeshipCode = :voivodeshipCode)" +
             " AND (:districtCode IS NULL or f.districtCode = :districtCode)" +
             " AND (:cityCode IS NULL or f.cityCode = :cityCode)" +
             " AND (:priceMin IS NULL or o.price >= :priceMin)" +
             " AND (:priceMax IS NULL or o.price <= :priceMax)" +
             " AND (:surfaceMin IS NULL or f.surfaceArea >= :surfaceMin)" +
             " AND (:surfaceMax IS NULL or f.surfaceArea <= :surfaceMax)" +
-            " AND (:numberOfRooms IS NULL or f.roomsNumber in (:numberOfRooms))" +
-            " AND (:buildingTypes IS NULL or f.buildingType in (:buildingTypes))" +
-            " AND (:heatingTypes IS NULL or f.heatingType in (:heatingTypes))" +
-            " AND (:level IS NULL or f.level in (:level))" +
+            " AND ((:numberOfRooms) IS NULL or f.roomsNumber in (:numberOfRooms))" +
+            " AND ((:buildingTypes) IS NULL or f.buildingType in (:buildingTypes))" +
+            " AND ((:heatingTypes) IS NULL or f.heatingType in (:heatingTypes))" +
+            " AND ((:level) IS NULL or f.level in (:level))" +
             " AND (:balcony IS NULL or a.balcony = :balcony)" +
             " AND (:utilityRoom IS NULL or a.utilityRoom = :utilityRoom)" +
             " AND (:garage IS NULL or a.garage = :garage)" +
@@ -44,12 +45,12 @@ public interface OffersRepository extends JpaRepository<Offer, Long> {
             String cityCode,
             BigDecimal priceMin,
             BigDecimal priceMax,
-            BigDecimal surfaceMin,
-            BigDecimal surfaceMax,
-            int[] numberOfRooms,
-            String[] buildingTypes,
-            String[] heatingTypes,
-            int[] level,
+            Double surfaceMin,
+            Double surfaceMax,
+            List<Integer> numberOfRooms,
+            List<BuildingType> buildingTypes,
+            List<HeatingType> heatingTypes,
+            List<Integer> level,
             Boolean balcony,
             Boolean utilityRoom,
             Boolean garage,

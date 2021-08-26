@@ -9,10 +9,7 @@ import pl.jakub.walczak.offerservice.dto.ApiResponseMessage;
 import pl.jakub.walczak.offerservice.dto.OfferDto;
 import pl.jakub.walczak.offerservice.dto.SearchCriteria;
 import pl.jakub.walczak.offerservice.mapper.OfferMapper;
-import pl.jakub.walczak.offerservice.model.AdvertiserType;
-import pl.jakub.walczak.offerservice.model.Flat;
-import pl.jakub.walczak.offerservice.model.Offer;
-import pl.jakub.walczak.offerservice.model.User;
+import pl.jakub.walczak.offerservice.model.*;
 import pl.jakub.walczak.offerservice.repository.AddressDictionaryRepository;
 import pl.jakub.walczak.offerservice.repository.FlatRepository;
 import pl.jakub.walczak.offerservice.repository.OffersRepository;
@@ -128,7 +125,7 @@ public class OffersService {
     }
 
     public List<OfferDto> getAllOffers() {
-        return offersRepository.findAll().stream().map(offerMapper::mapEntityToDto).collect(Collectors.toList());
+        return offersRepository.findAll().stream().map(offerMapper::mapEntityToDto).limit(10).collect(Collectors.toList());
     }
 
     public ApiResponseMessage addOffer(OfferDto offer) {
@@ -152,12 +149,22 @@ public class OffersService {
                 criteria.getCityCode(),
                 criteria.getPriceMin(),
                 criteria.getPriceMax(),
+
                 criteria.getSurfaceMin(),
                 criteria.getSurfaceMax(),
-                criteria.getNumberOfRooms(),
-                criteria.getBuildingTypes(),
-                criteria.getHeatingTypes(),
-                criteria.getLevel(),
+
+                (criteria.getNumberOfRooms() != null)
+                        ? Arrays.stream(criteria.getNumberOfRooms()).boxed().collect(Collectors.toList()) : null,
+                (criteria.getBuildingTypes() != null)
+                        ? Arrays.stream(criteria.getBuildingTypes())
+                        .map(BuildingType::valueOf)
+                        .collect(Collectors.toList()) : null,
+                (criteria.getHeatingTypes() != null)
+                        ? Arrays.stream(criteria.getHeatingTypes())
+                        .map(HeatingType::valueOf)
+                        .collect(Collectors.toList()) : null,
+                (criteria.getLevel() != null)
+                        ? Arrays.stream(criteria.getLevel()).boxed().collect(Collectors.toList()) : null,
                 criteria.getBalcony(),
                 criteria.getUtilityRoom(),
                 criteria.getGarage(),
@@ -170,6 +177,9 @@ public class OffersService {
                 criteria.getAirConditioning(),
                 criteria.getOnlyForNonSmokers()
         );
-        return offers.stream().map(offerMapper::mapEntityToDto).collect(Collectors.toList());
+
+        log.info("OFFERS COUNT = {}", (long) offers.size());
+        return Collections.emptyList();
+//        return offers.stream().map(offerMapper::mapEntityToDto).collect(Collectors.toList());
     }
 }
