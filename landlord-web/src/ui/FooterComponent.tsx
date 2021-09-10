@@ -19,7 +19,7 @@ export default function FooterComponent() {
     return (
         <div className={classes.root}>
             <Typography variant="body2" color="textSecondary" align="center">
-                {'Copyright © Wynajmowaczka '}{new Date().getFullYear()}{'.'}
+                {'Copyright © DomDoWzięcia '}{new Date().getFullYear()}{'.'}
             </Typography>
         </div>
     );

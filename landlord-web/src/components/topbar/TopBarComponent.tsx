@@ -66,7 +66,7 @@ export default function TopBarComponent() {
                             <img src="/logo.png" alt="logo" className={classes.logo}/>
                         </CardMedia>
                         <CardContent className={classes.cardContent}>
-                            Wynajmowaczka
+                            DomDoWzięcia
                         </CardContent>
                     </ButtonBase>
                 </Container>

@@ -126,6 +126,7 @@ public class OffersService {
     }
 
     public List<OfferDto> getAllOffers() {
+        log.info("Getting all offers...");
         return offersRepository.findAll().stream().map(offerMapper::mapEntityToDto).collect(Collectors.toList());
     }
 
