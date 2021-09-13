@@ -53,5 +53,5 @@
     "@material-ui/core": "^4.11.4",
     "@types/react-router-dom": "^5.1.7"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://my-postgres:8080"
 }
